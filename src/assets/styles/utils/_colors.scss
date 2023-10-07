@@ -1,0 +1,22 @@
+:root {
+  --vs-primary: 255, 168, 0;
+  --vs-secondary: 25, 91, 255;
+  --vs-background: 255, 254, 247;
+  --vs-background-inverse: 1, 1, 1;
+  --vs-surface: 255, 255, 255;
+  --vs-outline: 210, 199, 171;
+  --vs-outline-variant: 153, 187, 173;
+  --vs-text: 44, 62, 80;
+  --vs-text-accent: 1, 1, 1;
+  --vs-text-inverse: 189, 178, 150;
+  --vs-dark: 1, 1, 1;
+  --vs-light: 244, 247, 248;
+
+  [class*="--primary"] {
+    --vs-color: var(--vs-primary);
+  }
+
+  [class*="--default"] {
+    --vs-color: var(--vs-primary);
+  }
+}

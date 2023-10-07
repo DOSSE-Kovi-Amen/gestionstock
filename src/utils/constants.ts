@@ -1,0 +1,25 @@
+
+// Export the api baseURL
+const prod = false;
+export const apiBaseURL = prod ? 'https://...' : 'http://hognekaba-test.us-west-2.elasticbeanstalk.com/';
+
+export const frenchDate=(dateStr:string)=> {
+  const options :any= { year: 'numeric', month: 'long', day: 'numeric' };
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("fr-FR", options);
+}
+
+export const getFieldFromPointer=(pointer:any)=> {
+  // Cette méthode extrait le nom du champ de la chaîne pointer
+  const parts = pointer.split('/');
+  return parts[parts.length - 1];
+}
+export function isValidEmail(email:string) {
+  // Modèle d'adresse email valide à l'aide d'une regex
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+  // Utilisation de la méthode test() pour vérifier si l'adresse email correspond au modèle
+  return emailPattern.test(email);
+}
+
+

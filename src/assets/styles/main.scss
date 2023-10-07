@@ -1,0 +1,64 @@
+@import url("https://fonts.cdnfonts.com/css/poppins");
+@import url("https://fonts.cdnfonts.com/css/space-grotesk");
+
+@import "./utils/mixins";
+@import "./utils/vars";
+@import "./utils/colors";
+
+@import "./reset";
+
+body {
+  @import "./components/cursor";
+  @import "./components/button";
+  .bg-card-0{
+    background: linear-gradient(to right, #60ad4c, #20a5a9, #069fc9);
+  }
+  .bg-card-1{
+  background: linear-gradient(45deg, #ff0000, #ff9900);
+  }
+  .bg-card-2{
+    background: linear-gradient(45deg, #ff9900, #ffff00);
+
+  }
+  .text-blue{
+    color:#60ad4c;
+  }
+  .bg-card-3{    
+    background: linear-gradient(to right, #069fc9, #60ad4c);
+  }
+  .bg-card-4{    
+    background: linear-gradient(to bottom, #069fc9, #60ad4c);
+  }
+  .table-head{
+    background: linear-gradient(45deg, #FF69B4, #FFA500);
+  }
+  .sidebar{
+    background: linear-gradient(45deg, #FF69B4, #FFA500);
+  }
+  .sidebar-logo{
+    border-right: 3px solid #10a3c2 ;
+  }
+  .router-link{
+    color:white
+
+  }
+  .router-link:hover{
+    background-color:rgba(255, 255, 255, 0.151) ;
+    color: white;
+  }
+  .router-link-active{
+    background-color:white ;
+    color: #FFA500;
+    border-right: 3px solid #FF69B4 ;
+
+  }
+  .router-link-active:hover{
+    background-color:white ;
+    color: #FFA500;
+  }
+
+  .btn-primary{
+    background-color:#60ad4c ;
+    color: white;
+  }
+}

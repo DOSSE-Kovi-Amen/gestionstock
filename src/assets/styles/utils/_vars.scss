@@ -1,0 +1,25 @@
+:root {
+  --vs-padding: 6.5vw;
+
+  --vs-navbar-height: 100px;
+
+  --vs-hero-grid-col: calc(var(--vs-padding) * 2);
+  --vs-projects-grid-col: 65px;
+  --vs-projects-grid2-col: 14vh;
+  --vs-projects-grid-size: calc(var(--vs-projects-grid-col) * 3);
+  --vs-projects-grid2-size: calc(var(--vs-projects-grid2-col) * 3);
+
+  --vs-font-xs: 0.75rem; /* Extra small font size */
+  --vs-font-sm: 0.875rem; /* Small font size */
+  --vs-font-md: 1rem; /* Medium font size (usually the default) */
+  --vs-font-lg: 1.25rem; /* Large font size */
+  --vs-font-xl: 1.5rem; /* Extra large font size */
+
+  --vs-zindex-1: 100000;
+  --vs-zindex-2: 99000;
+  --vs-zindex-3: 98000;
+  --vs-zindex-4: 97000;
+  --vs-zindex-5: 250;
+  --vs-zindex-6: 100;
+  --vs-zindex-7: 1;
+}

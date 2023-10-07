@@ -1,0 +1,26 @@
+.mf-cursor {
+  z-index: -var(zindex-1);
+  color: -color(dark);
+
+  &.-inverse {
+    color: -color(background);
+  }
+
+  &.-text {
+    color: -color(dark);
+    &::before {
+      transform: scale(1.4);
+    }
+  }
+
+  &.-icon.-social-icon {
+    &::before {
+      transform: scale(0.85);
+      background-color: transparent;
+      border: 1.5px solid -color(secondary);
+    }
+    .mf-cursor-text {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+}
+
+body {
+  font-family: "poppins", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0;
+  overflow-x: hidden;
+  background: -color(background);
+  color: -color(text);
+
+  a,
+  button {
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: -var(font-xl);
+  }
+
+  &,
+  p {
+    font-size: -var(font-md);
+  }
+
+  .small-text {
+    font-size: -var(font-sm);
+  }
+
+  .large-text {
+    font-size: -var(font-lg);
+  }
+
+  svg.icon {
+    path {
+      fill: -color(text);
+    }
+  }
+
+  .pin-spacer {
+    z-index: -var(zindex-6) !important;
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/tailwindcss": "^6.8.0",
+    "@vueuse/nuxt": "^10.4.1",
+    "nuxt": "^3.7.4",
+    "sass": "^1.66.1",
+    "sass-loader": "^13.3.2",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
+    "datatables.net-bs5": "^1.13.6",
+    "datatables.net-buttons-bs5": "^2.4.2",
+    "datatables.net-responsive-bs5": "^2.5.0",
+    "datatables.net-select-bs5": "^1.7.0",
+    "firebase": "^10.4.0",
+    "pinia": "^2.1.6"
+  }
+}
