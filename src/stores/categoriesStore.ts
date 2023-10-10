@@ -1,46 +1,33 @@
 import FirestoreService from "~/services/FIrestoreService";
 import { Category, CategoryForm } from "~/types";
-import { User, UserCreate, UserList } from "~/types/types";
 
 export const useCategoriesStore = defineStore('category', () => {
   const categories = ref<Category[]>([]);
   const errors = ref<any>([]);
-  const authToken = ref("");
   const firestoreService = new FirestoreService();
-  authToken.value = localStorage.getItem('access_token') ?? ""
-
-  const headers = {
-    Accept: "*/*",
-    "Content-type": "application/json",
-    'Authorization': `Bearer ${authToken.value}`, // Include the Bearer token
-
-  }
-
+  const collectionName= 'categories'
   const categoriesCount = () => {
     return categories.value.length
   }
-
+  // get Data
   const getData = async () => {
-    await firestoreService.getListFromCollection('categories').then((data) => {
+    await firestoreService.getListFromCollection(collectionName).then((data) => {
       categories.value = data;
-
     })
   }
-
+  // post Data
   const postData = async (payload: CategoryForm) => {
-    await firestoreService.create('categories', payload);
+    const status = await firestoreService.create(collectionName, payload)
+    await getData();
+    return status;
   }
 
   const deleteData = async (id: string) => {
-    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/categories/${id}/delete`, {
-      method: 'DELETE',
-      headers: headers,
-    })
-    if (error.value?.statusCode == 401) {
-      useAuthStore().logout();
-    }
+    console.log('===============id=====================');
+    console.log(id);
+    console.log('====================================');
+    await firestoreService.delete(collectionName, id)
     await getData()
-
   }
   // Call getData
   getData()

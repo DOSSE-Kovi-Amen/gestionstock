@@ -1,22 +1,22 @@
 <template>
   <div>
     <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
-    <ViewCategoryModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
 
     <!-- Create -->
-    <AddCategoryModal @on-success="(e) => {
+    <AddCategoryModal @on-success="(e:string) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenCreate = false" :is-open="isOpenCreate" />
 
+    <ViewCategoryModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
     <!-- Create -->
-    <!-- <EditCategoryModal @on-success="(e) => {
+    <EditCategoryModal @on-success="(e: string) => {
       alertMessage = e;
       showAlert = true
-    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" /> -->
+    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
     <!-- Read -->
-    <DeleteCategoryModal @on-success="(e) => {
+    <DeleteCategoryModal @on-success="(e:string) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
@@ -44,9 +44,9 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.slug }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(category.createdAt) }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(category.updatedAt) }}</td>
-   
+            <td class="px-6 py-4 whitespace-no-wrap">{{ formatDateFrench(category.createdAt) }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ formatDateFrench(category.updatedAt) }}</td>
+
 
 
             <td class="flex gap-2">
@@ -81,9 +81,11 @@
 
 <script setup lang="ts">
 import AddCategoryModal from '~/components/actions/categories/AddCategoryModal.vue';
-import DeleteCategoryModal from '~/components/actions/categories/DeleteCategoryModal.vue';
 import ViewCategoryModal from '~/components/actions/categories/ViewCategoryModal.vue';
+import EditCategoryModal from '~/components/actions/categories/EditCategoryModal.vue';
+import DeleteCategoryModal from '~/components/actions/categories/DeleteCategoryModal.vue';
 import { Category } from '~/types';
+import { formatDateFrench } from '~/utils/constants';
 
 
 

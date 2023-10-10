@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+
       <NuxtLink class="shadow-2xl rounded-md" to="users">
         <Card title="Utilisateurs" icon="fa-users" :count="usersStore.usersCount()" class="bg-card-0 text-white rounded-md" />
       </NuxtLink>
@@ -28,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+
 const usersStore = useUsersStore();
 const orgsStore = useOrganizationsStore();
 const propertiesStore = usePropertiesStore();

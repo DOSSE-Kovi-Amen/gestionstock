@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 
 // Export the api baseURL
 const prod = false;
@@ -8,6 +9,32 @@ export const frenchDate=(dateStr:string)=> {
   const date = new Date(dateStr);
   return date.toLocaleDateString("fr-FR", options);
 }
+export function formatDateFrench(timestamp:Timestamp) {
+  // Convertir le timestamp en une date JavaScript
+  const date = timestamp.toDate();
+
+  // Options de formatage pour la date
+  const optionsDate = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
+  // Options de formatage pour l'heure
+  const optionsHeure = {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+  };
+
+  // Formater la date en utilisant les options
+  const dateFormatee = date.toLocaleDateString('fr-FR', optionsDate);
+  const heureFormatee = date.toLocaleTimeString('fr-FR', optionsHeure);
+
+  // Retourner la date et l'heure formatées
+  return `${dateFormatee} à ${heureFormatee}`;
+}
+
 
 export const getFieldFromPointer=(pointer:any)=> {
   // Cette méthode extrait le nom du champ de la chaîne pointer

@@ -12,11 +12,15 @@ class FirestoreService {
     }
 
     // Créer un document
-    async create(collectionName: string, data: Record<string, any>): Promise<void> {
+    async create(collectionName: string, data: Record<string, any>): Promise<boolean> {
+        let status=false;
         const colRef = collection(this.db, collectionName);
         const dateObject= { createdAt: serverTimestamp(), updatedAt: serverTimestamp() }
         const finalDate = { ...data, ...dateObject }
-        await setDoc(doc(colRef), finalDate);
+        await setDoc(doc(colRef), finalDate).then(() => {
+        status=true;          
+        });
+        return status;
     }
 
     // Mettre à jour un document

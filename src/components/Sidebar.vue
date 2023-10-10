@@ -21,7 +21,7 @@
           <NuxtLink to="/" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <i class="fa-solid fa-landmark"></i>
+            <i class="fa-solid fa-house"></i>
             <span :class="{ 'hidden': !isSidebarOpen }">Tableau de bord</span>
           </NuxtLink>
         </li>
@@ -37,7 +37,7 @@
           <NuxtLink to="categories" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <i class="fa-solid fa-users"></i>
+            <i class="fa-solid fa-list"></i>
             <span :class="{ 'hidden': !isSidebarOpen }">Catégories</span>
           </NuxtLink>
         </li>
@@ -45,8 +45,8 @@
           <NuxtLink to="organizations" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <i class="fa-solid fa-building"></i>
-            <span :class="{ 'hidden': !isSidebarOpen }">Organisations</span>
+            <i class="fa-solid fa-shop"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Produits</span>
           </NuxtLink>
         </li>
         <li>
