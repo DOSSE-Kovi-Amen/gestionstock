@@ -1,22 +1,22 @@
 <template>
   <div>
     <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
-    <ViewOrgModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
+    <ViewProductModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
 
     <!-- Create -->
-    <AddOrgModal @on-success="(e) => {
+    <AddProductModal @on-success="(e) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenCreate = false" :is-open="isOpenCreate" />
 
     <!-- Create -->
-    <EditOrgModal @on-success="(e) => {
+    <EditProductModal @on-success="(e) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData"/>
 
     <!-- Read -->
-    <DeleteOrgModal @on-success="(e) => {
+    <DeleteProductModal @on-success="(e) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
@@ -27,32 +27,34 @@
     <!-- Liste des users -->
     <div class="p-5 bg-white w-full h-full shadow-2xl rounded-lg bg-opacity-25">
 
-      <Datatable v-if="store.orgs && store.orgs.length != 0">
+      <Datatable v-if="!store.loading">
         <thead>
           <tr>
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
-            <th class="px-6 py-3 text-left text-sm font-bold">CEO</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Prix</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Stock</th>
+
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(org, index) in store.orgs" key="index">
-            <td class="px-6 py-4 whitespace-no-wrap">{{ org.attributes.name }}
+          <tr v-for="(product, index) in store.products" key="index">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}
             </td>
-            <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ org.attributes.description }}</td> -->
-            <td class="px-6 py-4 whitespace-no-wrap">{{ org.attributes.ceo.full_name }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ product.price }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
             <td class="flex gap-2">
               <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-sm"
-                @click="openModal(org, 'read')">
+                @click="openModal(product, 'read')">
                 <i class="fa-regular fa-eye"></i>
               </a>
               <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-sm" 
-              @click="openModal(org, 'edit')">
+              @click="openModal(product, 'edit')">
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>
               <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-sm"
-                @click="openModal(org, 'delete')">
+                @click="openModal(product, 'delete')">
                 <i class="fa-regular fa-trash-can"></i>
               </a>
 
@@ -73,15 +75,16 @@
 <style scoped></style>
 
 <script setup lang="ts">
-import AddOrgModal from '@/components/actions/organizations/AddOrgModal.vue';
-import ViewOrgModal from '@/components/actions/organizations/ViewOrgModal.vue';
-import DeleteOrgModal from '@/components/actions/organizations/DeleteOrgModal.vue';
-import EditOrgModal from '~/components/actions/organizations/EditOrgModal.vue';
-import { Organization } from '~/types';
+import AddProductModal from '~/components/actions/products/AddProductModal.vue';
+import ViewProductModal from '~/components/actions/products/ViewProductModal.vue';
+import EditProductModal from '~/components/actions/products/EditProductModal.vue';
+import DeleteProductModal from '~/components/actions/products/DeleteProductModal.vue';
 
-const store = useOrganizationsStore();
+import { Product } from '~/types';
 
-const selectedData = ref<Organization>();
+const store = useProductsStore();
+
+const selectedData = ref<Product>();
 const isOpenCreate = ref(false);
 const isOpenRead = ref(false);
 const isOpenDelete = ref(false);
@@ -89,7 +92,7 @@ const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
 
-const openModal = (data: Organization, action: String) => {
+const openModal = (data: Product, action: String) => {
   selectedData.value = data
 
 

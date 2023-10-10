@@ -63,7 +63,6 @@
 </template>
 
 <script setup lang="ts">
-import { CategoryForm } from '~/types';
 
 const store = useCategoriesStore();
 const emit = defineEmits(['onClose', 'onSuccess'])

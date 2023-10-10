@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBuuXNyTUVkt3wWfweEO7v4shShm7jyWUg",
   authDomain: "gestionstock-bc237.firebaseapp.com",
@@ -15,11 +17,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
-
+const storage= getStorage(app)
 export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
-      db: db
+      db: db,
+      storage: storage
     }
   }
 })

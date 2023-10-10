@@ -14,14 +14,14 @@ export function formatDateFrench(timestamp:Timestamp) {
   const date = timestamp.toDate();
 
   // Options de formatage pour la date
-  const optionsDate = {
+  const optionsDate:any = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
 
   // Options de formatage pour l'heure
-  const optionsHeure = {
+  const optionsHeure:any = {
     hour: 'numeric',
     minute: 'numeric',
     second: 'numeric',

@@ -1,37 +1,36 @@
 import FirestoreService from "~/services/FIrestoreService";
-import { Category, CategoryForm } from "~/types";
+import { Product, ProductForm } from "~/types";
 
-export const useCategoriesStore = defineStore('category', () => {
-  const categories = ref<Category[]>([]);
+export const useProductsStore = defineStore('product', () => {
+  const products = ref<Product[]>([]);
   const errors = ref<any>([]);
-  const loading = ref(false);
+  const loading= ref(false);
   const firestoreService = new FirestoreService();
-  const collectionName = 'categories'
-  const categoriesCount = () => {
-    return categories.value.length
+  const collectionName= 'products'
+  const productsCount = () => {
+    return products.value.length
   }
   // get Data
   const getData = async () => {
-    loading.value = true;
+    loading.value=true;
     await firestoreService.getListFromCollection(collectionName).then((data) => {
-      categories.value = data;
-      loading.value = false;
+      products.value = data;
+      loading.value=false;
+
     })
   }
   // post Data
-  const postData = async (payload: CategoryForm) => {
+  const postData = async (payload:ProductForm) => {
     const status = await firestoreService.create(collectionName, payload)
     await getData();
     return status;
   }
-
-  const updateData = async (payload: CategoryForm, docId:string) => {
+  const updateData = async (payload: ProductForm,docId:string) => {
 
     const status = await firestoreService.update(collectionName, docId, payload)
     await getData();
     return status;
   }
-
   const deleteData = async (id: string) => {
     console.log('===============id=====================');
     console.log(id);
@@ -43,6 +42,6 @@ export const useCategoriesStore = defineStore('category', () => {
   getData()
 
 
-  return { categories, loading, errors, categoriesCount, getData, postData, updateData, deleteData }
+  return { products,loading, errors, productsCount, getData, postData, deleteData }
 })
 

@@ -24,9 +24,11 @@ class FirestoreService {
     }
 
     // Mettre à jour un document
-    async update(collectionName: string, docId: string, data: Record<string, any>): Promise<void> {
+    async update(collectionName: string, docId: string, data: Record<string, any>): Promise<boolean> {
+        let status=false;
         const docRef = doc(this.db, collectionName, docId);
-        await updateDoc(docRef, data);
+        await updateDoc(docRef, data).then(() => status=true);
+        return status;
     }
 
     // Supprimer un document

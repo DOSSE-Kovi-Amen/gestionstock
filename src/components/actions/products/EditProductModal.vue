@@ -4,7 +4,7 @@
       <div class="modal-content text-left">
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">
-          <h3 class="text-xl"><i class="fa-solid fa-circle-plus"></i> Editer une catégorie</h3>
+          <h3 class="text-xl"><i class="fa-solid fa-circle-plus"></i> Editer un produit</h3>
           <button @click="$emit('onClose')" class="modal-close">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -71,6 +71,7 @@ const props = defineProps<{
   selectedData: Category
 }>()
 const category = ref({
+  id:'',
   name: '',
   slug: ''
 }); // Champ de nom de catégorie
@@ -98,7 +99,7 @@ function updateSlug() {
 
 const submitForm = async () => {
   loading.value = true
-  await store.updateData(category.value,props.selectedData.id).then((status) => {
+  await store.postData(category.value).then((status) => {
 
     if (status) {
       console.log('=============status=======================');

@@ -8,18 +8,18 @@
       showAlert = true
     }" @on-close="isOpenCreate = false" :is-open="isOpenCreate" />
 
-    <ViewCategoryModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
+    <ViewCategoryModal @on-close="isOpenRead = false" :is-open="isOpenRead" v-if="selectedData" :selected-data="selectedData" />
     <!-- Create -->
     <EditCategoryModal @on-success="(e: string) => {
       alertMessage = e;
       showAlert = true
-    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
+    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" v-if="selectedData" :selected-data="selectedData" />
 
     <!-- Read -->
     <DeleteCategoryModal @on-success="(e:string) => {
       alertMessage = e;
       showAlert = true
-    }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
+    }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" v-if="selectedData" :selected-data="selectedData" />
 
     <button @click="isOpenCreate = true" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
         class="fa-solid fa-circle-plus"></i>
@@ -27,7 +27,7 @@
     <!-- Liste des users -->
     <div class="p-5 bg-white w-full h-full shadow-2xl rounded-lg bg-opacity-25">
 
-      <Datatable v-if="store.categories && store.categories.length != 0">
+      <Datatable v-if="!store.loading">
         <thead>
           <tr>
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
