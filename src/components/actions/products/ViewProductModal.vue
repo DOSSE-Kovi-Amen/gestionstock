@@ -15,7 +15,9 @@
           <!-- Ajoutez ici le contenu du modal -->
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
           <li><strong>Nom:</strong> {{ selectedData?.name }}</li>
-          <li><strong>Slug:</strong> {{ selectedData?.slug }}</li>
+          <li><strong>Prix d'achat:</strong> {{ selectedData?.purchase_price }}</li>
+          <li><strong>Prix de vente:</strong> {{ selectedData?.selling_price }}</li>
+          <li><strong>Stock:</strong> {{ selectedData?.stock }}</li>
           <li><strong>Date de création:</strong> {{ formatDateFrench(selectedData?.createdAt) }}</li>
           <li><strong>Date de modification:</strong> {{ formatDateFrench(selectedData?.updatedAt) }}</li>
 
@@ -34,12 +36,12 @@
 </template>
 
 <script setup lang="ts">
-import { Category } from '~/types';
+import {  Product } from '~/types';
 
 
 defineProps<{
   isOpen: boolean
-  selectedData?: Category
+  selectedData?: Product
 }>()
 
 </script>

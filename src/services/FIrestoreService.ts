@@ -49,15 +49,16 @@ class FirestoreService {
     }
 
     // Obtenir des mises à jour en temps réel pour une collection
-    getRealTime(collectionName: string, callback: (data: Record<string, any>[]) => void): void {
+     getRealTime(collectionName: string, callback: (data: any) => void) {
         const colRef = collection(this.db, collectionName);
-        onSnapshot(colRef, (querySnapshot) => {
-            const data = [];
+        const data:any = [];
+        const unsub=onSnapshot(colRef, (querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 data.push({ id: doc.id, ...doc.data() });
             });
             callback(data);
         });
+        return unsub;
     }
 
     async getListFromCollection(collectionName: string) {

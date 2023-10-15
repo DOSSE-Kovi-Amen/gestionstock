@@ -83,14 +83,13 @@
                   <label
                     for="category"
                     class="block text-gray-700 font-bold mb-2"
-                    >Catégorie du produit</label
+                    >Catégorie (Optionnel)</label
                   >
                   <select
                     v-model="formData.category"
                     name="category"
                     id="category"
-                    required
-                    class="bg-transparent border rounded w-full text-gray-700 py-2 pl-3 pr-10"
+                    class="bg-transparent border rounded w-full text-gray-700 py-2 pl-3 pr-10 focus:outline-none focus:border-blue-500"
                   >
                     <option value="" disabled selected>
                       Sélectionnez une option
@@ -109,31 +108,44 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <label for="price" class="block text-gray-700 font-bold mb-2"
-                    >Prix du produit</label
+                    >Prix d'achat du produit</label
                   >
                   <input
-                    v-model.number="formData.price"
+                    v-model.number="formData.purchase_price"
                     type="number"
-                    id="price"
-                    name="price"
+                    id="purchase_price"
+                    name="purchase_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required
-                    @focus="formData.price = null"
                   />
                 </div>
                 <div class="mb-4">
-                  <label for="stock" class="block text-gray-700 font-bold mb-2"
-                    >Stock disponible</label
+                  <label for="price" class="block text-gray-700 font-bold mb-2"
+                    >Prix de vente produit</label
                   >
                   <input
-                    v-model.number="formData.stock"
+                    v-model.number="formData.selling_price"
                     type="number"
-                    id="stock"
-                    name="stock"
+                    id="selling_price"
+                    name="selling_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required
                   />
                 </div>
+
+              </div>
+              <div class="mb-4">
+                <label for="stock" class="block text-gray-700 font-bold mb-2"
+                  >Stock disponible</label
+                >
+                <input
+                  v-model.number="formData.stock"
+                  type="number"
+                  id="stock"
+                  name="stock"
+                  class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                  required
+                />
               </div>
               <div class="mb-4">
                 <label
@@ -149,7 +161,7 @@
                   required
                 ></textarea>
               </div>
-              <div class="mb-4">
+              <!-- <div class="mb-4">
                 <label for="imageUrl" class="block text-gray-700 font-bold mb-2"
                   >URL de l'image</label
                 >
@@ -160,7 +172,7 @@
                   name="imageUrl"
                   class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                 />
-              </div>
+              </div> -->
             </div>
 
             <!-- Pied du modal -->
@@ -188,6 +200,7 @@
 </template>
 
 <script setup lang="ts">
+import FirebaseStorageService from "~/services/FirebaseStorageService";
 import { CategoryForm } from "~/types";
 
 const store = useProductsStore();
@@ -197,19 +210,31 @@ const loading = ref(false);
 const formData = ref({
   name: "", // Nom du produit
   description: "", // Description du produit
-  price: 0 || null, // Prix du produit
+  purchase_price: 0 || null, // Prix d'achat du produit
+  selling_price: 0 || null, // Prix du produit
   stock: 0 || null, // Stock disponible
   category: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
   imageUrl: "",
 }); // Champ de nom de catégorie
+const storageService = new FirebaseStorageService();
+
 const imageFile = ref(null);
 const imagePreview = ref("");
 // Gérer le changement de fichier image
-function handleImageChange(event: any) {
+const handleImageChange = (event: any) => {
   const file = event.target.files[0];
   if (file) {
     imageFile.value = file;
-    imagePreview.value = URL.createObjectURL(file);
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      // Lorsque le fichier est chargé, mettez à jour l'aperçu de l'image
+      if (typeof e.target?.result === "string") {
+        imagePreview.value = e.target.result;
+      }
+    };
+
+    reader.readAsDataURL(file);
   }
 }
 const submitForm = async () => {
@@ -219,14 +244,13 @@ const submitForm = async () => {
   if (imageFile.value) {
     // Télécharger l'image vers Firebase Storage ici
     // Utilisez Firebase Storage pour obtenir l'URL de téléchargement de l'image
-    const imageUrl = await uploadImageToStorage(imageFile.value);
-    formData.value.imageUrl = imageUrl;
+    const downloadURL = await storageService.uploadFile('images',imageFile.value);
+    if (downloadURL) {
+    formData.value.imageUrl = downloadURL;
+    }
   }
   await store.postData(formData.value).then((status) => {
     if (status) {
-      console.log("=============status=======================");
-      console.log(status);
-      console.log("====================================");
       emit("onClose");
       emit("onSuccess", "Produit ajouté avec succès");
     }
@@ -236,18 +260,6 @@ const submitForm = async () => {
     loading.value = false;
   }, 15000);
 };
-
-async function uploadImageToStorage(file:any) {
-  // Téléchargez le fichier image vers Firebase Storage ici
-  // Utilisez les fonctionnalités de Firebase Storage pour le téléchargement
-  // Retournez l'URL de téléchargement de l'image
-  // Par exemple, avec Firebase Storage
-  // const storageRef = firebase.storage().ref();
-  // const imageRef = storageRef.child('images/' + file.name);
-  // await imageRef.put(file);
-  // const imageUrl = await imageRef.getDownloadURL();
-  // return imageUrl;
-}
 
 defineProps({
   isOpen: { type: Boolean, required: true, default: false },

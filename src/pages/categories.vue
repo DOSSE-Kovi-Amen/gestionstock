@@ -8,18 +8,18 @@
       showAlert = true
     }" @on-close="isOpenCreate = false" :is-open="isOpenCreate" />
 
-    <ViewCategoryModal @on-close="isOpenRead = false" :is-open="isOpenRead" v-if="selectedData" :selected-data="selectedData" />
+    <ViewCategoryModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
     <!-- Create -->
     <EditCategoryModal @on-success="(e: string) => {
       alertMessage = e;
       showAlert = true
-    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" v-if="selectedData" :selected-data="selectedData" />
+    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
     <!-- Read -->
     <DeleteCategoryModal @on-success="(e:string) => {
       alertMessage = e;
       showAlert = true
-    }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" v-if="selectedData" :selected-data="selectedData" />
+    }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
 
     <button @click="isOpenCreate = true" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
         class="fa-solid fa-circle-plus"></i>
@@ -33,22 +33,14 @@
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">Slug</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Créé le</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Modifié le</th>
-
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(category, index) in store.categories" key="index">
+          <tr v-for="(category, index) in store.categories" key="index" :title="`Créé le ${formatDateFrench(category.createdAt)}\nModifié le ${formatDateFrench(category.updatedAt)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.slug }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ formatDateFrench(category.createdAt) }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ formatDateFrench(category.updatedAt) }}</td>
-
-
-
             <td class="flex gap-2">
               <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-sm"
                 @click="openModal(category, 'read')">

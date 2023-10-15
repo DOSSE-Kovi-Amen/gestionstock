@@ -57,7 +57,7 @@ const deleteData = async (id: string) => {
   store.deleteData(id).then(() => {
     loading.value=false;
     emit('onClose')
-    emit('onSuccess',"Utilisateur supprimé avec succès")
+    emit('onSuccess',"Catégorie supprimée avec succès")
   })
 }
 </script>

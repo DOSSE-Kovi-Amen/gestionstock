@@ -1,7 +1,9 @@
 <template>
   <div>
+  
     <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
-    <ViewProductModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
+  
+    <ViewProductModal @on-close="isOpenRead = false" :is-open="isOpenRead"  :selected-data="selectedData" />
 
     <!-- Create -->
     <AddProductModal @on-success="(e) => {
@@ -13,7 +15,7 @@
     <EditProductModal @on-success="(e) => {
       alertMessage = e;
       showAlert = true
-    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData"/>
+    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit"  :selected-data="selectedData"/>
 
     <!-- Read -->
     <DeleteProductModal @on-success="(e) => {
@@ -32,18 +34,19 @@
           <tr>
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
-            <th class="px-6 py-3 text-left text-sm font-bold">Prix</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Stock</th>
-
+            <th class="px-6 py-3 text-left text-sm font-bold">Prix d'achat</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Prix de vente</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Stock</th>            
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(product, index) in store.products" key="index">
-            <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ product.price }}</td>
+          <tr v-for="(product, index) in store.products" key="index" :title="`Créé le ${formatDateFrench(product.createdAt)}\nModifié le ${formatDateFrench(product.updatedAt)}}`">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ product.purchase_price }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ product.selling_price }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
+
             <td class="flex gap-2">
               <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-sm"
                 @click="openModal(product, 'read')">
@@ -91,7 +94,9 @@ const isOpenDelete = ref(false);
 const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
-
+// onMounted(() => {
+//   store.getRealTimeData()
+// })
 const openModal = (data: Product, action: String) => {
   selectedData.value = data
 
