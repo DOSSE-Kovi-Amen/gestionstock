@@ -1,5 +1,4 @@
-import { getStorage, ref, uploadString, getDownloadURL, deleteObject } from 'firebase/storage';
-import { FirebaseApp } from 'firebase/app';
+import { ref, uploadString,uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
 class FirebaseStorageService {
   private storage;
@@ -10,10 +9,19 @@ class FirebaseStorageService {
   }
 
   // Méthode pour télécharger un fichier dans le stockage Firebase
-  async uploadFile(path: string, data: string): Promise<string | null> {
+  async uploadFile(data: File): Promise<string | null> {
     try {
-      const storageRef = ref(this.storage, path);
-      await uploadString(storageRef, data, 'data_url');
+      const timestamp = new Date().getTime();
+      const uniqueFileName = `${timestamp}-${data.name}`;
+
+      const storageRef = ref(this.storage, `images/${uniqueFileName}`);
+      const uploadTask = await uploadBytes(storageRef, data);
+      console.log('=================uploas===================');
+      console.log(uploadTask);
+      console.log('====================================');
+      console.log('=================storageRef===================');
+      console.log(storageRef);
+      console.log('====================================');
       const downloadURL = await getDownloadURL(storageRef);
       return downloadURL;
     } catch (error) {

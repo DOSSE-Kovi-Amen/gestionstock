@@ -29,7 +29,6 @@
             >
               <!-- Ajoutez ici le contenu du modal -->
 
-              <div></div>
               <!-- Champ de sélection d'image -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
@@ -61,7 +60,7 @@
                     v-if="imagePreview"
                     :src="imagePreview"
                     alt="Prévisualisation de l'image"
-                    class="mt-2 max-h-32 object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                    class="mt-2 max-h-32 bg-black object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -132,7 +131,6 @@
                     required
                   />
                 </div>
-
               </div>
               <div class="mb-4">
                 <label for="stock" class="block text-gray-700 font-bold mb-2"
@@ -210,9 +208,9 @@ const loading = ref(false);
 const formData = ref({
   name: "", // Nom du produit
   description: "", // Description du produit
-  purchase_price: 0 || null, // Prix d'achat du produit
-  selling_price: 0 || null, // Prix du produit
-  stock: 0 || null, // Stock disponible
+  purchase_price: null, // Prix d'achat du produit
+  selling_price: null, // Prix du produit
+  stock: null, // Stock disponible
   category: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
   imageUrl: "",
 }); // Champ de nom de catégorie
@@ -236,23 +234,34 @@ const handleImageChange = (event: any) => {
 
     reader.readAsDataURL(file);
   }
-}
+};
 const submitForm = async () => {
   loading.value = true;
-
   // Soumettre le formulaire avec l'image à Firebase Storage
   if (imageFile.value) {
     // Télécharger l'image vers Firebase Storage ici
     // Utilisez Firebase Storage pour obtenir l'URL de téléchargement de l'image
-    const downloadURL = await storageService.uploadFile('images',imageFile.value);
+    const downloadURL = await storageService.uploadFile(imageFile.value);
     if (downloadURL) {
-    formData.value.imageUrl = downloadURL;
+      formData.value.imageUrl = downloadURL;
     }
   }
+
   await store.postData(formData.value).then((status) => {
     if (status) {
       emit("onClose");
       emit("onSuccess", "Produit ajouté avec succès");
+      // reset data
+      formData.value.category = "";
+      formData.value.description = "";
+      formData.value.imageUrl = "";
+      formData.value.name = "";
+      formData.value.purchase_price = null;
+      formData.value.selling_price = null;
+      formData.value.stock = null;
+
+      imageFile.value = null;
+      imagePreview.value = "";
     }
     loading.value = false;
   });

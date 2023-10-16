@@ -42,7 +42,7 @@ export const useProductsStore = defineStore('product', () => {
     await getData();
     return status;
   }
-  const deleteData = async (id: string) => {
+  const deleteData = async (id: string,imageUrl:string) => {
     console.log('===============id=====================');
     console.log(id);
     console.log('====================================');

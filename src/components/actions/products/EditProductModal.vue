@@ -94,7 +94,13 @@
                     <option value="" disabled selected>
                       Sélectionnez une catégorie
                     </option>
-                    <option v-if="selectedData?.category" :value="selectedData?.category" selected>{{ selectedData?.category }}</option>
+                    <option
+                      v-if="selectedData?.category"
+                      :value="selectedData?.category"
+                      selected
+                    >
+                      {{ selectedData?.category }}
+                    </option>
 
                     <option
                       v-for="(cat, index) in storeCat.categories"
@@ -119,7 +125,6 @@
                     name="purchase_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required
-                    @focus="formData.purchase_price = null"
                   />
                 </div>
                 <div class="mb-4">
@@ -133,7 +138,6 @@
                     name="selling_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required
-                    @focus="formData.selling_price = null"
                   />
                 </div>
               </div>
@@ -164,18 +168,6 @@
                   required
                 ></textarea>
               </div>
-              <!-- <div class="mb-4">
-                <label for="imageUrl" class="block text-gray-700 font-bold mb-2"
-                  >URL de l'image</label
-                >
-                <input
-                  v-model="formData.imageUrl"
-                  type="text"
-                  id="imageUrl"
-                  name="imageUrl"
-                  class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                />
-              </div> -->
             </div>
 
             <!-- Pied du modal -->
@@ -203,7 +195,8 @@
 </template>
 
 <script setup lang="ts">
-import { Product } from "~/types";
+import FirebaseStorageService from "~/services/FirebaseStorageService";
+import { Product, ProductForm } from "~/types";
 
 const store = useProductsStore();
 const storeCat = useCategoriesStore();
@@ -216,19 +209,21 @@ const props = defineProps<{
 const formData = ref({
   name: "", // Nom du produit
   description: "", // Description du produit
-  purchase_price: 0 || null, // Prix d'achat du produit
-  selling_price: 0 || null, // Prix du produit
-  stock: 0 || null, // Stock disponible
+  purchase_price: 0, // Prix d'achat du produit
+  selling_price: 0, // Prix du produit
+  stock: 0, // Stock disponible
   category: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
   imageUrl: "",
 }); // Champ de nom de catégorie // Champ de nom de catégorie
+const storageService = new FirebaseStorageService();
 
 watch(
   () => props.isOpen,
-  (newValue, oldValue) => {
-    if (newValue) {
+  () => {
+    if (props.selectedData) {
       // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
       formData.value = { ...props.selectedData };
+      imagePreview.value = props.selectedData.imageUrl;
     }
   }
 );
@@ -255,6 +250,19 @@ const handleImageChange = (event: any) => {
 const submitForm = async () => {
   loading.value = true;
   if (props.selectedData) {
+    // Soumettre le formulaire avec l'image à Firebase Storage
+    if (imageFile.value) {
+      // Télécharger l'image vers Firebase Storage ici
+      // Utilisez Firebase Storage pour obtenir l'URL de téléchargement de l'image
+      const downloadURL = await storageService.uploadFile(imageFile.value);
+      if (downloadURL) {
+        formData.value.imageUrl = downloadURL;
+        console.log('=====================url===============');
+        console.log(formData.value);
+        console.log('====================================');
+      }
+    }
+
     await store
       .updateData(formData.value, props.selectedData.id)
       .then((status) => {
@@ -263,7 +271,7 @@ const submitForm = async () => {
           console.log(status);
           console.log("====================================");
           emit("onClose");
-          emit("onSuccess", "Catégorie mise à jour ajouté avec succès");
+          emit("onSuccess", "Produit mis à jour avec succès");
         }
 
         loading.value = false;
