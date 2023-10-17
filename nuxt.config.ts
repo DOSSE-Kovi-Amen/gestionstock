@@ -4,12 +4,9 @@ export default defineNuxtConfig({
   ssr: false,
   pages: true,
   target:"static",
-
   srcDir: "./src",
-  router: {
-    base: '/gestionstock/' // Remplacez "nom-du-repo" par le nom de votre référentiel
-  },
   app: {
+    baseURL: "/gestionstock/",
     head: {
       title: "Gestion  stock",
       link: [

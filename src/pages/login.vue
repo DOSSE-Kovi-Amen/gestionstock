@@ -52,10 +52,10 @@ onMounted(() => {
   const sessionExpired = route.query.sessionExpired === 'true';
 
   // Utilisez 'sessionExpired' pour afficher le message approprié dans votre interface utilisateur
-  if (sessionExpired) {
-    // Affichez le message d'erreur, par exemple, en utilisant une variable dans votre template
-    alert("Votre session a expiré !")
-  }
+  // if (sessionExpired) {
+  //   // Affichez le message d'erreur, par exemple, en utilisant une variable dans votre template
+  //   alert("Votre session a expiré !")
+  // }
 })
 const signin = async () => {
   let creds: any = {}
