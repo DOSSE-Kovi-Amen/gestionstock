@@ -3,7 +3,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   pages: true,
-  target:"static",
   srcDir: "./src",
   app: {
     baseURL: "/gestionstock/",
