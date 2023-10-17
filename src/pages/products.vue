@@ -41,7 +41,7 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(product, index) in store.products" key="index" :title="`Créé le ${formatDateFrench(product.createdAt)}\nModifié le ${formatDateFrench(product.updatedAt)}}`">
+          <tr v-for="(product, index) in store.products" :key="index" :title="`Créé le ${formatDateFrench(product.createdAt)}\nModifié le ${formatDateFrench(product.updatedAt)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.purchase_price }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.selling_price }}</td>

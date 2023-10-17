@@ -5,7 +5,7 @@
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">
           <h3 class="text-xl">
-            <i class="fa-solid fa-circle-plus"></i> Ajouter une dépense
+            <i class="fa-solid fa-circle-plus"></i> Ajouter une perte
           </h3>
           <button @click="$emit('onClose')" class="modal-close">
             <i class="fa-solid fa-xmark"></i>
@@ -24,55 +24,67 @@
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
             <div
-              style="height: 60vh"
+              style="height: 70vh"
               class="modal-body pb-16 p-5 overflow-y-auto"
             >
               <!-- Ajoutez ici le contenu du modal -->
-              <div
-                v-if="store.errors && store.errors.length != 0"
-                class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
-              >
-                <p
-                  v-for="(error, index) in store.errors"
-                  :key="index"
-                  class="font-semibold my-1"
-                >
-                  {{ getFieldFromPointer(error.source.pointer) }} :
-                  {{ error.detail }}
-                </p>
-              </div>
-              <div></div>
               <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="name"
-                  >Titre :</label
-                >
-                <input
-                  v-model="formData.title"
-                  class="border rounded-md py-2 px-3 w-full"
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Titre"
+                <label for="product" class="block text-gray-700 font-bold mb-2"
+                  >Nom du produit perdu:
+                </label>
+                <select
+                  v-model="formData.product"
+                  name="product"
+                  id="product"
+                  class="bg-transparent border rounded w-full text-gray-700 py-2 pl-3 pr-10 focus:outline-none focus:border-blue-500"
                   required
-                />
+                  @change="onChange(formData.product)"
+
+                >
+                  <option value="" disabled selected>Sélectionnez une option</option>
+                  <option
+                    v-for="(product, index) in productStore.products"
+                    :key="index"
+                    :value="product"
+                  >
+                    {{ product.name +"Prix d'achat"+ product.purchase_price }}
+                  </option>
+                </select>
               </div>
-              <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="name"
-                  >Montant :</label
-                >
-                <input
-                  v-model="formData.amount"
-                  class="border rounded-md py-2 px-3 w-full"
-                  type="number"
-                  id="amount"
-                  name="amount"
-                  placeholder="Montant"
-                  required
-                />
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="mb-4">
+                  <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="name"
+                    >Prix d'achat unitaire:</label
+                  >
+                  <input
+                    v-model="formData.amount"
+                    class="border rounded-md py-2 px-3 w-full"
+                    type="number"
+                    id="purchase_price"
+                    name="purchase_price"
+                    placeholder="Montant"
+                    required
+                    disabled
+                  />
+                </div>
+                <div class="mb-4">
+                  <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="quantity"
+                    >Quantité:</label
+                  >
+                  <input
+                    v-model="formData.quantity"
+                    class="border rounded-md py-2 px-3 w-full"
+                    type="text"
+                    id="quantity"
+                    name="quantity"
+                    placeholder="Quantité"
+                    required
+                  />
+                </div>
               </div>
               <div class="mb-4">
                 <label
@@ -116,16 +128,23 @@
 </template>
 
 <script setup lang="ts">
+import { Product } from "~/types";
+
 const store = useSpendsStore();
+const productStore = useProductsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
 const formData = ref({
-  title: "",
-  amount:null,
+  product: "",
+  amount: 0,
+  quantity: 0,
   description: "",
 }); // Champ de nom de catégorie
 
-// watch(formDataName, updateSlug);
+function onChange(product: any) {
+  formData.value.amount = product.amount;
+  
+}
 
 const submitForm = async () => {
   loading.value = true;
@@ -134,7 +153,7 @@ const submitForm = async () => {
       emit("onClose");
       emit("onSuccess", "Dépense ajoutée avec succès");
       formData.value.title = "";
-      formData.value.amount = null;
+      formData.value.amount = "";
       formData.value.description = "";
     }
     // emit('onClose')

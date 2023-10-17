@@ -31,7 +31,7 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(user, index) in store.users" key="index">
+          <tr v-for="(user, index) in store.users" :key="index">
             <td class="px-6 py-4 whitespace-no-wrap">{{ user.attributes.last_name + ' ' + user.attributes.first_name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ user.attributes.email }}</td>

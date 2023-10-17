@@ -104,7 +104,7 @@
 
                     <option
                       v-for="(cat, index) in storeCat.categories"
-                      key="index"
+                      :key="index"
                       :value="cat.name"
                     >
                       {{ cat.name }}

@@ -30,7 +30,7 @@
       <Datatable v-if="!store.loading">
         <thead>
           <tr>
-            <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Titre</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">Montant</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Description</th>
@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(spend, index) in store.spends" key="index" :title="`Créé le ${formatDateFrench(spend.createdAt)}\nModifié le ${formatDateFrench(spend.updatedAt)}}`">
+          <tr v-for="(spend, index) in store.spends" :key="index" :title="`Créé le ${formatDateFrench(spend.createdAt)}\nModifié le ${formatDateFrench(spend.updatedAt)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ spend.title }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ spend.amount }}</td>

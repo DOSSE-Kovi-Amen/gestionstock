@@ -5,7 +5,7 @@
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">
           <h3 class="text-xl">
-            <i class="fa-solid fa-circle-plus"></i> Editer une catégorie
+            <i class="fa-solid fa-circle-plus"></i> Editer une perte
           </h3>
           <button @click="$emit('onClose')" class="modal-close">
             <i class="fa-solid fa-xmark"></i>
@@ -114,7 +114,7 @@ const props = defineProps<{
 }>();
 const formData = ref({
   title: "",
-  amount: 0,
+  amount: "",
   description: "",
 }); // Champ de nom de catégorie
 

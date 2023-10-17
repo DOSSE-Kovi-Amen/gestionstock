@@ -1,4 +1,5 @@
 export interface Spend {
+    id:string;
     title: string;
     amount: number;
     description: string;
@@ -9,6 +10,6 @@ export interface Spend {
 
 export interface SpendForm{
     title: string;
-    amount: number;
+    amount: number|any;
     description: string;
 }

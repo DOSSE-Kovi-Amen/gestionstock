@@ -67,7 +67,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="loss" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="losses" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-exclamation-triangle"></i>
