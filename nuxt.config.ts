@@ -1,7 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  generate:{
+    nojekyll: true, //not working on this version
+    fallback: '404.html',
+  },
   ssr: false,
+  target: "static", // and static, nuxt generates a SPA
   pages: true,
   srcDir: "./src",
   app: {
