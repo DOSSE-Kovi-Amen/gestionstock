@@ -8,8 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "gh-pages -d dist"
-
+    "deploy": "nuxt generate && push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -31,6 +30,7 @@
     "datatables.net-select-bs5": "^1.7.0",
     "firebase": "^10.4.0",
     "pinia": "^2.1.6",
+    "push-dir": "^0.4.1",
     "tinymce": "^6.7.0"
   }
 }
