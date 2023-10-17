@@ -25,14 +25,7 @@
             <span :class="{ 'hidden': !isSidebarOpen }">Tableau de bord</span>
           </NuxtLink>
         </li>
-        <li>
-          <NuxtLink to="users" :class="{ 'justify-center': !isSidebarOpen }"
-            class="block flex items-center gap-4 p-3 router-link">
-            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <i class="fa-solid fa-users"></i>
-            <span :class="{ 'hidden': !isSidebarOpen }">Utilisateurs</span>
-          </NuxtLink>
-        </li>
+
         <li>
           <NuxtLink to="categories" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
@@ -50,11 +43,43 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="properties" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="sales" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <i class="fa-solid fa-building"></i>
-            <span :class="{ 'hidden': !isSidebarOpen }">Propriétés</span>
+            <i class="fa-solid fa-cash-register fa-lg"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Ventes</span>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="stocks" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-cube fa-lg"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Stocks</span>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="spends" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-money-bill"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Dépenses</span>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="loss" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-exclamation-triangle"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Pertes</span>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="users" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-users"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Utilisateurs</span>
           </NuxtLink>
         </li>
         <li>

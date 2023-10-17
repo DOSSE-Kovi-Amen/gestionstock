@@ -16,8 +16,8 @@ class FirestoreService {
         let status=false;
         const colRef = collection(this.db, collectionName);
         const dateObject= { createdAt: serverTimestamp(), updatedAt: serverTimestamp() }
-        const finalDate = { ...data, ...dateObject }
-        await setDoc(doc(colRef), finalDate).then(() => {
+        const finalData = { ...data, ...dateObject }
+        await setDoc(doc(colRef), finalData).then(() => {
         status=true;          
         });
         return status;
@@ -27,7 +27,8 @@ class FirestoreService {
     async update(collectionName: string, docId: string, data: Record<string, any>): Promise<boolean> {
         let status=false;
         const docRef = doc(this.db, collectionName, docId);
-        await updateDoc(docRef, data).then(() => status=true);
+        const finalData={...data,...{updatedAt: serverTimestamp()}}
+        await updateDoc(docRef, finalData).then(() => status=true);
         return status;
     }
 
