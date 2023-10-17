@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   target:"static",
   srcDir: "./src",
   app: {
-    baseURL: "/gestionstock/",
+    baseURL: "/",
     head: {
       title: "Gestion  stock",
       link: [
