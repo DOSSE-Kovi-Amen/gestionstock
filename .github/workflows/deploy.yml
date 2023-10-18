@@ -28,12 +28,6 @@ jobs:
       env:
         NUXT_APP_BASE_URL: ${{ vars.NUXT_APP_BASE_URL  }}
 
-    - name: Init new repo in $BUILD_FOLDER and commit generated files
-      run: |
-        git init
-        git add -A
-        git commit -m 'deploy'
-
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
