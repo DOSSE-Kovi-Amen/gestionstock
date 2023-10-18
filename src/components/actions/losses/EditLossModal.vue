@@ -30,36 +30,52 @@
               <!-- Ajoutez ici le contenu du modal -->
 
               <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="name"
-                  >Titre :</label
-                >
-                <input
-                  v-model="formData.title"
-                  class="border rounded-md py-2 px-3 w-full"
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Titre"
+                <label for="product" class="block text-gray-700 font-bold mb-2"
+                  >Nom du produit perdu:
+                </label>
+                <select
+                  v-model="formData.product"
+                  name="product"
+                  id="product"
+                  class="bg-transparent border rounded w-full text-gray-700 py-2 pl-3 pr-10 focus:outline-none focus:border-blue-500"
                   required
-                />
+                >
+                  <option value="" disabled selected>
+                    Sélectionnez une option
+                  </option>
+                  <option
+                    v-for="(product, index) in productStore.products"
+                    :key="index"
+                    :value="product"
+                  >
+                    {{
+                      product.name +
+                      "(Prix d'achat: " +
+                      product.purchase_price +
+                      ")"
+                    }}
+                  </option>
+                </select>
               </div>
-              <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="name"
-                  >Montant :</label
-                >
-                <input
-                  v-model="formData.amount"
-                  class="border rounded-md py-2 px-3 w-full"
-                  type="number"
-                  id="amount"
-                  name="amount"
-                  placeholder="Montant"
-                  required
-                />
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <div class="mb-4">
+                  <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="quantity"
+                    >Quantité:</label
+                  >
+                  <input
+                    v-model="formData.quantity"
+                    class="border rounded-md py-2 px-3 w-full"
+                    type="text"
+                    id="quantity"
+                    name="quantity"
+                    placeholder="Quantité"
+                    required
+                  />
+                </div>
+               
               </div>
               <div class="mb-4">
                 <label
@@ -103,18 +119,19 @@
 </template>
 
 <script setup lang="ts">
-import { Spend, SpendForm } from "~/types";
+import { Loss, LossForm} from "~/types";
 
-const store = useSpendsStore();
+const store = useLossesStore();
+const productStore = useProductsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
 const props = defineProps<{
   isOpen: boolean;
-  selectedData?: Spend;
+  selectedData?: Loss;
 }>();
-const formData = ref({
-  title: "",
-  amount: "",
+const formData = ref<LossForm>({
+  product: null,
+  quantity: null,
   description: "",
 }); // Champ de nom de catégorie
 

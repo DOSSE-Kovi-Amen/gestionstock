@@ -63,4 +63,4 @@ const deleteData = async (id: string) => {
 
 <style scoped>
 
-</style>
+</style>~/types/users

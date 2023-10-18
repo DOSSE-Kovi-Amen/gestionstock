@@ -38,37 +38,26 @@
                   id="product"
                   class="bg-transparent border rounded w-full text-gray-700 py-2 pl-3 pr-10 focus:outline-none focus:border-blue-500"
                   required
-                  @change="onChange(formData.product)"
-
                 >
-                  <option value="" disabled selected>Sélectionnez une option</option>
+                  <option value="" disabled selected>
+                    Sélectionnez une option
+                  </option>
                   <option
                     v-for="(product, index) in productStore.products"
                     :key="index"
                     :value="product"
                   >
-                    {{ product.name +"Prix d'achat"+ product.purchase_price }}
+                    {{
+                      product.name +
+                      "(Prix d'achat: " +
+                      product.purchase_price +
+                      ")"
+                    }}
                   </option>
                 </select>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="name"
-                    >Prix d'achat unitaire:</label
-                  >
-                  <input
-                    v-model="formData.amount"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="number"
-                    id="purchase_price"
-                    name="purchase_price"
-                    placeholder="Montant"
-                    required
-                    disabled
-                  />
-                </div>
+                
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -85,6 +74,7 @@
                     required
                   />
                 </div>
+               
               </div>
               <div class="mb-4">
                 <label
@@ -128,23 +118,18 @@
 </template>
 
 <script setup lang="ts">
-import { Product } from "~/types";
 
-const store = useSpendsStore();
+const store = useLossesStore();
 const productStore = useProductsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
 const formData = ref({
-  product: "",
-  amount: 0,
-  quantity: 0,
+  product: null,
+  quantity: null,
   description: "",
 }); // Champ de nom de catégorie
 
-function onChange(product: any) {
-  formData.value.amount = product.amount;
-  
-}
+
 
 const submitForm = async () => {
   loading.value = true;
@@ -152,8 +137,8 @@ const submitForm = async () => {
     if (status) {
       emit("onClose");
       emit("onSuccess", "Dépense ajoutée avec succès");
-      formData.value.title = "";
-      formData.value.amount = "";
+      formData.value.product = null;
+      formData.value.quantity = null;
       formData.value.description = "";
     }
     // emit('onClose')

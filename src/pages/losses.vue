@@ -55,9 +55,10 @@
       <Datatable v-if="!store.loading">
         <thead>
           <tr>
-            <th class="px-6 py-3 text-left text-sm font-bold">Produit</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Montant</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Produit perdu</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Prix unitaire</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Quantité</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Montant total</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Description</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
@@ -70,10 +71,10 @@
               loss.createdAt
             )}\nModifié le ${formatDateFrench(loss.updatedAt)}}`"
           >
-            <td class="px-6 py-4 whitespace-no-wrap">{{ loss.product }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ loss.amount }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ loss.product.name }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ loss?.product.purchase_price }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ loss.quantity }}</td>
-
+            <td class="px-6 py-4 whitespace-no-wrap">{{ loss?.product.purchase_price*loss?.quantity }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ loss.description }}</td>
             <td class="flex gap-2">
               <a

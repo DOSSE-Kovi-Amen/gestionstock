@@ -121,3 +121,4 @@ definePageMeta({
   layout: "main",
 });
 </script>
+~/types/users

@@ -27,7 +27,7 @@
         </li>
 
         <li>
-          <NuxtLink to="categories" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/categories" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-list"></i>
@@ -35,7 +35,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="products" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/products" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-shop"></i>
@@ -43,7 +43,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="sales" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/sales" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-cash-register fa-lg"></i>
@@ -51,7 +51,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="stocks" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/stocks" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-cube fa-lg"></i>
@@ -59,7 +59,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="spends" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/spends" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-money-bill"></i>
@@ -67,7 +67,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="losses" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/losses" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-exclamation-triangle"></i>
@@ -75,7 +75,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="users" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/users" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-users"></i>
@@ -83,7 +83,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="roles" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/roles" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <Icon name="lock" size="20" />
@@ -106,7 +106,7 @@
             <i class="fa-solid fa-landmark"></i>
             Tableau de bord
           </NuxtLink>
-          <NuxtLink to="profile"
+          <NuxtLink to="/profile"
             class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-700"
             role="menuitem">
             <i class="fa-solid fa-user"></i>

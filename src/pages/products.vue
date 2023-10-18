@@ -32,7 +32,7 @@
       <Datatable v-if="!store.loading">
         <thead>
           <tr>
-            <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Nom du produit perdu</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">Prix d'achat</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Prix de vente</th>

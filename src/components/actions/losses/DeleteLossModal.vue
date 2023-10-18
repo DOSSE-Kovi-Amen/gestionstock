@@ -20,7 +20,7 @@
         <div v-else>
           <div  class="modal-body p-5">
             <!-- Ajoutez ici le contenu du modal -->
-            <p>{{ `Supprimer ${selectedData?.title} ?` }}</p>
+            <p>{{ `Supprimer la perte de ${selectedData?.product.name} ?` }}</p>
           </div>
   
           <!-- Pied du modal -->
@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { Spend } from '~/types';
+import { Loss, Spend } from '~/types';
 
 const emit =defineEmits(['onClose','onSuccess'])
 
@@ -49,7 +49,7 @@ const loading=ref(false);
 const store = useSpendsStore();
 defineProps<{
   isOpen: boolean
-  selectedData?:Spend
+  selectedData?:Loss
 }>()
 
 const deleteData = async (id: string) => {

@@ -1,4 +1,4 @@
-import { User, type authLogin } from "~/types/types";
+import { User, type authLogin } from "~/types/users";
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>();

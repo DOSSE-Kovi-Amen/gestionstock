@@ -14,8 +14,9 @@
         <div style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
           <!-- Ajoutez ici le contenu du modal -->
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
-          <li><strong>Titre:</strong> {{ selectedData?.title }}</li>
-          <li><strong>Montant:</strong> {{ selectedData?.amount }}</li>
+          <li><strong>Nom du produit:</strong> {{ selectedData?.product?.name }}</li>
+          <li><strong>Quantité:</strong> {{ selectedData?.quantity }}</li>
+          <li v-if="selectedData"><strong>Montant total de la perte:</strong> {{ selectedData?.product.purchase_price*selectedData?.quantity }}</li>
           <li><strong>Description:</strong> {{ selectedData?.description }}</li>
           <li><strong>Date de création:</strong> {{ formatDateFrench(selectedData?.createdAt) }}</li>
           <li><strong>Date de modification:</strong> {{ formatDateFrench(selectedData?.updatedAt) }}</li>
@@ -35,12 +36,12 @@
 </template>
 
 <script setup lang="ts">
-import { Spend } from '~/types';
+import { Loss } from '~/types';
 
 
 defineProps<{
   isOpen: boolean
-  selectedData?: Spend
+  selectedData?: Loss
 }>()
 
 </script>

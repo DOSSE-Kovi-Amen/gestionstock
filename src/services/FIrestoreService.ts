@@ -14,6 +14,7 @@ class FirestoreService {
     // Créer un document
     async create(collectionName: string, data: Record<string, any>): Promise<boolean> {
         let status=false;
+    
         const colRef = collection(this.db, collectionName);
         const dateObject= { createdAt: serverTimestamp(), updatedAt: serverTimestamp() }
         const finalData = { ...data, ...dateObject }

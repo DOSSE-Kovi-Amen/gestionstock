@@ -60,7 +60,6 @@ export interface UserCreate {
   username: string;
   first_name: string;
   last_name: string;
-  middle_name: string | null;
   email: string;
   phone_number: string | null;
   password: string;

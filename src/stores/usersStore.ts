@@ -1,70 +1,48 @@
-import { User, UserCreate, UserList } from "~/types/types";
+import FirestoreService from "~/services/FIrestoreService";
+import { User, UserCreate } from "~/types/users";
 
 export const useUsersStore = defineStore('user', () => {
-  const users = ref<UserList[]>([]);
+  const users = ref<User[]>([]);
   const errors = ref<any>([]);
-  const authToken = ref("");
-  authToken.value = localStorage.getItem('access_token') ?? ""
-
-  const headers = {
-    Accept: "*/*",
-    "Content-type": "application/json",
-    'Authorization': `Bearer ${authToken.value}`, // Include the Bearer token
-
-  }
-
+  const loading = ref(false);
+  const firestoreService = new FirestoreService();
+  const collectionName = 'users'
   const usersCount = () => {
     return users.value.length
   }
-
+  // get Data
   const getData = async () => {
-
-    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/users/list`, {
-      headers: headers
+    loading.value = true;
+    await firestoreService.getListFromCollection(collectionName).then((data) => {
+      users.value = data;
+      loading.value = false;
     })
-    if (error.value?.statusCode == 401) {
-      await useAuthStore().logout();
-    }
-    users.value = data.value?.data;
+  }
+  // post Data
+  const postData = async (payload: UserCreate) => {
+    const status = await firestoreService.create(collectionName, payload)
+    await getData();
+    return status;
   }
 
-  const postData = async (payload: UserCreate) => {
-    errors.value=[];
-    const { data, error } = await useFetch(`${apiBaseURL}/users/create`, {
-      method: 'POST',
-      headers: headers,
-      body: payload
-    })
+  const updateData = async (payload: UserCreate, docId:string) => {
 
-    if (error.value?.statusCode == 401) {
-       useAuthStore().logout();
-    }
-    if (error.value?.statusCode == 400) {
-      errors.value= error.value?.data.errors;
-    }
-    if (data.value) {
-      await getData()
-
-      return true
-    }
-
+    const status = await firestoreService.update(collectionName, docId, payload)
+    await getData();
+    return status;
   }
 
   const deleteData = async (id: string) => {
-    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/users/${id}/delete`, {
-      method: 'DELETE',
-      headers: headers,
-    })
-    if (error.value?.statusCode == 401) {
-      useAuthStore().logout();
-    }
+    console.log('===============id=====================');
+    console.log(id);
+    console.log('====================================');
+    await firestoreService.delete(collectionName, id)
     await getData()
-
   }
   // Call getData
   getData()
 
 
-  return { users, errors, usersCount, getData, postData, deleteData }
+  return { users, loading, errors, usersCount, getData, postData, updateData, deleteData }
 })
 
