@@ -1,33 +1,34 @@
-name: Deploy to GitHub pages
-on:
+name: Build and Deploy
+on: 
   push:
-    branches: [nuxt]
-env:
-  BUILD_FOLDER: .output/public # or .output/public/yourrepositoryname/
+    branches:
+      - main
+permissions:
+  contents: write
 jobs:
-  build:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Generate static Nuxt 3 files
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-          cache: 'npm'
-      
-      - run: |
-          npm install
-          npm generate
-      - name: Init new repo in $BUILD_FOLDER and commit generated files
-        run: |
-          grep -rnwl "<link rel=\"prefetch\"" $BUILD_FOLDER | xargs sed -i 's$<link rel="prefetch" href="[^"]*\.\(jpg\|png\|webm\|jpeg\|ttg\|svg\|gif\)">$$g'
-          cd $BUILD_FOLDER
-          touch .nojekyll
-          git init
-          git add -A
-          git commit -m 'deploy'
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: ${{env.BUILD_FOLDER}}
+    - name: Checkout 🛎️
+      uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install & Generate 🔧
+      run: |
+        npm ci
+        npm run generate
+      env:
+        NUXT_APP_BASE_URL: ${{ vars.NUXT_APP_BASE_URL  }}
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: dist
