@@ -26,8 +26,6 @@ jobs:
           touch .nojekyll
           git init
           git add -A
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
           git commit -m 'deploy'
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
