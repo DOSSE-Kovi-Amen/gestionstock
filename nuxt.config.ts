@@ -5,6 +5,9 @@ export default defineNuxtConfig({
     nojekyll: true, //not working on this version
     fallback: '404.html',
   },
+  router: {
+    trailingSlash: false, // Désactivez l'ajout automatique du slash à la fin des URL
+  },
   ssr: false,
   target: "static", // and static, nuxt generates a SPA
   pages: true,
