@@ -46,7 +46,7 @@
           <NuxtLink to="/sales" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <i class="fa-solid fa-cash-register fa-lg"></i>
+            <i class="fa-solid fa-cash-register"></i>
             <span :class="{ 'hidden': !isSidebarOpen }">Ventes</span>
           </NuxtLink>
         </li>

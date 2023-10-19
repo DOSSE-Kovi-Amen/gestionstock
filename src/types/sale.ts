@@ -1,12 +1,13 @@
 export interface Sale{
     id: string;
+    reference: string;
     client: string;
     amountPaid: number;
     discount: number;
     subTotal: number;
     totalAmount: number;
     balance: number;
-    saleDetails: SaleDetail;
+    saleDetails: SaleDetail[];
     authorId: string;
     note:string;
     createdAt: any;
