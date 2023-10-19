@@ -2,11 +2,11 @@
   <div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
 
-      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="users">
+      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/users">
         <Card title="Utilisateurs" icon="fa-users" :count="usersStore.usersCount()" class="bg-card-0 text-white rounded-md" />
       </NuxtLink>
-      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="organizations">
-        <!-- <Card title="Organisations" icon="fa-building" :count="orgsStore.orgsCount()" class="bg-card-1 text-white rounded-md" /> -->
+      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/sales">
+        <Card title="Ventes" icon="fa-building" :count="salesStore.salesCount()" class="bg-card-1 text-white rounded-md" />
       </NuxtLink>
       
       <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/properties">
@@ -32,7 +32,7 @@
 <script setup lang="ts">
 
 const usersStore = useUsersStore();
-// const orgsStore = useUsersStore();
+const salesStore = useSalesStore();
 // const propertiesStore = usePropertiesStore();
 
 definePageMeta({

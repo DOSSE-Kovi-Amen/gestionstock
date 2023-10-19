@@ -6,7 +6,7 @@ export interface Sale{
     discount: number;
     subTotal: number;
     totalAmount: number;
-    balance: number;
+    change: number;
     saleDetails: SaleDetail[];
     authorId: string;
     note:string;

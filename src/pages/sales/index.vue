@@ -2,18 +2,8 @@
   <div>
     <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
 
-    <!-- Create -->
-    <AddCategoryModal @on-success="(e:string) => {
-      alertMessage = e;
-      showAlert = true
-    }" @on-close="isOpenCreate = false" :is-open="isOpenCreate" />
 
     <ViewCategoryModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
-    <!-- Create -->
-    <EditCategoryModal @on-success="(e: string) => {
-      alertMessage = e;
-      showAlert = true
-    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
     <!-- Read -->
     <DeleteCategoryModal @on-success="(e:string) => {
@@ -21,9 +11,9 @@
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
 
-    <button @click="isOpenCreate = true" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
+    <NuxtLink to="sales/create" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
         class="fa-solid fa-circle-plus"></i>
-      Ajouter nouveau</button>
+      Ajouter nouveau</NuxtLink>
     <!-- Liste des users -->
     <div class="p-5 bg-white w-full h-full shadow-2xl rounded-lg bg-opacity-25">
 
@@ -31,7 +21,7 @@
         <thead>
           <tr>
             <th class="px-6 py-3 text-left text-sm font-bold">Id</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Référence commande</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Référence</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Date</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Montant total</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Remise</th>
@@ -91,8 +81,6 @@ import DeleteCategoryModal from '~/components/actions/categories/DeleteCategoryM
 import { Category,Sale } from '~/types';
 import { formatDateFrench } from '~/utils/constants';
 import { useSalesStore } from '~/stores/salesStore';
-
-
 
 const store = useSalesStore();
 
