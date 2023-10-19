@@ -1,3 +1,5 @@
+import { Product } from "./product";
+
 export interface Sale{
     id: string;
     reference: string;
@@ -7,18 +9,24 @@ export interface Sale{
     subTotal: number;
     totalAmount: number;
     change: number;
-    saleDetails: SaleDetail[];
+    products: Product[];
     authorId: string;
     note:string;
     createdAt: any;
     updatedAt: any;
 }
 
-export interface SaleDetail{
-    productId: string;
-    productName: string;
-    productImageUrl: string;
-    quantity: number;
-    purchase_price: number; // Prix d'achat du produit
-    selling_price: number; // Prix de vente du produit    
+export interface SaleForm{
+    reference: string;
+    client: string;
+    amountPaid: number;
+    discount: number;
+    subTotal: number;
+    totalAmount: number;
+    change: number;
+    products: Product[]|null;
+    authorId: string;
+    note:string;
+    createdAt: any;
+    updatedAt: any;
 }
