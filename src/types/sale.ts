@@ -1,6 +1,6 @@
 import { Product } from "./product";
 
-export interface Sale{
+export interface Sale {
     id: string;
     reference: string;
     client: string;
@@ -11,12 +11,12 @@ export interface Sale{
     change: number;
     products: Product[];
     authorId: string;
-    note:string;
+    note: string;
     createdAt: any;
     updatedAt: any;
 }
 
-export interface SaleForm{
+export interface SaleForm {
     reference: string;
     client: string;
     amountPaid: number;
@@ -24,9 +24,7 @@ export interface SaleForm{
     subTotal: number;
     totalAmount: number;
     change: number;
-    products: Product[]|null;
+    products: Product[] | null;
     authorId: string;
-    note:string;
-    createdAt: any;
-    updatedAt: any;
+    note: string;
 }

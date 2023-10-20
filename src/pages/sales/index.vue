@@ -11,7 +11,7 @@
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
 
-    <NuxtLink to="sales/create" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
+    <NuxtLink to="/sales/create" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
         class="fa-solid fa-circle-plus"></i>
       Ajouter nouveau</NuxtLink>
     <!-- Liste des users -->
