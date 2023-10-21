@@ -11,9 +11,11 @@
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
 
-    <NuxtLink to="/sales/create" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
+    <div class="my-4">
+      <NuxtLink to="/sales/create" class="py-2 p-4 shadow-xl btn-primary text-white"><i
         class="fa-solid fa-circle-plus"></i>
       Ajouter nouveau</NuxtLink>
+    </div>
     <!-- Liste des users -->
     <div class="p-5 bg-white w-full h-full shadow-2xl rounded-lg bg-opacity-25">
 

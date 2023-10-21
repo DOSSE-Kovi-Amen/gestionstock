@@ -1,9 +1,26 @@
 <template>
   <div>
-    <div>
+
+    <SweetAlert
+    :show="showAlert"
+    title="alertTitle"
+    :message="alertMessage"
+    @on-close="showAlert = false"
+  />
+
+    <!-- Create -->
+    <AddClientModal
+      @on-success="(e:string) => {
+          alertMessage = e;
+          showAlert = true
+        }"
+      @on-close="isOpenCreate = false"
+      :is-open="isOpenCreate"
+    />
+    <div class="flex flex-row gap-2">
       <button
         @click="addAllProducts()"
-        class="py-2 mr-4 p-4 shadow-xl bg-blue-400 hover:bg-blue-500 my-4 text-white"
+        class="py-2 p-4 shadow-xl bg-blue-400 hover:bg-blue-500 my-4 text-white"
       >
         <i class="fa-solid fa-check"></i> Tout sélectionner
       </button>
@@ -13,15 +30,21 @@
       >
         <i class="fa-solid fa-trash"></i> Tout supprimer
       </button>
+      <button
+      @click="isOpenCreate = true"
+      class="py-2 p-4 shadow-xl btn-primary my-4 text-white"
+    >
+      <i class="fa-solid fa-user"></i> Ajouter client
+    </button>
     </div>
     <div class="bg-purple-200 border-l-4 border-purple-500 p-4 my-2">
       <div
         class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-3"
       >
-        <div>Ht:</div>
-        <div>TTC:</div>
-        <div>Reliquat:</div>
-        <div>Dette:</div>
+        <div class="font-bold">Ht: {{ formData.subTotal }}</div>
+        <div class="font-bold">TTC: {{ formData.totalAmount }}</div>
+        <div class="font-bold">Reliquat: {{ formData.change }}</div>
+        <div class="font-bold">Dette: {{ formData.debt }} </div>
       </div>
     </div>
     <div
@@ -46,13 +69,25 @@
       <div class="bg-blue-400 h-72 p-4 lg:col-span-1">
         <div class="mb-4">
           <label for="selectedProduct" class="block text-white mb-2"
-            >Ajouter produit:
+            >Choisir un produit:
           </label>
           <v-select
             v-model="selectedProduct"
             class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
             required
-            :options="store.products"
+            :options="productsStore.products"
+            label="name"
+          ></v-select>
+        </div>
+        <div class="mb-4">
+          <label for="selectedProduct" class="block text-white mb-2"
+            >Choisir un client:
+          </label>
+          <v-select
+            v-model="formData.client"
+            class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+            required
+            :options="clientsStore.clients"
             label="name"
           ></v-select>
         </div>
@@ -115,7 +150,7 @@
                 />
               </td>
               <td class="px-6 py-4 whitespace-no-wrap">
-                {{ product.selling_price*formData.products[index].quantity }}
+                {{ product.selling_price * formData.products[index].quantity }}
               </td>
 
               <td class="flex gap-2 py-4">
@@ -145,19 +180,26 @@ import { useProductsStore } from "~/stores/productsStore";
 import { Product, SaleForm } from "~/types";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
-const store = useProductsStore();
+import AddClientModal from "~/components/actions/clients/AddClientModal.vue";
+
+const productsStore = useProductsStore();
+const clientsStore = useClientsStore();
+const showAlert = ref(false);
+const alertMessage = ref("");
 const selectedProduct = ref();
-const formData = ref({
+const isOpenCreate = ref(false);
+const formData = ref<SaleForm>({
   reference: "",
-  client: "",
+  client: null,
   amountPaid: null,
   discount: null,
-  subTotal: null,
-  totalAmount: null,
-  change: null,
+  subTotal: 0,
+  totalAmount: 0,
+  debt:0,
+  change: 0,
   products: [],
 });
-const errors = ref([]);
+const errors = ref<any>([]);
 // Listenin
 watch(selectedProduct, (newValue, oldValue) => {
   addProduct();
@@ -168,7 +210,7 @@ watch(selectedProduct, (newValue, oldValue) => {
 function addAllProducts() {
   errors.value = [];
 
-  for (const product of store.products) {
+  for (const product of productsStore.products) {
     if (existProduct(product.id)) {
       errors.value.push(
         `Le produit (${product?.name}) a déjà été sélectionné.`
