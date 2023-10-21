@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>
-      
       <button
         @click="addAllProducts()"
         class="py-2 mr-4 p-4 shadow-xl bg-blue-400 hover:bg-blue-500 my-4 text-white"
@@ -51,32 +50,34 @@
           </label>
           <v-select
             v-model="selectedProduct"
-            class="bg-white border rounded w-full text-gray-700 py-1 focus:outline-none focus:border-blue-500"
+            class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
             required
             :options="store.products"
             label="name"
           ></v-select>
         </div>
         <div class="mb-4">
-          <label class="block text-white mb-2" for="quantity">Remise:</label>
+          <label class="block text-white mb-2" for="discount">Remise:</label>
           <input
+            v-model="formData.discount"
             class="border rounded-md py-1 px-3 w-full"
             type="text"
-            id="quantity"
-            name="quantity"
-            placeholder="Quantité"
+            id="discount"
+            name="discount"
+            placeholder="Remise"
             required
           />
         </div>
         <div class="mb-4">
-          <label class="block text-white mb-2" for="quantity"
+          <label class="block text-white mb-2" for="amountPaid"
             >Montant reçu:</label
           >
           <input
+            v-model="formData.amountPaid"
             class="border rounded-md py-1 px-3 w-full"
             type="text"
-            id="quantity"
-            name="quantity"
+            id="amountPaid"
+            name="amountPaid"
             placeholder="Montant reçu"
             required
           />
@@ -93,6 +94,7 @@
               <th class="px-6 py-3 text-left text-sm">Produit</th>
               <th class="px-6 py-3 text-left text-sm">Prix unitaire</th>
               <th class="px-6 py-3 text-left text-sm">Qté</th>
+              <th class="px-6 py-3 text-left text-sm">Montant</th>
               <th class="px-6 py-3 text-left text-sm">-</th>
             </tr>
           </thead>
@@ -111,6 +113,9 @@
                   v-model="formData.products[index].quantity"
                   class="border border-gray-300 rounded-lg py-1 px-1 block appearance-none leading-normal focus:outline-none focus:ring focus:border-blue-500"
                 />
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap">
+                {{ product.selling_price*formData.products[index].quantity }}
               </td>
 
               <td class="flex gap-2 py-4">
@@ -143,10 +148,17 @@ import "vue-select/dist/vue-select.css";
 const store = useProductsStore();
 const selectedProduct = ref();
 const formData = ref({
+  reference: "",
+  client: "",
+  amountPaid: null,
+  discount: null,
+  subTotal: null,
+  totalAmount: null,
+  change: null,
   products: [],
 });
 const errors = ref([]);
-
+// Listenin
 watch(selectedProduct, (newValue, oldValue) => {
   addProduct();
   // selectedProduct.value = null;
@@ -154,8 +166,7 @@ watch(selectedProduct, (newValue, oldValue) => {
 });
 
 function addAllProducts() {
-  
-  errors.value=[]
+  errors.value = [];
 
   for (const product of store.products) {
     if (existProduct(product.id)) {
@@ -171,8 +182,7 @@ function addAllProducts() {
 function addProduct() {
   // Rénitialiser s'il ya déjà une erreur
   if (errors.value.length > 1) {
-    errors.value=[]
-
+    errors.value = [];
   }
   if (selectedProduct.value) {
     if (existProduct(selectedProduct.value?.id)) {
@@ -180,6 +190,7 @@ function addProduct() {
         `Le produit (${selectedProduct.value?.name}) a déjà été sélectionné.`
       );
     } else {
+      selectedProduct.value.quantity = null;
       // Vérifiez que selectedProduct n'est pas null
       formData.value.products.push(selectedProduct.value);
     }
@@ -191,7 +202,7 @@ function removeProduct(index: number) {
 }
 function removeAllProducts() {
   formData.value.products = [];
-  errors.value=[]
+  errors.value = [];
 }
 function existProduct(productId: string) {
   for (const product of formData.value.products) {

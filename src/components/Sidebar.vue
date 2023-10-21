@@ -59,6 +59,23 @@
           </NuxtLink>
         </li>
         <li>
+          <NuxtLink to="/clients" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-users"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Clients</span>
+          </NuxtLink>
+        </li>
+        <li>
+          
+          <NuxtLink to="/suppliers" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-truck"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Fournisseurs</span>
+          </NuxtLink>
+        </li>
+        <li>
           <NuxtLink to="/spends" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
