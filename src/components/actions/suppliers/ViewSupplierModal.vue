@@ -16,7 +16,7 @@
           <!-- Ajoutez ici le contenu du modal -->
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
           <li><strong>Nom:</strong> {{ selectedData?.name }}</li>
-          <li><strong>Code Client:</strong> {{ selectedData?.codeCli }}</li>
+          <li><strong>Code Fournisseur:</strong> {{ selectedData?.codeSupplier }}</li>
           <li><strong>Adresse:</strong> {{ selectedData?.address }}</li>
           <li><strong>Email:</strong> {{ selectedData?.email }}</li>
           <li><strong>Telephone:</strong> {{ selectedData?.telephone }}</li>
@@ -50,11 +50,12 @@
 </template>
 
 <script setup lang="ts">
-import { Client } from "~/types";
+import { Supplier } from '~/types';
+
 
 defineProps<{
   isOpen: boolean;
-  selectedData?: Client;
+  selectedData?: Supplier;
 }>();
 </script>
 

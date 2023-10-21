@@ -8,7 +8,7 @@
     />
 
     <!-- Create -->
-    <AddClientModal
+    <AddSupplierModal
       @on-success="(e:string) => {
         alertMessage = e;
         showAlert = true
@@ -17,13 +17,13 @@
       :is-open="isOpenCreate"
     />
 
-    <ViewClientModal
+    <ViewSupplierModal
       @on-close="isOpenRead = false"
       :is-open="isOpenRead"
       :selected-data="selectedData"
     />
     <!-- Create -->
-    <EditClientModal
+    <EditSupplierModal
       @on-success="(e: string) => {
         alertMessage = e;
         showAlert = true
@@ -34,7 +34,7 @@
     />
 
     <!-- Read -->
-    <DeleteClientModal
+    <DeleteSupplierModal
       @on-success="(e:string) => {
         alertMessage = e;
         showAlert = true
@@ -63,30 +63,30 @@
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr
-            v-for="(client, index) in store.clients"
+            v-for="(supplier, index) in store.suppliers"
             :key="index"
             :title="`Créé le ${formatDateFrench(
-              client.createdAt
-            )}\nModifié le ${formatDateFrench(client.updatedAt)}}`"
+              supplier.createdAt
+            )}\nModifié le ${formatDateFrench(supplier.updatedAt)}}`"
           >
-            <td class="px-6 py-4 whitespace-no-wrap">{{ client.name }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ client.telephone }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ supplier.name }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ supplier.telephone }}</td>
             <td class="flex gap-2">
               <a
                 class="p-0.5 px-2 text-white bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-sm"
-                @click="openModal(client, 'read')"
+                @click="openModal(supplier, 'read')"
               >
                 <i class="fa-regular fa-eye"></i>
               </a>
               <a
                 class="p-0.5 px-2 text-white bg-blue-500 hover:bg-blue-600 shadow-xl rounded-sm"
-                @click="openModal(client, 'edit')"
+                @click="openModal(supplier, 'edit')"
               >
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>
               <a
                 class="p-0.5 px-2 text-white bg-red-500 hover:bg-red-600 shadow-xl rounded-sm"
-                @click="openModal(client, 'delete')"
+                @click="openModal(supplier, 'delete')"
               >
                 <i class="fa-regular fa-trash-can"></i>
               </a>
@@ -104,16 +104,16 @@
 <style scoped></style>
 
 <script setup lang="ts">
-import AddClientModal from "~/components/actions/clients/AddClientModal.vue";
-import ViewClientModal from "~/components/actions/clients/ViewClientModal.vue";
-import EditClientModal from "~/components/actions/clients/EditClientModal.vue";
-import DeleteClientModal from "~/components/actions/clients/DeleteClientModal.vue";
-import { Client } from "~/types";
+import AddSupplierModal from "~/components/actions/suppliers/AddSupplierModal.vue";
+import ViewSupplierModal from "~/components/actions/suppliers/ViewSupplierModal.vue";
+import EditSupplierModal from "~/components/actions/suppliers/EditSupplierModal.vue";
+import DeleteSupplierModal from "~/components/actions/suppliers/DeleteSupplierModal.vue";
+import { Supplier } from "~/types";
 import { formatDateFrench } from "~/utils/constants";
 
-const store = useClientsStore();
+const store = useSuppliersStore();
 
-const selectedData = ref<Client>();
+const selectedData = ref<Supplier>();
 const isOpenCreate = ref(false);
 const isOpenRead = ref(false);
 const isOpenDelete = ref(false);
@@ -121,7 +121,7 @@ const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
 
-const openModal = (data: Client, action: String) => {
+const openModal = (data: Supplier, action: String) => {
   selectedData.value = data;
 
   switch (action) {

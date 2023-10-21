@@ -5,7 +5,7 @@
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">
           <h3 class="text-xl">
-            <i class="fa-solid fa-circle-plus"></i> Editer un client
+            <i class="fa-solid fa-circle-plus"></i> Editer un fournisseur
           </h3>
           <button @click="$emit('onClose')" class="modal-close">
             <i class="fa-solid fa-xmark"></i>
@@ -53,7 +53,7 @@
                     >Code Client :</label
                   >
                   <input
-                    v-model="formData.codeCli"
+                    v-model="formData.codeSupplier"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
                     id="codeCli"
@@ -202,17 +202,17 @@
 </template>
 
 <script setup lang="ts">
-import { Client } from "~/types";
+import { Supplier } from "~/types";
 
-const store = useClientsStore();
+const store = useSuppliersStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
 const props = defineProps<{
   isOpen: boolean;
-  selectedData?: Client;
+  selectedData?: Supplier;
 }>();
 const formData = ref({
-  codeCli: "", //
+  codeSupplier: "", //
   name: "",
   email: "",
   telephone: "",

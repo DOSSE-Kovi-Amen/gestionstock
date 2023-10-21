@@ -1,31 +1,31 @@
 import FirestoreService from "~/services/FirestoreService";
-import { Category, CategoryForm } from "~/types";
+import { Supplier, SupplierForm } from "~/types";
 
-export const useCategoriesStore = defineStore('category', () => {
-  const categories = ref<Category[]>([]);
+export const useSuppliersStore = defineStore('supplier', () => {
+  const suppliers = ref<Supplier[]>([]);
   const errors = ref<any>([]);
   const loading = ref(false);
   const firestoreService = new FirestoreService();
-  const collectionName = 'categories'
-  const categoriesCount = () => {
-    return categories.value.length
+  const collectionName = 'suppliers'
+  const suppliersCount = () => {
+    return suppliers.value.length
   }
   // get Data
   const getData = async () => {
     loading.value = true;
     await firestoreService.getListFromCollection(collectionName).then((data) => {
-      categories.value = data;
+      suppliers.value = data;
       loading.value = false;
     })
   }
   // post Data
-  const postData = async (payload: CategoryForm) => {
+  const postData = async (payload: SupplierForm) => {
     const status = await firestoreService.create(collectionName, payload)
     await getData();
     return status;
   }
 
-  const updateData = async (payload: CategoryForm, docId:string) => {
+  const updateData = async (payload: SupplierForm, docId:string) => {
 
     const status = await firestoreService.update(collectionName, docId, payload)
     await getData();
@@ -43,6 +43,6 @@ export const useCategoriesStore = defineStore('category', () => {
   getData()
 
 
-  return { categories, loading, errors, categoriesCount, getData, postData, updateData, deleteData }
+  return { suppliers, loading, errors, suppliersCount, getData, postData, updateData, deleteData }
 })
 

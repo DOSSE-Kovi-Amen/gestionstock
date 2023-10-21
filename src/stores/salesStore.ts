@@ -1,4 +1,4 @@
-import FirestoreService from "~/services/FIrestoreService";
+import FirestoreService from "~/services/FirestoreService";
 import { Sale } from "~/types";
 
 export const useSalesStore = defineStore('sale', () => {

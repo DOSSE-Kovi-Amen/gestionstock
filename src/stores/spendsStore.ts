@@ -1,4 +1,4 @@
-import FirestoreService from "~/services/FIrestoreService";
+import FirestoreService from "~/services/FirestoreService";
 import {SpendForm, Spend } from "~/types";
 
 export const useSpendsStore = defineStore('spend', () => {

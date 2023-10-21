@@ -214,7 +214,7 @@ const formData = ref({
   address: "",
   description: "",
   country: "",
-  city: "",
+  city: ""
 }); // Champ de nom de catégorie
 
 const submitForm = async () => {

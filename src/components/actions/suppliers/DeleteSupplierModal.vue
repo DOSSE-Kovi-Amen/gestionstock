@@ -41,15 +41,15 @@
 </template>
 
 <script setup lang="ts">
-import { Client } from '~/types';
+import { Supplier } from '~/types';
 
 const emit =defineEmits(['onClose','onSuccess'])
 
 const loading=ref(false);
-const store = useClientsStore();
+const store = useSuppliersStore();
 defineProps<{
   isOpen: boolean
-  selectedData?:Client
+  selectedData?:Supplier
 }>()
 
 const deleteData = async (id: string) => {

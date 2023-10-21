@@ -1,4 +1,4 @@
-import FirestoreService from "~/services/FIrestoreService";
+import FirestoreService from "~/services/FirestoreService";
 import {LossForm, Loss } from "~/types";
 
 export const useLossesStore = defineStore('loss', () => {

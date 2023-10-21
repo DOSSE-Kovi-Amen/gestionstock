@@ -1,7 +1,7 @@
 // Définissez une interface pour représenter une catégorie
 export interface Supplier {
     id: string; // L'ID du document Firestore
-    codeCli: string; //
+    codeSupplier: string; //
     name: string;
     email: string;
     telephone:string;
@@ -16,7 +16,7 @@ export interface Supplier {
 }
 
 export interface SupplierForm {
-    codeCli: string; //
+    codeSupplier: string; //
     name: string;
     email: string;
     telephone:string;

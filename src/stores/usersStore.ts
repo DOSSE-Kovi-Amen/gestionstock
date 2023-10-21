@@ -1,4 +1,4 @@
-import FirestoreService from "~/services/FIrestoreService";
+import FirestoreService from "~/services/FirestoreService";
 import { User, UserCreate } from "~/types/users";
 
 export const useUsersStore = defineStore('user', () => {

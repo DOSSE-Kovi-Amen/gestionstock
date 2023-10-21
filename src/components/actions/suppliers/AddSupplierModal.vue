@@ -5,7 +5,7 @@
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">
           <h3 class="text-xl">
-            <i class="fa-solid fa-circle-plus"></i> Editer un client
+            <i class="fa-solid fa-circle-plus"></i> Ajouter un fournisseur
           </h3>
           <button @click="$emit('onClose')" class="modal-close">
             <i class="fa-solid fa-xmark"></i>
@@ -49,16 +49,16 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="codeCli"
-                    >Code Client :</label
+                    for="codeSupplier"
+                    >Code Fournisseur :</label
                   >
                   <input
-                    v-model="formData.codeCli"
+                    v-model="formData.codeSupplier"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
-                    id="codeCli"
-                    name="codeCli"
-                    placeholder="Code Client"
+                    id="codeSupplier"
+                    name="codeSupplier"
+                    placeholder="Code Fournisseur"
                     required
                   />
                 </div>
@@ -202,17 +202,11 @@
 </template>
 
 <script setup lang="ts">
-import { Client } from "~/types";
-
-const store = useClientsStore();
+const store = useSuppliersStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
-const props = defineProps<{
-  isOpen: boolean;
-  selectedData?: Client;
-}>();
 const formData = ref({
-  codeCli: "", //
+  codeSupplier: "", //
   name: "",
   email: "",
   telephone: "",
@@ -223,38 +217,33 @@ const formData = ref({
   city: ""
 }); // Champ de nom de catégorie
 
-watch(
-  () => props.isOpen,
-  (newValue, oldValue) => {
-    if (newValue && props.selectedData) {
-      // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
-      formData.value = { ...props.selectedData };
-    }
-  }
-);
-
-// watch(categoryName, updateSlug);
-
 const submitForm = async () => {
   loading.value = true;
-  if (props.selectedData) {
-    await store
-      .updateData(formData.value, props.selectedData.id)
-      .then((status) => {
-        if (status) {
-          console.log("=============status=======================");
-          console.log(status);
-          console.log("====================================");
-          emit("onClose");
-          emit("onSuccess", "Catégorie mise à jour avec succès");
-        }
+  await store.postData(formData.value).then((status) => {
+    if (status) {
+      emit("onClose");
+      emit("onSuccess", "Client ajouté avec succès");
+      formData.value.name = "";
+      formData.value.address = "";
+      formData.value.city = "";
+      formData.value.codeSupplier = "";
+      formData.value.country = "";
+      formData.value.zipCode = "";
+      formData.value.email = "";
+      formData.value.description;
+      formData.value.telephone = "";
+    }
+    // emit('onClose')
+    // emit('onSuccess', "Catégorie ajoutée avec succès")
 
-        loading.value = false;
-      });
-  }
-
+    loading.value = false;
+  });
   setTimeout(() => {
     loading.value = false;
   }, 15000);
 };
+
+defineProps({
+  isOpen: { type: Boolean, required: true, default: false },
+});
 </script>
