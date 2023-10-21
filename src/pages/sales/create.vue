@@ -36,6 +36,35 @@
         <i class="fa-solid fa-user"></i> Ajouter client
       </button>
     </div>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-3"
+    >
+      <div class="mb-4">
+        <label for="selectedProduct" class="block text-black mb-2"
+          >Choisir un produit:
+        </label>
+        <v-select
+          v-model="selectedProduct"
+          class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+          required
+          :options="productsStore.products"
+          label="name"
+        ></v-select>
+      </div>
+      <div class="mb-4">
+        <label for="selectedProduct" class="block text-black mb-2"
+          >Choisir un client:
+        </label>
+        <v-select
+          v-model="formData.client"
+          class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+          required
+          :options="clientsStore.clients"
+          label="name"
+        ></v-select>
+      </div>
+    </div>
+
     <div class="bg-purple-200 border-l-4 border-purple-500 p-4 my-2">
       <div
         class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-3"
@@ -68,7 +97,7 @@
 
       <div class="lg:col-span-1">
         <div class="bg-blue-400 p-4">
-          <div class="mb-4">
+          <!-- <div class="mb-4">
             <label for="selectedProduct" class="block text-white mb-2"
               >Choisir un produit:
             </label>
@@ -91,17 +120,23 @@
               :options="clientsStore.clients"
               label="name"
             ></v-select>
-          </div>
+          </div> -->
           <div class="mb-4">
             <label class="block text-white mb-2" for="discount">Remise:</label>
             <input
               v-model="formData.discount"
+              :class="{
+                'bg-gray-200 cursor-not-allowed':
+                  formData.products.length === 0,
+                'bg-white': formData.products.length !== 0,
+              }"
               class="border rounded-md py-1 px-3 w-full"
               type="text"
               id="discount"
               name="discount"
               placeholder="Remise"
               required
+              :disabled="formData.products.length === 0"
             />
           </div>
           <div class="mb-4">
@@ -110,17 +145,25 @@
             >
             <input
               v-model="formData.amountPaid"
+              :class="{
+                'bg-gray-200 cursor-not-allowed':
+                  formData.products.length === 0,
+                'bg-white': formData.products.length !== 0,
+              }"
               class="border rounded-md py-1 px-3 w-full"
               type="text"
               id="amountPaid"
               name="amountPaid"
               placeholder="Montant reçu"
+              :disabled="formData.products.length === 0"
             />
           </div>
         </div>
         <button
-          @click="isOpenCreate = true"
+          type="submit"
+          :class="{ 'cursor-not-allowed': formData.products.length === 0 }"
           class="py-2 p-4 shadow-xl btn-primary my-4 text-white"
+          :disabled="formData.products.length === 0"
         >
           <i class="fa-solid fa-save"></i> Enregistrer la vente
         </button>
@@ -254,7 +297,7 @@ function addAllProducts() {
         `Le produit (${product?.name}) a déjà été sélectionné.`
       );
     } else {
-      // product.quantity = null;
+      product.quantity = null;
       formData.value.products.push(product);
     }
   }

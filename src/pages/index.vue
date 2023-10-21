@@ -10,10 +10,10 @@
       </NuxtLink>
       
       <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/properties">
-        <!-- <Card title="Propriétés" icon="fa-users" :count="propertiesStore.propertiesCount()" class="bg-card-2 text-white rounded-md" /> -->
+        <Card title="Clients" icon="fa-users" :count="clientsStore.clientsCount()" class="bg-card-2 text-white rounded-md" />
       </NuxtLink>
       <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" >
-        <Card title="Utilisateurs" count="0" class="bg-card-3 text-white rounded-md" />
+        <Card title="Chiffres d'affaires" count="0" class="bg-card-3 text-white rounded-md" />
       </NuxtLink>
 
 
@@ -33,7 +33,7 @@
 
 const usersStore = useUsersStore();
 const salesStore = useSalesStore();
-// const propertiesStore = usePropertiesStore();
+const clientsStore = useClientsStore();
 
 definePageMeta({
   layout: "main",

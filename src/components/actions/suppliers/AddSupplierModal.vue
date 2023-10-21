@@ -183,13 +183,13 @@
                 class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2"
                 @click="$emit('onClose')"
               >
-                Fermer
+              <i class="fa-solid fa-close"></i> Fermer
               </a>
               <button
                 type="submit"
                 class="btn-primary text-white py-2 px-4 rounded-sm"
               >
-                Enregistrer
+              <i class="fa-solid fa-save"></i> Enregistrer
               </button>
             </div>
           </form>
