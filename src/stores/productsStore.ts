@@ -36,7 +36,7 @@ export const useProductsStore = defineStore('product', () => {
     await getData();
     return status;
   }
-  const updateData = async (payload: ProductForm, docId: string) => {
+  const updateData = async (payload: ProductForm|any, docId: string) => {
 
     const status = await firestoreService.update(collectionName, docId, payload)
     await getData();

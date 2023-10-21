@@ -85,13 +85,13 @@ const alertMessage =<any>ref("");
 
 const route = useRoute();
 
-// Vérifiez si le paramètre de requête 'sessionExpired' est présent
+// Vérifiez si le paramètre de requête 'showalert' est présent
 
 onMounted(() => {
-  const showAlert = route.query.showAlert === 'true';
-
+ 
   // Utilisez 'showAlert' pour afficher le message approprié dans votre interface utilisateur
-  if (showAlert &&  route.query.alertMessage) {
+  if (route.query.showAlert === 'true') {
+    showAlert.value=true;
     alertMessage.value= route.query.alertMessage;    
   }
 })

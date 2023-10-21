@@ -36,61 +36,61 @@
         <i class="fa-solid fa-user"></i> Ajouter client
       </button>
     </div>
-    <div
-      class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-3"
-    >
-      <div class="mb-4">
-        <label for="selectedProduct" class="block text-black mb-2"
-          >Choisir un produit:
-        </label>
-        <v-select
-          v-model="selectedProduct"
-          class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-          required
-          :options="productsStore.products"
-          label="name"
-        ></v-select>
-      </div>
-      <div class="mb-4">
-        <label for="selectedProduct" class="block text-black mb-2"
-          >Choisir un client:
-        </label>
-        <v-select
-          v-model="formData.client"
-          class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-          required
-          :options="clientsStore.clients"
-          label="name"
-        ></v-select>
-      </div>
-    </div>
-
-    <div class="bg-purple-200 border-l-4 border-purple-500 p-4 my-2">
-      <div
-        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-3"
-      >
-        <div class="font-bold">Ht: {{ formData.subTotal }}</div>
-        <div class="font-bold">TTC: {{ formData.totalAmount }}</div>
-        <div class="font-bold">Reliquat: {{ formData.change }}</div>
-        <div class="font-bold">Dette: {{ formData.debt }}</div>
-      </div>
-    </div>
-
-    <div
-      v-if="errors.length != 0"
-      class="bg-red-200 border-l-4 border-red-500 p-4 my-2"
-    >
-      <div class="flex flex-row justify-between">
-        <div>
-          <p v-for="(error, index) in errors">{{ error }}</p>
-        </div>
-        <i
-          class="fa-regular fa-circle-xmark fa-2x cursor-pointer"
-          @click="errors = []"
-        ></i>
-      </div>
-    </div>
     <form @submit.prevent="submitForm">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-3"
+      >
+        <div class="mb-4">
+          <label for="selectedProduct" class="block text-black mb-2"
+            >Choisir un produit:
+          </label>
+          <v-select
+            v-model="selectedProduct"
+            class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+            required
+            :options="productsStore.products"
+            label="name"
+          ></v-select>
+        </div>
+        <div class="mb-4">
+          <label for="selectedProduct" class="block text-black mb-2"
+            >Choisir un client:
+          </label>
+          <v-select
+            v-model="formData.client"
+            class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+            required
+            :options="clientsStore.clients"
+            label="name"
+          ></v-select>
+        </div>
+      </div>
+
+      <div class="bg-purple-200 border-l-4 border-purple-500 p-4 my-2">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-3"
+        >
+          <div class="font-bold">Ht: {{ formData.subTotal }}</div>
+          <div class="font-bold">TTC: {{ formData.totalAmount }}</div>
+          <div class="font-bold">Reliquat: {{ formData.change }}</div>
+          <div class="font-bold">Dette: {{ formData.debt }}</div>
+        </div>
+      </div>
+
+      <div
+        v-if="errors.length != 0"
+        class="bg-red-200 border-l-4 border-red-500 p-4 my-2"
+      >
+        <div class="flex flex-row justify-between">
+          <div>
+            <p v-for="(error, index) in errors">{{ error }}</p>
+          </div>
+          <i
+            class="fa-regular fa-circle-xmark fa-2x cursor-pointer"
+            @click="errors = []"
+          ></i>
+        </div>
+      </div>
       <div
         class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-3"
       >
@@ -135,6 +135,7 @@
                 name="amountPaid"
                 placeholder="Montant reçu"
                 :disabled="formData.products.length === 0"
+                required
               />
             </div>
           </div>
@@ -177,6 +178,7 @@
                     v-model="formData.products[index].quantity"
                     class="border border-gray-300 rounded-lg py-1 px-1 block appearance-none leading-normal focus:outline-none focus:ring focus:border-blue-500"
                     required
+                    @input="editQuantity(formData.products[index])"
                   />
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap">
@@ -223,7 +225,7 @@ const showAlert = ref(false);
 const alertMessage = ref("");
 const selectedProduct = ref();
 const isOpenCreate = ref(false);
-const router= useRouter();
+const router = useRouter();
 const formData = ref<SaleForm>({
   reference: "",
   client: null,
@@ -236,6 +238,15 @@ const formData = ref<SaleForm>({
   products: [],
 });
 const errors = ref<any>([]);
+
+function editQuantity(product: any) {
+    errors.value = [];
+  
+  if (product.quantity > product.stock) {
+    product.quantity=0;
+    errors.value.push(`La quantité du produit ${product.name} à vendre est supérieur à la quantité en stock`)
+  }
+}
 // Listenin
 watch(selectedProduct, (newValue, oldValue) => {
   addProduct();
@@ -322,14 +333,18 @@ function existProduct(productId: string) {
 
 const submitForm = async () => {
   loading.value = true;
-  await salesStore.postData(formData.value).then((status) => {
-    if (status) {
-      const state={showAlert:'true',alertMessage:"Vente enregistrée avec succès"}
-      router.push({ path: '/sales', query: state })
+  await salesStore.postData(formData.value).then(async(status) => {
 
+    for (const product of formData.value.products) {
+    await productsStore.updateData({stock:product.stock-product.quantity},product.id)      
     }
-    // emit('onClose')
-    // emit('onSuccess', "Catégorie ajoutée avec succès")
+    if (status) {
+      const state = {
+        showAlert: "true",
+        alertMessage: "Vente enregistrée avec succès",
+      };
+      router.push({ path: "/sales", query: state });
+    }
 
     loading.value = false;
   });
