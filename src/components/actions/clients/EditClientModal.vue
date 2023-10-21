@@ -125,7 +125,6 @@
                     id="address"
                     name="address"
                     placeholder="Adresse"
-                    required
                   />
                 </div>
               </div>

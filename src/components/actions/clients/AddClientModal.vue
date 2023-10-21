@@ -125,7 +125,6 @@
                     id="address"
                     name="address"
                     placeholder="Adresse"
-                    required
                   />
                 </div>
               </div>
@@ -172,7 +171,6 @@
                   id="description"
                   name="description"
                   class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  required
                 ></textarea>
               </div>
             </div>
