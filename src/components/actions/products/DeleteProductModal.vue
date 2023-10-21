@@ -30,7 +30,7 @@
                 Fermer
               </button>
               <button @click="deleteData(selectedData?.id??'')" class="btn-primary text-white py-1 px-4 rounded-sm">
-                Supprimer
+                <i class="fa-solid fa-trash"></i> Supprimer
               </button>
             </div>          
         </div>

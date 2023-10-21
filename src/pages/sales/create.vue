@@ -1,12 +1,11 @@
 <template>
   <div>
-
     <SweetAlert
-    :show="showAlert"
-    title="alertTitle"
-    :message="alertMessage"
-    @on-close="showAlert = false"
-  />
+      :show="showAlert"
+      title="alertTitle"
+      :message="alertMessage"
+      @on-close="showAlert = false"
+    />
 
     <!-- Create -->
     <AddClientModal
@@ -31,11 +30,11 @@
         <i class="fa-solid fa-trash"></i> Tout supprimer
       </button>
       <button
-      @click="isOpenCreate = true"
-      class="py-2 p-4 shadow-xl btn-primary my-4 text-white"
-    >
-      <i class="fa-solid fa-user"></i> Ajouter client
-    </button>
+        @click="isOpenCreate = true"
+        class="py-2 p-4 shadow-xl btn-primary my-4 text-white"
+      >
+        <i class="fa-solid fa-user"></i> Ajouter client
+      </button>
     </div>
     <div class="bg-purple-200 border-l-4 border-purple-500 p-4 my-2">
       <div
@@ -44,9 +43,10 @@
         <div class="font-bold">Ht: {{ formData.subTotal }}</div>
         <div class="font-bold">TTC: {{ formData.totalAmount }}</div>
         <div class="font-bold">Reliquat: {{ formData.change }}</div>
-        <div class="font-bold">Dette: {{ formData.debt }} </div>
+        <div class="font-bold">Dette: {{ formData.debt }}</div>
       </div>
     </div>
+
     <div
       v-if="errors.length != 0"
       class="bg-red-200 border-l-4 border-red-500 p-4 my-2"
@@ -66,57 +66,64 @@
     >
       <!-- Première carte (1/4 de l'écran sur les écrans larges) -->
 
-      <div class="bg-blue-400 h-72 p-4 lg:col-span-1">
-        <div class="mb-4">
-          <label for="selectedProduct" class="block text-white mb-2"
-            >Choisir un produit:
-          </label>
-          <v-select
-            v-model="selectedProduct"
-            class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-            required
-            :options="productsStore.products"
-            label="name"
-          ></v-select>
+      <div class="lg:col-span-1">
+        <div class="bg-blue-400 p-4">
+          <div class="mb-4">
+            <label for="selectedProduct" class="block text-white mb-2"
+              >Choisir un produit:
+            </label>
+            <v-select
+              v-model="selectedProduct"
+              class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+              required
+              :options="productsStore.products"
+              label="name"
+            ></v-select>
+          </div>
+          <div class="mb-4">
+            <label for="selectedProduct" class="block text-white mb-2"
+              >Choisir un client:
+            </label>
+            <v-select
+              v-model="formData.client"
+              class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+              required
+              :options="clientsStore.clients"
+              label="name"
+            ></v-select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-white mb-2" for="discount">Remise:</label>
+            <input
+              v-model="formData.discount"
+              class="border rounded-md py-1 px-3 w-full"
+              type="text"
+              id="discount"
+              name="discount"
+              placeholder="Remise"
+              required
+            />
+          </div>
+          <div class="mb-4">
+            <label class="block text-white mb-2" for="amountPaid"
+              >Montant reçu:</label
+            >
+            <input
+              v-model="formData.amountPaid"
+              class="border rounded-md py-1 px-3 w-full"
+              type="text"
+              id="amountPaid"
+              name="amountPaid"
+              placeholder="Montant reçu"
+            />
+          </div>
         </div>
-        <div class="mb-4">
-          <label for="selectedProduct" class="block text-white mb-2"
-            >Choisir un client:
-          </label>
-          <v-select
-            v-model="formData.client"
-            class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-            required
-            :options="clientsStore.clients"
-            label="name"
-          ></v-select>
-        </div>
-        <div class="mb-4">
-          <label class="block text-white mb-2" for="discount">Remise:</label>
-          <input
-            v-model="formData.discount"
-            class="border rounded-md py-1 px-3 w-full"
-            type="text"
-            id="discount"
-            name="discount"
-            placeholder="Remise"
-            required
-          />
-        </div>
-        <div class="mb-4">
-          <label class="block text-white mb-2" for="amountPaid"
-            >Montant reçu:</label
-          >
-          <input
-            v-model="formData.amountPaid"
-            class="border rounded-md py-1 px-3 w-full"
-            type="text"
-            id="amountPaid"
-            name="amountPaid"
-            placeholder="Montant reçu"
-            required
-          />
-        </div>
+        <button
+          @click="isOpenCreate = true"
+          class="py-2 p-4 shadow-xl btn-primary my-4 text-white"
+        >
+          <i class="fa-solid fa-save"></i> Enregistrer la vente
+        </button>
       </div>
       <!-- Deuxième carte (3/4 de l'écran sur les écrans larges) -->
       <div class="lg:col-span-3">
@@ -147,6 +154,7 @@
                   type="number"
                   v-model="formData.products[index].quantity"
                   class="border border-gray-300 rounded-lg py-1 px-1 block appearance-none leading-normal focus:outline-none focus:ring focus:border-blue-500"
+                  required
                 />
               </td>
               <td class="px-6 py-4 whitespace-no-wrap">
@@ -195,7 +203,7 @@ const formData = ref<SaleForm>({
   discount: null,
   subTotal: 0,
   totalAmount: 0,
-  debt:0,
+  debt: 0,
   change: 0,
   products: [],
 });
@@ -205,6 +213,36 @@ watch(selectedProduct, (newValue, oldValue) => {
   addProduct();
   // selectedProduct.value = null;
   // Vous pouvez effectuer des actions en réponse au changement ici
+});
+// Listening formData and make calculations for totalAmount
+watch(formData.value, () => {
+  // Sous total sans remise
+  formData.value.subTotal = formData.value.products.reduce(
+    (
+      accumulator: number,
+      product: { quantity: number; selling_price: number }
+    ) => {
+      const productAmount = product.quantity * product.selling_price;
+      return accumulator + productAmount;
+    },
+    0
+  );
+
+  // Calcul de Total hors taxe avec remise
+  formData.value.totalAmount =
+    formData.value.subTotal - formData.value.discount;
+  // Reliquat ou Dette
+  if (formData.value.amountPaid > formData.value.totalAmount) {
+    formData.value.change =
+      formData.value.amountPaid - formData.value.totalAmount;
+    formData.value.debt = 0;
+  } else {
+    formData.value.debt =
+      formData.value.totalAmount - formData.value.amountPaid;
+    formData.value.change = 0;
+  }
+
+  //
 });
 
 function addAllProducts() {
@@ -216,7 +254,7 @@ function addAllProducts() {
         `Le produit (${product?.name}) a déjà été sélectionné.`
       );
     } else {
-      product.quantity = null;
+      // product.quantity = null;
       formData.value.products.push(product);
     }
   }

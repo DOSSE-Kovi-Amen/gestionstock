@@ -159,18 +159,6 @@
                   required
                 ></textarea>
               </div>
-              <!-- <div class="mb-4">
-                <label for="imageUrl" class="block text-gray-700 font-bold mb-2"
-                  >URL de l'image</label
-                >
-                <input
-                  v-model="formData.imageUrl"
-                  type="text"
-                  id="imageUrl"
-                  name="imageUrl"
-                  class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                />
-              </div> -->
             </div>
 
             <!-- Pied du modal -->
@@ -181,13 +169,13 @@
                 class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2"
                 @click="$emit('onClose')"
               >
-                Fermer
+              <i class="fa-solid fa-close"></i> Fermer
               </a>
               <button
                 type="submit"
                 class="btn-primary text-white py-2 px-4 rounded-sm"
               >
-                Enregistrer
+              <i class="fa-solid fa-save"></i>  Enregistrer
               </button>
             </div>
           </form>

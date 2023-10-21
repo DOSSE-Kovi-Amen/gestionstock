@@ -13,21 +13,18 @@ export interface Sale {
     change: number;
     products: Product[];
     authorId: string;
-    note: string;
     createdAt: any;
     updatedAt: any;
 }
 
 export interface SaleForm {
     reference: string;
-    client: Client;
-    amountPaid: number;
-    discount: number;
+    client: Client|any;
+    amountPaid: number|any;
+    discount: number|any;
     subTotal: number;
     totalAmount: number;
     debt:number;
     change: number;
-    products: Product[] | null;
-    authorId: string;
-    note: string;
+    products: Product[]|any;
 }

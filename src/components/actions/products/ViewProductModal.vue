@@ -54,7 +54,7 @@
             class="bg-gray-200 text-black py-1 px-4 rounded-sm mr-2"
             @click="$emit('onClose')"
           >
-            Fermer
+          <i class="fa-solid fa-close"></i> Fermer
           </button>
         </div>
       </div>
