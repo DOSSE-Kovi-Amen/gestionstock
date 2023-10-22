@@ -22,16 +22,6 @@
       :is-open="isOpenRead"
       :selected-data="selectedData"
     />
-    <!-- Create -->
-    <EditLossModal
-      @on-success="(e: string) => {
-      alertMessage = e;
-      showAlert = true
-    }"
-      @on-close="isOpenEdit = false"
-      :is-open="isOpenEdit"
-      :selected-data="selectedData"
-    />
 
     <!-- Read -->
     <DeleteLossModal
@@ -84,12 +74,6 @@
                 <i class="fa-regular fa-eye"></i>
               </a>
               <a
-                class="p-0.5 px-2 text-white bg-blue-500 hover:bg-blue-600 shadow-xl rounded-sm"
-                @click="openModal(loss, 'edit')"
-              >
-                <i class="fa-regular fa-pen-to-square"></i>
-              </a>
-              <a
                 class="p-0.5 px-2 text-white bg-red-500 hover:bg-red-600 shadow-xl rounded-sm"
                 @click="openModal(loss, 'delete')"
               >
@@ -111,7 +95,6 @@
 <script setup lang="ts">
 import AddLossModal from "~/components/actions/losses/AddLossModal.vue";
 import ViewLossModal from "~/components/actions/losses/ViewLossModal.vue";
-import EditLossModal from "~/components/actions/losses/EditLossModal.vue";
 import DeleteLossModal from "~/components/actions/losses/DeleteLossModal.vue";
 import { Loss } from "~/types";
 import { formatDateFrench } from "~/utils/constants";

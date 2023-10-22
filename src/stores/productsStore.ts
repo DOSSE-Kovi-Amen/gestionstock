@@ -11,35 +11,37 @@ export const useProductsStore = defineStore('product', () => {
     return products.value.length
   }
   // get Data
-  const getData = async () => {
-    loading.value=true;
-    await firestoreService.getListFromCollection(collectionName).then((data) => {
-      products.value = data;
-      loading.value=false;
-
-    })
-  }
-  // const getRealTimeData = async () => {
-  //   loading.value = true;
-  //   firestoreService.getRealTime(collectionName, (data) => {
-  //     console.log('====================================');
-  //     console.log(data);
-  //     console.log('====================================');
+  // const getData = async () => {
+  //   loading.value=true;
+  //   await firestoreService.getListFromCollection(collectionName).then((data) => {
   //     products.value = data;
-  //     loading.value = false;
+  //     loading.value=false;
 
   //   })
   // }
+
+  // GET one data
+  const getProduct = async (docId:string):Promise<Product>=>{
+   const res:Product=await firestoreService.get(collectionName,docId)
+   return res;
+  }
+  const getRealTimeData = async () => {
+    loading.value = true;
+    firestoreService.getRealTime(collectionName, (data) => {
+      products.value = data;
+      loading.value = false;
+    })
+  }
   // post Data
   const postData = async (payload: ProductForm) => {
     const status = await firestoreService.create(collectionName, payload)
-    await getData();
+    // await getData();
     return status;
   }
   const updateData = async (payload: ProductForm|any, docId: string) => {
 
     const status = await firestoreService.update(collectionName, docId, payload)
-    await getData();
+    // await getData();
     return status;
   }
   const deleteData = async (id: string,imageUrl:string) => {
@@ -47,12 +49,12 @@ export const useProductsStore = defineStore('product', () => {
     console.log(id);
     console.log('====================================');
     await firestoreService.delete(collectionName, id)
-    await getData()
+    // await getData()
   }
   // Call getData
-  getData()
+  getRealTimeData()
 
 
-  return { products, loading, errors, productsCount, getData, updateData, postData, deleteData }
+  return { products, loading, errors, productsCount,getProduct, updateData, postData, deleteData }
 })
 

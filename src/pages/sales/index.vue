@@ -2,11 +2,8 @@
   <div>
     <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
 
-
-    <ViewCategoryModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
-
     <!-- Read -->
-    <DeleteCategoryModal @on-success="(e:string) => {
+    <DeleteSaleModal @on-success="(e:string) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
@@ -40,14 +37,11 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ sale.amountPaid }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ sale.change }}</td>
             <td class="flex gap-2">
-              <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-sm"
-                @click="openModal(sale, 'read')">
+              <NuxtLink :to="`/sales/${sale.id}`" class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-sm"
+                >
                 <i class="fa-regular fa-eye"></i>
-              </a>
-              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-sm"
-                @click="openModal(sale, 'edit')">
-                <i class="fa-regular fa-pen-to-square"></i>
-              </a>
+              </NuxtLink>
+
               <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-sm"
                 @click="openModal(sale, 'delete')">
                 <i class="fa-regular fa-trash-can"></i>
@@ -70,8 +64,7 @@
 <style scoped></style>
 
 <script setup lang="ts">
-import ViewCategoryModal from '~/components/actions/categories/ViewCategoryModal.vue';
-import DeleteCategoryModal from '~/components/actions/categories/DeleteCategoryModal.vue';
+import DeleteSaleModal from '~/components/actions/sales/DeleteSaleModal.vue';
 import { Sale } from '~/types';
 import { formatDateFrench } from '~/utils/constants';
 import { useSalesStore } from '~/stores/salesStore';

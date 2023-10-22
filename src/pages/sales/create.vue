@@ -47,10 +47,10 @@
           <v-select
             v-model="selectedProduct"
             class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-            required
             :options="productsStore.products"
             label="name"
-          ></v-select>
+          >
+          </v-select>
         </div>
         <div class="mb-4">
           <label for="selectedProduct" class="block text-black mb-2"
@@ -62,6 +62,14 @@
             required
             :options="clientsStore.clients"
             label="name"
+          >
+            <template #search="{ attributes, events }">
+              <input
+                class="vs__search"
+                :required="!formData.client"
+                v-bind="attributes"
+                v-on="events"
+              /> </template
           ></v-select>
         </div>
       </div>
@@ -240,11 +248,13 @@ const formData = ref<SaleForm>({
 const errors = ref<any>([]);
 
 function editQuantity(product: any) {
-    errors.value = [];
-  
+  errors.value = [];
+
   if (product.quantity > product.stock) {
-    product.quantity=0;
-    errors.value.push(`La quantité du produit ${product.name} à vendre est supérieur à la quantité en stock`)
+    product.quantity = 0;
+    errors.value.push(
+      `La quantité du produit ${product.name} à vendre est supérieur à la quantité en stock`
+    );
   }
 }
 // Listenin
@@ -333,10 +343,12 @@ function existProduct(productId: string) {
 
 const submitForm = async () => {
   loading.value = true;
-  await salesStore.postData(formData.value).then(async(status) => {
-
+  await salesStore.postData(formData.value).then(async (status) => {
     for (const product of formData.value.products) {
-    await productsStore.updateData({stock:product.stock-product.quantity},product.id)      
+      await productsStore.updateData(
+        { stock: product.stock - product.quantity },
+        product.id
+      );
     }
     if (status) {
       const state = {

@@ -32,32 +32,32 @@
                 <label for="product" class="block text-gray-700 font-bold mb-2"
                   >Nom du produit perdu:
                 </label>
-                <select
+                <v-select
                   v-model="formData.product"
-                  name="product"
-                  id="product"
-                  class="bg-transparent border rounded w-full text-gray-700 py-2 pl-3 pr-10 focus:outline-none focus:border-blue-500"
+                  class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
                   required
+                  :options="productStore.products"
+                  label="name"
+                  
                 >
-                  <option value="" disabled selected>
-                    Sélectionnez une option
-                  </option>
-                  <option
-                    v-for="(product, index) in productStore.products"
-                    :key="index"
-                    :value="product"
-                  >
-                    {{
-                      product.name +
-                      "(Prix d'achat: " +
-                      product.purchase_price +
-                      ")"
-                    }}
-                  </option>
-                </select>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <!-- Personnalisation de l'affichage des options -->
+                  <template #option="option:any">
+                    <div class="flex gap-2">
+                      <span>{{ option.name }}</span>
+                      <span class="text-green-500">({{ option.stock }})</span>
+                    </div>
+                  </template>
+                  <template  #search="{ attributes, events }">
+                    <input
+                      class="vs__search"
+                      :required="!formData.product"
+                      v-bind="attributes"
+                      v-on="events"
+                    />
+                  </template>
+                </v-select>
                 
+              </div>
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -67,15 +67,13 @@
                   <input
                     v-model="formData.quantity"
                     class="border rounded-md py-2 px-3 w-full"
-                    type="text"
+                    type="number"
                     id="quantity"
                     name="quantity"
                     placeholder="Quantité"
                     required
                   />
                 </div>
-               
-              </div>
               <div class="mb-4">
                 <label
                   class="block text-gray-700 text-sm font-bold mb-2"
@@ -101,13 +99,13 @@
                 class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2"
                 @click="$emit('onClose')"
               >
-              <i class="fa-solid fa-close"></i>  Fermer
+                <i class="fa-solid fa-close"></i> Fermer
               </a>
               <button
                 type="submit"
                 class="btn-primary text-white py-2 px-4 rounded-sm"
               >
-              <i class="fa-solid fa-save"></i>  Enregistrer
+                <i class="fa-solid fa-save"></i> Enregistrer
               </button>
             </div>
           </form>
@@ -118,25 +116,32 @@
 </template>
 
 <script setup lang="ts">
-
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+import { LossForm } from "~/types";
 const store = useLossesStore();
 const productStore = useProductsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
-const formData = ref({
+const formData = ref<LossForm>({
   product: null,
   quantity: null,
   description: "",
 }); // Champ de nom de catégorie
 
-
-
 const submitForm = async () => {
   loading.value = true;
-  await store.postData(formData.value).then((status) => {
+  await store.postData(formData.value).then(async(status) => {
     if (status) {
       emit("onClose");
-      emit("onSuccess", "Dépense ajoutée avec succès");
+      emit("onSuccess", "Perte ajoutée avec succès");
+      if (formData.value.product &&formData.value.quantity) {
+      await productStore.updateData(
+        { stock: formData.value.product.stock - formData.value.quantity },
+        formData.value.product.id
+      );        
+      }
+
       formData.value.product = null;
       formData.value.quantity = null;
       formData.value.description = "";

@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, setDoc, serverTimestamp, updateDoc, deleteDoc, getDoc, onSnapshot, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, doc, setDoc, serverTimestamp, updateDoc, deleteDoc, getDoc, onSnapshot, getDocs, query, limit, orderBy } from 'firebase/firestore';
 
 class FirestoreService {
     private db;
@@ -40,7 +40,7 @@ class FirestoreService {
     }
 
     // Obtenir un document unique
-    async get(collectionName: string, docId: string): Promise<Record<string, any> | null> {
+    async get(collectionName: string, docId: string): Promise<any> {
         const docRef = doc(this.db, collectionName, docId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -53,9 +53,11 @@ class FirestoreService {
     // Obtenir des mises à jour en temps réel pour une collection
      getRealTime(collectionName: string, callback: (data: any) => void) {
         const colRef = collection(this.db, collectionName);
-        const data:any = [];
-        const unsub=onSnapshot(colRef, (querySnapshot) => {
-            querySnapshot.forEach((doc) => {
+        const quer:any = query(colRef,orderBy("updatedAt"), limit(1000));
+
+        const unsub=onSnapshot(quer, (querySnapshot:any) => {
+            const data:any = [];
+            querySnapshot.forEach((doc:{id:string, data:any}) => {
                 data.push({ id: doc.id, ...doc.data() });
             });
             callback(data);
@@ -65,7 +67,7 @@ class FirestoreService {
 
     async getListFromCollection(collectionName: string) {
         const colRef = collection(this.db, collectionName);
-        const querySnapshot = await getDocs(colRef);
+        const querySnapshot = await getDocs(query(colRef,orderBy("updatedAt","desc"), limit(1000)));
     
         const dataList:any = [];
         querySnapshot.forEach((doc) => {

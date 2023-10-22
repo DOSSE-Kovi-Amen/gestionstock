@@ -280,6 +280,6 @@ const submitForm = async () => {
 
   setTimeout(() => {
     loading.value = false;
-  }, 15000);
+  }, 5000);
 };
 </script>
