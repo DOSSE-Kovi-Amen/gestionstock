@@ -23,7 +23,7 @@
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
 
-    <button @click="isOpenCreate = true" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
+    <button @click="isOpenCreate = true" class="py-2 p-4 rounded-lg shadow-xl btn-primary my-4 text-white"><i
         class="fa-solid fa-circle-plus"></i>
       Ajouter nouveau</button>
     <!-- Liste des users -->
@@ -32,10 +32,9 @@
       <Datatable v-if="!store.loading">
         <thead>
           <tr>
-            <th class="px-6 py-3 text-left text-sm font-bold">Nom du produit perdu</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
-            <th class="px-6 py-3 text-left text-sm font-bold">Prix d'achat</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Prix de vente</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">P.U vente</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Stock</th>            
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
@@ -43,20 +42,19 @@
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(product, index) in store.products" :key="index" :title="`Créé le ${formatDateFrench(product.createdAt)}\nModifié le ${formatDateFrench(product.updatedAt)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ product.purchase_price }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.selling_price }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
 
             <td class="flex gap-2">
-              <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-sm"
+              <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 @click="openModal(product, 'read')">
                 <i class="fa-regular fa-eye"></i>
               </a>
-              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-sm" 
+              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg" 
               @click="openModal(product, 'edit')">
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>
-              <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-sm"
+              <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
                 @click="openModal(product, 'delete')">
                 <i class="fa-regular fa-trash-can"></i>
               </a>

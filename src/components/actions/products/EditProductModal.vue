@@ -85,31 +85,29 @@
                     class="block text-gray-700 font-bold mb-2"
                     >Catégorie du produit</label
                   >
-                  <select
-                    v-model="formData.category"
-                    name="category"
-                    id="category"
-                    class="bg-transparent border rounded w-full text-gray-700 py-2 pl-3 pr-10 focus:outline-none focus:border-blue-500"
-                  >
-                    <option value="" disabled selected>
-                      Sélectionnez une catégorie
-                    </option>
-                    <option
-                      v-if="selectedData?.category"
-                      :value="selectedData?.category"
-                      selected
-                    >
-                      {{ selectedData?.category }}
-                    </option>
-
-                    <option
-                      v-for="(cat, index) in storeCat.categories"
-                      :key="index"
-                      :value="cat.name"
-                    >
-                      {{ cat.name }}
-                    </option>
-                  </select>
+                  <v-select
+                  v-model="formData.category"
+                  class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                  required
+                  :options="storeCat.categories"
+                  label="name"
+                >
+                  <!-- Personnalisation de l'affichage des options -->
+                  <template #option="option: any">
+                    <div class="flex gap-2">
+                      <span>{{ option.name }}</span>
+                    </div>
+                  </template>
+                  <template #search="{ attributes, events }">
+                    <input
+                      class="vs__search"
+                      :required="!formData.category"
+                      v-bind="attributes"
+                      v-on="events"
+                    />
+                  </template>
+                </v-select>
+                
                 </div>
               </div>
 
@@ -197,7 +195,8 @@
 <script setup lang="ts">
 import FirebaseStorageService from "~/services/FirebaseStorageService";
 import { Product, ProductForm } from "~/types";
-
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 const store = useProductsStore();
 const storeCat = useCategoriesStore();
 const emit = defineEmits(["onClose", "onSuccess"]);

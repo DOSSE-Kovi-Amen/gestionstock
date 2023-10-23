@@ -21,7 +21,7 @@
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
 
-    <button @click="isOpenCreate = true" class="py-2 p-4 shadow-xl btn-primary my-4 text-white"><i
+    <button @click="isOpenCreate = true" class="py-2 p-4 shadow-xl rounded-lg btn-primary my-4 text-white"><i
         class="fa-solid fa-circle-plus"></i>
       Ajouter nouveau</button>
     <!-- Liste des users -->
@@ -44,15 +44,15 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ spend.amount }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ spend.description }}</td>
             <td class="flex gap-2">
-              <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-sm"
+              <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 @click="openModal(spend, 'read')">
                 <i class="fa-regular fa-eye"></i>
               </a>
-              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-sm"
+              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg"
                 @click="openModal(spend, 'edit')">
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>
-              <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-sm"
+              <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
                 @click="openModal(spend, 'delete')">
                 <i class="fa-regular fa-trash-can"></i>
               </a>

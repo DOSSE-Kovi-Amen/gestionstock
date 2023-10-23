@@ -1,36 +1,36 @@
 import FirestoreService from "~/services/FirestoreService";
-import { Sale, SaleForm } from "~/types";
+import { Stock, StockForm } from "~/types";
 
-export const useSalesStore = defineStore('sale', () => {
-  const sales = ref<Sale[]>([]);
+export const useStocksStore = defineStore('stock', () => {
+  const stocks = ref<Stock[]>([]);
   const errors = ref<any>([]);
   const loading = ref(false);
   const firestoreService = new FirestoreService();
-  const collectionName = 'sales'
-  const salesCount = () => {
-    return sales.value.length
+  const collectionName = 'stocks'
+  const stocksCount = () => {
+    return stocks.value.length
   }
   // get Data
   const getData = async () => {
     loading.value = true;
     await firestoreService.getListFromCollection(collectionName).then((data) => {
-      sales.value = data;
+      stocks.value = data;
       loading.value = false;
     })
   }
   // GET one data
-  const getSale = async (docId: string): Promise<Sale> => {
-    const res: Sale = await firestoreService.get(collectionName, docId)
+  const getStock = async (docId: string): Promise<Stock> => {
+    const res: Stock = await firestoreService.get(collectionName, docId)
     return res;
   }
   // post Data
-  const postData = async (payload: SaleForm) => {
+  const postData = async (payload: StockForm) => {
     const status = await firestoreService.create(collectionName, payload)
     await getData();
     return status;
   }
 
-  const updateData = async (payload: SaleForm, docId: string) => {
+  const updateData = async (payload: StockForm, docId: string) => {
 
     const status = await firestoreService.update(collectionName, docId, payload)
     await getData();
@@ -48,6 +48,6 @@ export const useSalesStore = defineStore('sale', () => {
   getData()
 
 
-  return { sales, loading, errors, salesCount, getData,getSale, postData, updateData, deleteData }
+  return { stocks, loading, errors, stocksCount, getData,getStock, postData, updateData, deleteData }
 })
 

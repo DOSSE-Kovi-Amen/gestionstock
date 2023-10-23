@@ -84,23 +84,29 @@
                     class="block text-gray-700 font-bold mb-2"
                     >Catégorie (Optionnel)</label
                   >
-                  <select
+                  <v-select
                     v-model="formData.category"
-                    name="category"
-                    id="category"
-                    class="bg-transparent border rounded w-full text-gray-700 py-2 pl-3 pr-10 focus:outline-none focus:border-blue-500"
+                    class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                    required
+                    :options="storeCat.categories"
+                    label="name"
                   >
-                    <option value="" disabled selected>
-                      Sélectionnez une option
-                    </option>
-                    <option
-                      v-for="(cat, index) in storeCat.categories"
-                      :key="index"
-                      :value="cat.name"
-                    >
-                      {{ cat.name }}
-                    </option>
-                  </select>
+                    <!-- Personnalisation de l'affichage des options -->
+                    <template #option="option: any">
+                      <div class="flex gap-2">
+                        <span>{{ option.name }}</span>
+                      </div>
+                    </template>
+                    <template #search="{ attributes, events }">
+                      <input
+                        class="vs__search"
+                        :required="!formData.category"
+                        v-bind="attributes"
+                        v-on="events"
+                      />
+                    </template>
+                  </v-select>
+                  
                 </div>
               </div>
 
@@ -169,13 +175,13 @@
                 class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2"
                 @click="$emit('onClose')"
               >
-              <i class="fa-solid fa-close"></i> Fermer
+                <i class="fa-solid fa-close"></i> Fermer
               </a>
               <button
                 type="submit"
                 class="btn-primary text-white py-2 px-4 rounded-sm"
               >
-              <i class="fa-solid fa-save"></i>  Enregistrer
+                <i class="fa-solid fa-save"></i> Enregistrer
               </button>
             </div>
           </form>
@@ -188,7 +194,8 @@
 <script setup lang="ts">
 import FirebaseStorageService from "~/services/FirebaseStorageService";
 import { CategoryForm } from "~/types";
-
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 const store = useProductsStore();
 const storeCat = useCategoriesStore();
 const emit = defineEmits(["onClose", "onSuccess"]);

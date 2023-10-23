@@ -44,7 +44,7 @@ class FirestoreService {
         const docRef = doc(this.db, collectionName, docId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            return docSnap.data();
+            return {id:docSnap.id,...docSnap.data()};
         } else {
             return null;
         }

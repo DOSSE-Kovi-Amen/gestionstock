@@ -37,6 +37,7 @@
             <strong>Prix de vente:</strong> {{ selectedData?.selling_price }}
           </li>
           <li><strong>Stock:</strong> {{ selectedData?.stock }}</li>
+          <li><strong>Catégorie:</strong> {{ selectedData?.category.name }}</li>
           <li>
             <strong>Date de création:</strong>
             {{ formatDateFrench(selectedData?.createdAt) }}

@@ -9,7 +9,7 @@
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
 
     <div class="my-4">
-      <NuxtLink to="/sales/create" class="py-2 p-4 rounded-lg shadow-xl btn-primary text-white"><i
+      <NuxtLink to="/stocks/create" class="py-2 p-4 rounded-lg shadow-xl btn-primary text-white"><i
         class="fa-solid fa-circle-plus"></i>
       Ajouter nouveau</NuxtLink>
     </div>
@@ -20,30 +20,19 @@
         <thead>
           <tr>
             <th class="px-6 py-3 text-left text-sm font-bold">Date</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Montant total</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Remise</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Montant payé</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Reliquat</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Total nouveau stock</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(sale, index) in store.sales" :key="index" :title="`Créé le ${formatDateFrench(sale.createdAt)}\nModifié le ${formatDateFrench(sale.updatedAt)}}`">
-            <td class="px-6 py-4 whitespace-no-wrap">{{ formatDateFrench(sale.createdAt) }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.totalAmount }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.discount }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.amountPaid }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.change }}</td>
+          <tr v-for="(stock, index) in store.stocks" :key="index" :title="`Créé le ${formatDateFrench(stock.createdAt)}\nModifié le ${formatDateFrench(stock.updatedAt)}}`">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ formatDateFrench(stock.createdAt) }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ stock.totalNewStock }}</td>
             <td class="flex gap-2">
-              <NuxtLink :to="`/sales/${sale.id}`" class="p-0.5 px-2  text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
+              <NuxtLink :to="`/stocks/${stock.id}`" class="p-0.5 px-2  text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 >
                 <i class="fa-regular fa-eye"></i>
               </NuxtLink>
-
-              <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
-                @click="openModal(sale, 'delete')">
-                <i class="fa-regular fa-trash-can"></i>
-              </a>
 
             </td>
 
@@ -62,13 +51,12 @@
 <style scoped></style>
 
 <script setup lang="ts">
-import DeleteSaleModal from '~/components/actions/sales/DeleteSaleModal.vue';
-import { Sale } from '~/types';
+import { Stock } from '~/types';
 import { formatDateFrench } from '~/utils/constants';
-import { useSalesStore } from '~/stores/salesStore';
+import { useStocksStore } from '~/stores/stocksStore';
 
-const store = useSalesStore();
-const selectedData = ref<Sale>();
+const store = useStocksStore();
+const selectedData = ref<Stock>();
 const isOpenRead = ref(false);
 const isOpenDelete = ref(false);
 const showAlert = ref(false);
@@ -86,7 +74,7 @@ onMounted(() => {
     alertMessage.value= route.query.alertMessage;    
   }
 })
-const openModal = (data: Sale, action: String) => {
+const openModal = (data: Stock, action: String) => {
   selectedData.value = data
 
 
