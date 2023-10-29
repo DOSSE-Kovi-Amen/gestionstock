@@ -57,9 +57,9 @@
           <tr
             v-for="(loss, index) in store.losses"
             :key="index"
-            :title="`Créé le ${formatDateFrench(
+            :title="`Créé le ${frenchDate(
               loss.createdAt
-            )}\nModifié le ${formatDateFrench(loss.updatedAt)}}`"
+            )}\nModifié le ${frenchDate(loss.updatedAt)}}`"
           >
             <td class="px-6 py-4 whitespace-no-wrap">{{ loss.product.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ loss?.product.purchase_price }}</td>
@@ -97,7 +97,7 @@ import AddLossModal from "~/components/actions/losses/AddLossModal.vue";
 import ViewLossModal from "~/components/actions/losses/ViewLossModal.vue";
 import DeleteLossModal from "~/components/actions/losses/DeleteLossModal.vue";
 import { Loss } from "~/types";
-import { formatDateFrench } from "~/utils/constants";
+import { frenchDate } from "~/utils/constants";
 
 const store = useLossesStore();
 

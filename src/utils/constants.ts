@@ -2,38 +2,38 @@ import { Timestamp } from "firebase/firestore";
 
 // Export the api baseURL
 const prod = false;
-export const apiBaseURL = prod ? 'https://...' : 'http://hognekaba-test.us-west-2.elasticbeanstalk.com/';
+export const apiBaseURL = prod ? 'https://...' : 'http://localhost:4000';
 
 export const frenchDate=(dateStr:string)=> {
   const options :any= { year: 'numeric', month: 'long', day: 'numeric' };
   const date = new Date(dateStr);
   return date.toLocaleDateString("fr-FR", options);
 }
-export function formatDateFrench(timestamp:Timestamp) {
-  // Convertir le timestamp en une date JavaScript
-  const date = timestamp.toDate();
+// export function formatDateFrench(timestamp:Timestamp) {
+//   // Convertir le timestamp en une date JavaScript
+//   const date = timestamp.toDate();
 
-  // Options de formatage pour la date
-  const optionsDate:any = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
+//   // Options de formatage pour la date
+//   const optionsDate:any = {
+//     year: 'numeric',
+//     month: 'long',
+//     day: 'numeric',
+//   };
 
-  // Options de formatage pour l'heure
-  const optionsHeure:any = {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-  };
+//   // Options de formatage pour l'heure
+//   const optionsHeure:any = {
+//     hour: 'numeric',
+//     minute: 'numeric',
+//     second: 'numeric',
+//   };
 
-  // Formater la date en utilisant les options
-  const dateFormatee = date.toLocaleDateString('fr-FR', optionsDate);
-  const heureFormatee = date.toLocaleTimeString('fr-FR', optionsHeure);
+//   // Formater la date en utilisant les options
+//   const dateFormatee = date.toLocaleDateString('fr-FR', optionsDate);
+//   const heureFormatee = date.toLocaleTimeString('fr-FR', optionsHeure);
 
-  // Retourner la date et l'heure formatées
-  return `${dateFormatee} à ${heureFormatee}`;
-}
+//   // Retourner la date et l'heure formatées
+//   return `${dateFormatee} à ${heureFormatee}`;
+// }
 
 
 export const getFieldFromPointer=(pointer:any)=> {

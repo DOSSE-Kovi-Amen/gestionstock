@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal :is-open="isOpen" style="width: 1110px !important">
+    <Modal :is-open="isOpen">
       <div class="modal-content text-left">
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">

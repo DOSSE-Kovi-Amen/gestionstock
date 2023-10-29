@@ -69,6 +69,8 @@
                     class="border rounded-md py-2 px-3 w-full"
                     type="number"
                     id="quantity"
+                    min="0.25"
+                    step="0.25"
                     name="quantity"
                     placeholder="Quantité"
                     required

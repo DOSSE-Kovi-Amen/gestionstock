@@ -17,8 +17,8 @@
           <li><strong>Titre:</strong> {{ selectedData?.title }}</li>
           <li><strong>Montant:</strong> {{ selectedData?.amount }}</li>
           <li><strong>Description:</strong> {{ selectedData?.description }}</li>
-          <li><strong>Date de création:</strong> {{ formatDateFrench(selectedData?.createdAt) }}</li>
-          <li><strong>Date de modification:</strong> {{ formatDateFrench(selectedData?.updatedAt) }}</li>
+          <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.createdAt) }}</li>
+          <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.updatedAt) }}</li>
 
         </div>
 

@@ -28,8 +28,8 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(sale, index) in store.sales" :key="index" :title="`Créé le ${formatDateFrench(sale.createdAt)}\nModifié le ${formatDateFrench(sale.updatedAt)}}`">
-            <td class="px-6 py-4 whitespace-no-wrap">{{ formatDateFrench(sale.createdAt) }}</td>
+          <tr v-for="(sale, index) in store.sales" :key="index" :title="`Créé le ${frenchDate(sale.createdAt)}\nModifié le ${frenchDate(sale.updatedAt)}}`">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(sale.createdAt) }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ sale.totalAmount }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ sale.discount }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ sale.amountPaid }}</td>
@@ -64,7 +64,7 @@
 <script setup lang="ts">
 import DeleteSaleModal from '~/components/actions/sales/DeleteSaleModal.vue';
 import { Sale } from '~/types';
-import { formatDateFrench } from '~/utils/constants';
+import { frenchDate } from '~/utils/constants';
 import { useSalesStore } from '~/stores/salesStore';
 
 const store = useSalesStore();

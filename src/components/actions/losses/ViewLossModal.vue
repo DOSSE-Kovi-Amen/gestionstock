@@ -18,8 +18,8 @@
           <li><strong>Quantité:</strong> {{ selectedData?.quantity }}</li>
           <li v-if="selectedData"><strong>Montant total de la perte:</strong> {{ selectedData?.product.purchase_price*selectedData?.quantity }}</li>
           <li><strong>Description:</strong> {{ selectedData?.description }}</li>
-          <li><strong>Date de création:</strong> {{ formatDateFrench(selectedData?.createdAt) }}</li>
-          <li><strong>Date de modification:</strong> {{ formatDateFrench(selectedData?.updatedAt) }}</li>
+          <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.createdAt) }}</li>
+          <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.updatedAt) }}</li>
 
         </div>
 

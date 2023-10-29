@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(spend, index) in store.spends" :key="index" :title="`Créé le ${formatDateFrench(spend.createdAt)}\nModifié le ${formatDateFrench(spend.updatedAt)}}`">
+          <tr v-for="(spend, index) in store.spends" :key="index" :title="`Créé le ${frenchDate(spend.createdAt)}\nModifié le ${frenchDate(spend.updatedAt)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ spend.title }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ spend.amount }}</td>
@@ -79,7 +79,7 @@ import ViewSpendModal from '~/components/actions/spends/ViewSpendModal.vue';
 import EditSpendModal from '~/components/actions/spends/EditSpendModal.vue';
 import DeleteSpendModal from '~/components/actions/spends/DeleteSpendModal.vue';
 import { Spend } from '~/types';
-import { formatDateFrench } from '~/utils/constants';
+import { frenchDate } from '~/utils/constants';
 
 
 

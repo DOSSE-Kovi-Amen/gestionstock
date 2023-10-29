@@ -20,7 +20,7 @@
         <div v-else>
           <div class="modal-body p-5">
             <!-- Ajoutez ici le contenu du modal -->
-            <p>{{ `Supprimer la vente du ${formatDateFrench(selectedData?.createdAt)} du client
+            <p>{{ `Supprimer la vente du ${frenchDate(selectedData?.createdAt)} du client
                           ${selectedData?.client.name} ? Cela est irréversible` }}</p>
           </div>
 

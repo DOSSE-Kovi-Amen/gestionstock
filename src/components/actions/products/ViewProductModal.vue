@@ -40,11 +40,11 @@
           <li><strong>Catégorie:</strong> {{ selectedData?.category.name }}</li>
           <li>
             <strong>Date de création:</strong>
-            {{ formatDateFrench(selectedData?.createdAt) }}
+            {{ frenchDate(selectedData?.createdAt) }}
           </li>
           <li>
             <strong>Date de modification:</strong>
-            {{ formatDateFrench(selectedData?.updatedAt) }}
+            {{ frenchDate(selectedData?.updatedAt) }}
           </li>
         </div>
 

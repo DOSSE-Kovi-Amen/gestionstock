@@ -21,7 +21,7 @@
     <div class="rounded-xl p-6 bg-white  shadow-xl mt-5">
         <h1>Statistiques</h1>
       <!-- <Card title="Utilisateurs" count="0" class="h-40 md:h-96 bg-card-4 text-white" /> -->
-
+        <Chart/>
     </div>
 
 

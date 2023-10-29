@@ -26,11 +26,11 @@
           <li><strong>Description:</strong> {{ selectedData?.description }}</li>
           <li>
             <strong>Date de création:</strong>
-            {{ formatDateFrench(selectedData?.createdAt) }}
+            {{ frenchDate(selectedData?.createdAt) }}
           </li>
           <li>
             <strong>Date de modification:</strong>
-            {{ formatDateFrench(selectedData?.updatedAt) }}
+            {{ frenchDate(selectedData?.updatedAt) }}
           </li>
         </div>
 

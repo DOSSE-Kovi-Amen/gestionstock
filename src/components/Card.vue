@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3">
+  <div class="py-6 px-4">
     <div class="flex gap-5 mb-4 w-full">
       <div class="bg-white bg-opacity-50 text-white rounded-full h-10 w-10 flex items-center justify-center">
         <!-- Icône d'utilisateur ou autre symbole -->

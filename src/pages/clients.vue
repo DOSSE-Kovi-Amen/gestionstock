@@ -65,9 +65,9 @@
           <tr
             v-for="(client, index) in store.clients"
             :key="index"
-            :title="`Créé le ${formatDateFrench(
+            :title="`Créé le ${frenchDate(
               client.createdAt
-            )}\nModifié le ${formatDateFrench(client.updatedAt)}}`"
+            )}\nModifié le ${frenchDate(client.updatedAt)}}`"
           >
             <td class="px-6 py-4 whitespace-no-wrap">{{ client.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ client.telephone }}</td>
@@ -109,7 +109,7 @@ import ViewClientModal from "~/components/actions/clients/ViewClientModal.vue";
 import EditClientModal from "~/components/actions/clients/EditClientModal.vue";
 import DeleteClientModal from "~/components/actions/clients/DeleteClientModal.vue";
 import { Client } from "~/types";
-import { formatDateFrench } from "~/utils/constants";
+import { frenchDate } from "~/utils/constants";
 
 const store = useClientsStore();
 

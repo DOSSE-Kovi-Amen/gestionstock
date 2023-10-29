@@ -65,9 +65,9 @@
           <tr
             v-for="(supplier, index) in store.suppliers"
             :key="index"
-            :title="`Créé le ${formatDateFrench(
+            :title="`Créé le ${frenchDate(
               supplier.createdAt
-            )}\nModifié le ${formatDateFrench(supplier.updatedAt)}}`"
+            )}\nModifié le ${frenchDate(supplier.updatedAt)}}`"
           >
             <td class="px-6 py-4 whitespace-no-wrap">{{ supplier.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ supplier.telephone }}</td>
@@ -109,7 +109,7 @@ import ViewSupplierModal from "~/components/actions/suppliers/ViewSupplierModal.
 import EditSupplierModal from "~/components/actions/suppliers/EditSupplierModal.vue";
 import DeleteSupplierModal from "~/components/actions/suppliers/DeleteSupplierModal.vue";
 import { Supplier } from "~/types";
-import { formatDateFrench } from "~/utils/constants";
+import { frenchDate } from "~/utils/constants";
 
 const store = useSuppliersStore();
 

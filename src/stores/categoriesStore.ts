@@ -13,23 +13,64 @@ export const useCategoriesStore = defineStore('category', () => {
   // get Data
   const getData = async () => {
     loading.value = true;
-    await firestoreService.getListFromCollection(collectionName).then((data) => {
-      categories.value = data;
-      loading.value = false;
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/categories`, {
+      // headers: headers
     })
+    if (error.value?.statusCode == 401) {
+      // await useAuthStore().logout();
+    }
+    console.log('====================================');
+    console.log(data.value);
+    console.log('====================================');
+    categories.value = data.value;
+    console.log('====================================');
+    console.log(categories.value);
+    console.log('====================================');
+    if(data.value){
+      loading.value=false
+    }
   }
   // post Data
   const postData = async (payload: CategoryForm) => {
-    const status = await firestoreService.create(collectionName, payload)
-    await getData();
-    return status;
+    errors.value=[];
+    const { data, error } = await useFetch(`${apiBaseURL}/users/create`, {
+      method: 'POST',
+      headers: headers,
+      body: payload
+    })
+
+    if (error.value?.statusCode == 401) {
+       useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      errors.value= error.value?.data.errors;
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
   }
 
-  const updateData = async (payload: CategoryForm, docId:string) => {
+  const updateData = async (payload: CategoryForm, id:string) => {
+    errors.value=[];
+    const { data, error } = await useFetch(`${apiBaseURL}/categories/${id}`, {
+      method: 'PATCH',
+      // headers: headers,
+      body: payload
+    })
 
-    const status = await firestoreService.update(collectionName, docId, payload)
-    await getData();
-    return status;
+    if (error.value?.statusCode == 401) {
+       useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      errors.value= error.value?.data.errors;
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
   }
 
   const deleteData = async (id: string) => {

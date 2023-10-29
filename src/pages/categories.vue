@@ -37,7 +37,7 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(category, index) in store.categories" :key="index" :title="`Créé le ${formatDateFrench(category.createdAt)}\nModifié le ${formatDateFrench(category.updatedAt)}}`">
+          <tr v-for="(category, index) in store.categories" :key="index" :title="`Créé le ${frenchDate(category.createdAt)}\nModifié le ${frenchDate(category.updatedAt)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.slug }}</td>
@@ -77,7 +77,7 @@ import ViewCategoryModal from '~/components/actions/categories/ViewCategoryModal
 import EditCategoryModal from '~/components/actions/categories/EditCategoryModal.vue';
 import DeleteCategoryModal from '~/components/actions/categories/DeleteCategoryModal.vue';
 import { Category } from '~/types';
-import { formatDateFrench } from '~/utils/constants';
+import { frenchDate } from '~/utils/constants';
 
 
 

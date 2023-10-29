@@ -33,6 +33,12 @@
             <v-select v-model="selectedProduct"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
               :options="productsStore.products" label="name" placeholder="Choisir un produit">
+              <template #option="option:any">
+                <div class="flex gap-2">
+                  <span>{{ option.name }}</span>
+                  <span class="text-green-500">({{ option.stock }})</span>
+                </div>
+              </template>
             </v-select>
           </div>
           <div class="mb-1">
@@ -105,12 +111,14 @@
               <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
                 <tr v-for="(product, index) in formData.stockDetails" :key="index">
                   <td class="px-6 py-4 whitespace-no-wrap">
-                    {{ product.name + "(" + product.stock + ")" }}
+                    {{ product.name }}
+                    <span class="text-green-500">({{ product.stock }})</span>
+
                   </td>
 
 
                   <td class="px-6 py-4 whitespace-no-wrap">
-                    <input type="number" v-model="formData.stockDetails[index].quantity"
+                    <input type="number" min="0.25" step="0.25" v-model="formData.stockDetails[index].quantity"
                       class="border border-gray-300 rounded-lg py-1 px-1 block appearance-none leading-normal focus:outline-none focus:ring focus:border-blue-500"
                       required />
                   </td>
