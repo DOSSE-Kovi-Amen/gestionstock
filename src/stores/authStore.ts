@@ -2,8 +2,10 @@ import { User, type authLogin } from "~/types/users";
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>();
+  const errors=ref<any|null>([])
   const isAuth = ref(false);
   const access_token = ref("");
+  const loading= ref(false);
 
   const authUser = localStorage.getItem('auth_user');
   const authToken = localStorage.getItem('access_token');
@@ -21,8 +23,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const signin = async (payload: authLogin): Promise<boolean> => {
-
-    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/auth/login`, {
+    loading.value=true
+    const { data, pending, error, refresh }:any = await useFetch(`${apiBaseURL}/auth/login`, {
       method: 'POST',
       headers: {
         Accept: "*/*",
@@ -32,19 +34,40 @@ export const useAuthStore = defineStore('auth', () => {
     })
 
     if (error.value?.statusCode == 401) {
+      errors.value.push("Erreur d'authentification")
+      loading.value = false
+      return false;
+
+    }
+
+    if (error.value?.statusCode == 404) {
+      errors.value=error.value.data.message
+      loading.value = false
+      return false;
+
+    }
+
+    if (error.value?.statusCode == 400) {
+      errors.value=error.value.data.message
+      loading.value = false
       return false;
     }
 
-
+    console.log('====================================');
+    console.log(data.value);
+    console.log('====================================');
 
     if (data.value) {
-      localStorage.setItem('access_token', data.value.data.access_token);
-      localStorage.setItem('auth_user', JSON.stringify(data.value.data.user));
+      localStorage.setItem('access_token', data.value.access_token);
+      localStorage.setItem('auth_user', JSON.stringify(data.value.user));
       isAuth.value = true;
-      access_token.value = data.value.data.access_token;
-      user.value = data.value?.data.user;
+      access_token.value = data.value.access_token;
+      user.value = data.value?.user;
+      loading.value = false
+      return true;
     }
     return true;
+
 
   }
 
@@ -56,7 +79,7 @@ export const useAuthStore = defineStore('auth', () => {
     useRouter().push({path:"/login",query:{sessionExpired: 'true'}})
   }
 
-  return { user, access_token, signin, isAuth, logout }
+  return { user, access_token,errors,loading, signin, isAuth, logout }
 
 
 })

@@ -1,6 +1,5 @@
 export interface authLogin {
-  email?: string;
-  username?: string;
+  login: string;
   password: string;
 }
 // types/userList.ts

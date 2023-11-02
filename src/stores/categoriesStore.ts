@@ -1,12 +1,21 @@
-import FirestoreService from "~/services/FirestoreService";
 import { Category, CategoryForm } from "~/types";
 
 export const useCategoriesStore = defineStore('category', () => {
   const categories = ref<Category[]>([]);
   const errors = ref<any>([]);
   const loading = ref(false);
-  const firestoreService = new FirestoreService();
   const collectionName = 'categories'
+  const authToken = ref("");
+ 
+  authToken.value = localStorage.getItem('access_token') ?? ""
+
+  const headers = {
+    Accept: "*/*",
+    "Content-type": "application/json",
+    'Authorization': `Bearer ${authToken.value}`, // Include the Bearer token
+
+  }
+
   const categoriesCount = () => {
     return categories.value.length
   }
@@ -14,10 +23,10 @@ export const useCategoriesStore = defineStore('category', () => {
   const getData = async () => {
     loading.value = true;
     const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/categories`, {
-      // headers: headers
+      headers: headers
     })
     if (error.value?.statusCode == 401) {
-      // await useAuthStore().logout();
+      await useAuthStore().logout();
     }
     console.log('====================================');
     console.log(data.value);
@@ -26,24 +35,24 @@ export const useCategoriesStore = defineStore('category', () => {
     console.log('====================================');
     console.log(categories.value);
     console.log('====================================');
-    if(data.value){
-      loading.value=false
+    if (data.value) {
+      loading.value = false
     }
   }
   // post Data
   const postData = async (payload: CategoryForm) => {
-    errors.value=[];
-    const { data, error } = await useFetch(`${apiBaseURL}/users/create`, {
-      method: 'POST',
+    errors.value = [];
+    const { data, error } = await useFetch(`${apiBaseURL}/categories`, {
       headers: headers,
+      method: 'POST',
       body: payload
     })
 
     if (error.value?.statusCode == 401) {
-       useAuthStore().logout();
+      useAuthStore().logout();
     }
     if (error.value?.statusCode == 400) {
-      errors.value= error.value?.data.errors;
+      errors.value = error.value?.data.message;
     }
     if (data.value) {
       await getData()
@@ -52,19 +61,19 @@ export const useCategoriesStore = defineStore('category', () => {
     }
   }
 
-  const updateData = async (payload: CategoryForm, id:string) => {
-    errors.value=[];
+  const updateData = async (payload: CategoryForm, id: string) => {
+    errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/categories/${id}`, {
       method: 'PATCH',
-      // headers: headers,
+      headers: headers,
       body: payload
     })
 
     if (error.value?.statusCode == 401) {
-       useAuthStore().logout();
+      useAuthStore().logout();
     }
     if (error.value?.statusCode == 400) {
-      errors.value= error.value?.data.errors;
+      errors.value = error.value?.data.errors;
     }
     if (data.value) {
       await getData()
@@ -74,10 +83,10 @@ export const useCategoriesStore = defineStore('category', () => {
   }
 
   const deleteData = async (id: string) => {
-    console.log('===============id=====================');
-    console.log(id);
-    console.log('====================================');
-    await firestoreService.delete(collectionName, id)
+    const { data, error } = await useFetch(`${apiBaseURL}/categories/${id}`, {
+      method: 'DELETE',
+      headers: headers,
+    })
     await getData()
   }
   // Call getData

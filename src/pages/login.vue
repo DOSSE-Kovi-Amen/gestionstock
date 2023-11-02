@@ -5,7 +5,7 @@
       <form @submit.prevent="signin">
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="emailOrUsername">Email :</label>
-          <input v-model="user.emailOrUsername" class="border rounded-md py-2 px-3 w-full" type="text"
+          <input v-model="user.login" class="border rounded-md py-2 px-3 w-full" type="text"
             id="emailOrUsername" name="emailOrUsername" placeholder="Votre email ou pseudo" required />
         </div>
         <div class="mb-4">
@@ -14,14 +14,14 @@
             name="password" placeholder="Votre mot de passe" required />
         </div>
         <div class="flex justify-center text-center">
-          <button v-if="!loading" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full"
+          <button v-if="!auth.loading" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full"
             type="submit">
             Connexion
           </button>
           <Spinner class="h-8" v-else />
 
         </div>
-        <p class="text-red-500 text-center mt-1">{{ error }}</p>
+        <p  v-for="(error, index) in auth.errors" :key="index" class="text-red-500 text-center mt-1">{{ error }}</p>
 
       </form>
     </div>
@@ -29,15 +29,10 @@
 </template>
 
 <script setup lang="ts">
-const loading: Ref<boolean> = ref(false);
 
 const user = {
-  emailOrUsername: "",
+  login: "",
   password: ""
-}
-const validation = {
-  required: "Credentials required!",
-  invalidCreds: "Credentials provided does not match to our records!"
 }
 
 const error: Ref<string> = ref("");
@@ -59,30 +54,20 @@ onMounted(() => {
 })
 const signin = async () => {
   let creds: any = {}
-  if (user.emailOrUsername != "" && user.password != "") {
-    loading.value = true;
-    // Test if emailOrUsername provided is a valid email or not 
-    if (isValidEmail(user.emailOrUsername)) {
-      creds = { email: user.emailOrUsername, password: user.password }
-    } else {
-      creds = { username: user.emailOrUsername, password: user.password }
-    }
+  if (user.login != "" && user.password != "") {
+
+      creds = { login: user.login, password: user.password }
+    
     // Send data to api
     auth.signin(creds).then((status) => {
-      console.log('====================================');
-      console.log(status);
-      console.log('====================================');
       if (status) {
         router.replace("/");
-
       } else {
-        error.value = validation.invalidCreds
+        // error.value = validation.invalidCreds
       }
-      loading.value = false;
-
     })
   } else {
-    error.value = validation.required
+    // error.value = validation.required
   }
 };
 
