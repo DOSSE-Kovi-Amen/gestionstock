@@ -6,7 +6,6 @@ export interface Stock {
     supplier: Supplier;
     stockDetails: StockDetails[];
     totalNewStock: number;
-    authorId: string;
     createdAt: any;
     updatedAt: any;
 }
@@ -23,6 +22,6 @@ export interface StockDetails {
     description: string; // Description du produit
     stock: number; // Stock disponible
     quantity:number;
-    category: Category|any; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
+    categoryId: string; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
     imageUrl: string; // URL de l'image du produit
 }

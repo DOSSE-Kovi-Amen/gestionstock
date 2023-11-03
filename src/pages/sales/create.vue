@@ -23,7 +23,7 @@
         {{ error }} :
       </p>
     </div>
-
+ 
       <div class="flex flex-row gap-2 mb-2">
         <button @click="addAllProducts()" class="py-2 p-4 rounded-lg shadow-xl bg-blue-400 hover:bg-blue-500 text-white">
           <i class="fa-solid fa-check"></i> Tout sélectionner
@@ -35,7 +35,7 @@
           <i class="fa-solid fa-user"></i> Ajouter client
         </button>
       </div>
-
+      {{ formData }}
       <form @submit.prevent="submitForm">
         <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-3">
           <div class="mb-1">
@@ -43,7 +43,8 @@
           </label> -->
             <v-select v-model="selectedProduct"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-              :options="productsStore.products" label="name" placeholder="Choisir un produit">
+              :options="productsStore.products"
+              label="name" placeholder="Choisir un produit">
             </v-select>
           </div>
           <div class="mb-1">
@@ -51,7 +52,10 @@
           </label> -->
             <v-select v-model="formData.client" placeholder="Choisir un client"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500" required
-              :options="clientsStore.clients" label="name">
+              :options="clientsStore.clients"
+              :reduce="(option:any) => option.id"
+
+              label="name">
               <template #search="{ attributes, events }:any">
                 <input class="vs__search" :required="!formData.client" v-bind="attributes" v-on="events" />
               </template></v-select>
@@ -86,7 +90,7 @@
                   'bg-gray-200 cursor-not-allowed':
                     formData.saleDetails.length === 0,
                   'bg-white': formData.saleDetails.length !== 0,
-                }" class="border rounded-md py-1 px-3 w-full" type="text" id="discount" name="discount"
+                }" class="border rounded-md py-1 px-3 w-full" type="number" id="discount" name="discount"
                   placeholder="Remise" required :disabled="formData.saleDetails.length === 0" />
               </div>
               <div class="mb-4">
@@ -95,7 +99,7 @@
                   'bg-gray-200 cursor-not-allowed':
                     formData.saleDetails.length === 0,
                   'bg-white': formData.saleDetails.length !== 0,
-                }" class="border rounded-md py-1 px-3 w-full" type="text" id="amountPaid" name="amountPaid"
+                }" class="border rounded-md py-1 px-3 w-full" type="number" id="amountPaid" name="amountPaid"
                   placeholder="Montant reçu" :disabled="formData.saleDetails.length === 0" required />
               </div>
             </div>

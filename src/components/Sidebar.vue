@@ -144,7 +144,7 @@
           src="https://images.unsplash.com/photo-1687360440984-3a0d7cfde903?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
           alt="" srcset="">
         <span :class="{ 'hidden': !isSidebarOpen }" class="mt-2 mx-2 text-white font-semibold">{{
-          `${auth.user?.last_name}` }}</span>
+          `${auth.user?.name}` }}</span>
 
       </button>
 

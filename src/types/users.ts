@@ -5,6 +5,7 @@ export interface authLogin {
 // types/userList.ts
 export interface User {
   id: string;
+  name:string;
   username: string;
   first_name: string;
   middle_name: string | null;

@@ -35,6 +35,6 @@ export interface SaleDetails {
     selling_price: number; // Prix de vente du produit
     stock: number; // Stock disponible
     quantity:number;
-    category: Category|any; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
+    categoryId: string; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
     imageUrl: string; // URL de l'image du produit
 }

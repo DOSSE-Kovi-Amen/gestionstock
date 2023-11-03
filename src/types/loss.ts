@@ -2,7 +2,7 @@ import { Product } from "./product";
 
 export interface Loss {
     id:string;
-    product:Product;
+    product:string;
     quantity:number;
     description: string;
     createdAt: any;

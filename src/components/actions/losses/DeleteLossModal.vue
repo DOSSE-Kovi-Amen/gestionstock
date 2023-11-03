@@ -19,9 +19,9 @@
         </div>
 
         <div v-else>
-          <div class="modal-body p-5">
+          <div v-if="selectedData" class="modal-body p-5">
             <!-- Ajoutez ici le contenu du modal -->
-            <p>{{ `Supprimer la perte de ${selectedData?.product.name} ?` }}</p>
+            <p>{{ `Supprimer la perte de ${JSON.parse(selectedData?.product).name} ?` }}</p>
           </div>
 
           <!-- Pied du modal -->
@@ -65,14 +65,7 @@ const deleteData = async (id: string, loss:Loss|any) => {
   loading.value=true;
   store.deleteData(id).then(async() => {
     loading.value=false;
-    productStore.getProduct(loss.product.id).then(async(product) => {
-    await productStore.updateData(
-        { stock: product.stock + loss.quantity },
-        loss.product.id
-      );
-
-    })
-
+    productStore.getData();
     emit('onClose')
     emit('onSuccess',"Perte supprimée avec succès")
   })

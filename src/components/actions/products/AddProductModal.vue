@@ -27,6 +27,7 @@
               style="height: 85vh"
               class="modal-body pb-16 p-5 overflow-y-auto"
             >
+            {{ formData }}
               <!-- Ajoutez ici le contenu du modal -->
               <div
                 v-if="store.errors && store.errors.length != 0"
@@ -96,10 +97,11 @@
                     >Catégorie (Optionnel)</label
                   >
                   <v-select
-                    v-model="formData.category"
+                    v-model="formData.categoryId"
                     class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
                     required
                     :options="storeCat.categories"
+                    :reduce="(option:any) => option.id"
                     label="name"
                   >
                     <!-- Personnalisation de l'affichage des options -->
@@ -111,7 +113,7 @@
                     <template #search="{ attributes, events }:any">
                       <input
                         class="vs__search"
-                        :required="!formData.category"
+                        :required="!formData.categoryId"
                         v-bind="attributes"
                         v-on="events"
                       />
@@ -217,8 +219,8 @@ const formData = ref({
   purchase_price: null, // Prix d'achat du produit
   selling_price: null, // Prix du produit
   stock: null, // Stock disponible
-  category: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-  imageUrl: "",
+  categoryId: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
+  imageUrl: null,
 }); // Champ de nom de catégorie
 const storageService = new FirebaseStorageService();
 
@@ -242,6 +244,7 @@ const handleImageChange = (event: any) => {
   }
 };
 const submitForm = async () => {
+
   loading.value = true;
   // Soumettre le formulaire avec l'image à Firebase Storage
   if (imageFile.value) {
@@ -258,7 +261,7 @@ const submitForm = async () => {
       emit("onClose");
       emit("onSuccess", "Produit ajouté avec succès");
       // reset data
-      formData.value.category = "";
+      formData.value.categoryId = "";
       formData.value.description = "";
       formData.value.imageUrl = "";
       formData.value.name = "";
