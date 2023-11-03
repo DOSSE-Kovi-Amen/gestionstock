@@ -27,6 +27,18 @@
               style="height: 70vh"
               class="modal-body pb-16 p-5 overflow-y-auto"
             >
+            <div
+            v-if="store.errors && store.errors.length != 0"
+            class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
+          >
+            <p
+              v-for="(error, index) in store.errors"
+              :key="index"
+              class="font-semibold my-1"
+            >
+              {{ error }} :
+            </p>
+          </div>
               <!-- Ajoutez ici le contenu du modal -->
               <div class="mb-4">
                 <label for="product" class="block text-gray-700 font-bold mb-2"
@@ -47,7 +59,7 @@
                       <span class="text-green-500">({{ option.stock }})</span>
                     </div>
                   </template>
-                  <template  #search="{ attributes, events }">
+                  <template  #search="{ attributes, events }:any">
                     <input
                       class="vs__search"
                       :required="!formData.product"

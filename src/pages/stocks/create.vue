@@ -12,7 +12,18 @@
     </div>
     <div v-else>
 
-
+      <div
+      v-if="stocksStore.errors && stocksStore.errors.length != 0"
+      class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
+    >
+      <p
+        v-for="(error, index) in stocksStore.errors"
+        :key="index"
+        class="font-semibold my-1"
+      >
+        {{ error }} :
+      </p>
+    </div>
       <div class="flex flex-row gap-2 mb-2">
         <button @click="addAllProducts()" class="py-2 p-4 rounded-lg shadow-xl bg-blue-400 hover:bg-blue-500 text-white">
           <i class="fa-solid fa-check"></i> Tout sélectionner
@@ -47,7 +58,7 @@
             <v-select v-model="formData.supplier" placeholder="Choisir un fournisseur"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500" required
               :options="supplierStore.suppliers" label="name">
-              <template #search="{ attributes, events }">
+              <template #search="{ attributes, events }:any">
                 <input class="vs__search" :required="!formData.supplier" v-bind="attributes" v-on="events" />
               </template></v-select>
           </div>

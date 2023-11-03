@@ -22,9 +22,10 @@
 
         <div v-else>
           <form @submit.prevent="submitForm">
+            {{ formData }}
             <!-- Contenu du modal -->
             <div
-              style="height: 30vh"
+              style="height: 50vh"
               class="modal-body pb-16 p-5 overflow-y-auto"
             >
               <!-- Ajoutez ici le contenu du modal -->
@@ -37,12 +38,10 @@
                   :key="index"
                   class="font-semibold my-1"
                 >
-                  {{ getFieldFromPointer(error.source.pointer) }} :
-                  {{ error.detail }}
+                  {{ error }} :
                 </p>
               </div>
               <div></div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -78,8 +77,7 @@
                   />
                 </div>
               </div>
-            </div>
-
+           
             <!-- Pied du modal -->
             <div
               class="absolute bg-gray-100 w-full flex justify-end bottom-0 p-4"
@@ -112,11 +110,7 @@ const formData = ref({
   name: "",
   slug: "",
 }); // Champ de nom de catégorie
-const formDataSlug = ref(""); // Champ de slug
 function updateSlug() {
-  console.log("====================================");
-  console.log();
-  console.log("====================================");
   // Mettez en forme le champ de slug en fonction du nom de catégorie
   formData.value.slug = formData.value.name
     .trim() // Supprimez les espaces avant et après
@@ -130,6 +124,9 @@ function updateSlug() {
 
 const submitForm = async () => {
   loading.value = true;
+  console.log("====================================");
+  console.log(formData);
+  console.log("====================================");
   await store.postData(formData.value).then((status) => {
     if (status) {
       emit("onClose");
@@ -137,9 +134,6 @@ const submitForm = async () => {
       formData.value.name = "";
       formData.value.slug = "";
     }
-    // emit('onClose')
-    // emit('onSuccess', "Catégorie ajoutée avec succès")
-
     loading.value = false;
   });
   setTimeout(() => {

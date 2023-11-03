@@ -1,60 +1,102 @@
-import FirestoreService from "~/services/FirestoreService";
 import { Product, ProductForm } from "~/types";
 
 export const useProductsStore = defineStore('product', () => {
   const products = ref<Product[]>([]);
   const errors = ref<any>([]);
   const loading = ref(false);
-  const firestoreService = new FirestoreService();
-  const collectionName = 'products'
+  const authToken = ref("");
+ 
+  authToken.value = localStorage.getItem('access_token') ?? ""
+
+  const headers = {
+    Accept: "*/*",
+    "Content-type": "application/json",
+    'Authorization': `Bearer ${authToken.value}`, // Include the Bearer token
+
+  }
+
   const productsCount = () => {
     return products.value.length
   }
   // get Data
-  // const getData = async () => {
-  //   loading.value=true;
-  //   await firestoreService.getListFromCollection(collectionName).then((data) => {
-  //     products.value = data;
-  //     loading.value=false;
-
-  //   })
-  // }
-
-  // GET one data
-  const getProduct = async (docId:string):Promise<Product>=>{
-   const res:Product=await firestoreService.get(collectionName,docId)
-   return res;
-  }
-  const getRealTimeData = async () => {
+  const getData = async () => {
     loading.value = true;
-    firestoreService.getRealTime(collectionName, (data) => {
-      products.value = data;
-      loading.value = false;
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/products`, {
+      headers: headers
     })
+    if (error.value?.statusCode == 401) {
+      await useAuthStore().logout();
+    }
+
+    products.value = data.value;
+    console.log('=============dta=======================');
+    console.log(products.value);
+    console.log('====================================');
+    if (data.value) {
+      loading.value = false
+    }
   }
   // post Data
   const postData = async (payload: ProductForm) => {
-    const status = await firestoreService.create(collectionName, payload)
-    // await getData();
-    return status;
-  }
-  const updateData = async (payload: ProductForm|any, docId: string) => {
-
-    const status = await firestoreService.update(collectionName, docId, payload)
-    // await getData();
-    return status;
-  }
-  const deleteData = async (id: string,imageUrl:string) => {
-    console.log('===============id=====================');
-    console.log(id);
+    errors.value = [];
+    console.log('================post====================');
+    console.log(payload);
     console.log('====================================');
-    await firestoreService.delete(collectionName, id)
-    // await getData()
+    const { data, error } = await useFetch(`${apiBaseURL}/products`, {
+      headers: headers,
+      method: 'POST',
+      body: {...payload}
+    })
+
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    console.log('====================================');
+    console.log(error.value?.message);
+    console.log('====================================');
+    if (error.value?.statusCode == 400) {
+      errors.value = error.value?.data.message;
+    
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
+  }
+
+  const updateData = async (payload: ProductForm, id: string) => {
+    errors.value = [];
+    const { data, error } = await useFetch(`${apiBaseURL}/products/${id}`, {
+      method: 'PATCH',
+      headers: headers,
+      body: payload
+    })
+
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      errors.value = error.value?.data.errors;
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
+  }
+
+  const deleteData = async (id: string) => {
+    const { data, error } = await useFetch(`${apiBaseURL}/products/${id}`, {
+      method: 'DELETE',
+      headers: headers,
+    })
+    await getData()
   }
   // Call getData
-  getRealTimeData()
+  getData()
 
 
-  return { products, loading, errors, productsCount,getProduct, updateData, postData, deleteData }
+  return { products, loading, errors, productsCount, getData, postData, updateData, deleteData }
 })
 

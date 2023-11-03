@@ -80,7 +80,6 @@ import { Category } from '~/types';
 import { frenchDate } from '~/utils/constants';
 
 
-
 const store = useCategoriesStore();
 
 const selectedData = ref<Category>();

@@ -11,7 +11,18 @@
       <Spinner class="h-12" />
     </div>
     <div v-else>
-
+      <div
+      v-if="salesStore.errors && salesStore.errors.length != 0"
+      class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
+    >
+      <p
+        v-for="(error, index) in salesStore.errors"
+        :key="index"
+        class="font-semibold my-1"
+      >
+        {{ error }} :
+      </p>
+    </div>
 
       <div class="flex flex-row gap-2 mb-2">
         <button @click="addAllProducts()" class="py-2 p-4 rounded-lg shadow-xl bg-blue-400 hover:bg-blue-500 text-white">
@@ -41,7 +52,7 @@
             <v-select v-model="formData.client" placeholder="Choisir un client"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500" required
               :options="clientsStore.clients" label="name">
-              <template #search="{ attributes, events }">
+              <template #search="{ attributes, events }:any">
                 <input class="vs__search" :required="!formData.client" v-bind="attributes" v-on="events" />
               </template></v-select>
           </div>

@@ -28,7 +28,18 @@
               class="modal-body pb-16 p-5 overflow-y-auto"
             >
               <!-- Ajoutez ici le contenu du modal -->
-
+              <div
+                v-if="store.errors && store.errors.length != 0"
+                class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
+              >
+                <p
+                  v-for="(error, index) in store.errors"
+                  :key="index"
+                  class="font-semibold my-1"
+                >
+                  {{ error }} :
+                </p>
+              </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <label

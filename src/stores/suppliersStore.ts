@@ -1,42 +1,96 @@
-import FirestoreService from "~/services/FirestoreService";
 import { Supplier, SupplierForm } from "~/types";
 
 export const useSuppliersStore = defineStore('supplier', () => {
   const suppliers = ref<Supplier[]>([]);
   const errors = ref<any>([]);
   const loading = ref(false);
-  const firestoreService = new FirestoreService();
-  const collectionName = 'suppliers'
+  const authToken = ref("");
+ 
+  authToken.value = localStorage.getItem('access_token') ?? ""
+
+  const headers = {
+    Accept: "*/*",
+    "Content-type": "application/json",
+    'Authorization': `Bearer ${authToken.value}`, // Include the Bearer token
+
+  }
+
   const suppliersCount = () => {
     return suppliers.value.length
   }
   // get Data
   const getData = async () => {
     loading.value = true;
-    await firestoreService.getListFromCollection(collectionName).then((data) => {
-      suppliers.value = data;
-      loading.value = false;
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/suppliers`, {
+      headers: headers
     })
+    if (error.value?.statusCode == 401) {
+      await useAuthStore().logout();
+    }
+
+    suppliers.value = data.value;
+    console.log('=============dta=======================');
+    console.log(suppliers.value);
+    console.log('====================================');
+    if (data.value) {
+      loading.value = false
+    }
   }
   // post Data
   const postData = async (payload: SupplierForm) => {
-    const status = await firestoreService.create(collectionName, payload)
-    await getData();
-    return status;
+    errors.value = [];
+    console.log('================post====================');
+    console.log(payload);
+    console.log('====================================');
+    const { data, error } = await useFetch(`${apiBaseURL}/suppliers`, {
+      headers: headers,
+      method: 'POST',
+      body: {...payload}
+    })
+
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    console.log('====================================');
+    console.log(error.value?.message);
+    console.log('====================================');
+    if (error.value?.statusCode == 400) {
+      errors.value = error.value?.data.message;
+    
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
   }
 
-  const updateData = async (payload: SupplierForm, docId:string) => {
+  const updateData = async (payload: SupplierForm, id: string) => {
+    errors.value = [];
+    const { data, error } = await useFetch(`${apiBaseURL}/suppliers/${id}`, {
+      method: 'PATCH',
+      headers: headers,
+      body: payload
+    })
 
-    const status = await firestoreService.update(collectionName, docId, payload)
-    await getData();
-    return status;
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      errors.value = error.value?.data.errors;
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
   }
 
   const deleteData = async (id: string) => {
-    console.log('===============id=====================');
-    console.log(id);
-    console.log('====================================');
-    await firestoreService.delete(collectionName, id)
+    const { data, error } = await useFetch(`${apiBaseURL}/suppliers/${id}`, {
+      method: 'DELETE',
+      headers: headers,
+    })
     await getData()
   }
   // Call getData

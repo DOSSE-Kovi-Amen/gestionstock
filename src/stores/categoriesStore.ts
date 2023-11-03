@@ -28,11 +28,9 @@ export const useCategoriesStore = defineStore('category', () => {
     if (error.value?.statusCode == 401) {
       await useAuthStore().logout();
     }
-    console.log('====================================');
-    console.log(data.value);
-    console.log('====================================');
+
     categories.value = data.value;
-    console.log('====================================');
+    console.log('=============dta=======================');
     console.log(categories.value);
     console.log('====================================');
     if (data.value) {
@@ -42,17 +40,24 @@ export const useCategoriesStore = defineStore('category', () => {
   // post Data
   const postData = async (payload: CategoryForm) => {
     errors.value = [];
+    console.log('================post====================');
+    console.log(payload);
+    console.log('====================================');
     const { data, error } = await useFetch(`${apiBaseURL}/categories`, {
       headers: headers,
       method: 'POST',
-      body: payload
+      body: {...payload}
     })
 
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
+    console.log('====================================');
+    console.log(error.value?.message);
+    console.log('====================================');
     if (error.value?.statusCode == 400) {
       errors.value = error.value?.data.message;
+    
     }
     if (data.value) {
       await getData()
