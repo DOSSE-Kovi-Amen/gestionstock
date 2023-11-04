@@ -36,6 +36,24 @@ export const useSalesStore = defineStore('sale', () => {
       loading.value = false
     }
   }
+  const getSale=async(saleId:string):Promise<Sale>=>{
+    loading.value = true
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/sales/${saleId}`, {
+      headers: headers
+    })
+    if (error.value?.statusCode == 401) {
+      await useAuthStore().logout();
+    }
+
+    console.log('=============dtaonly=======================');
+    console.log(data.value);
+    console.log('====================================');
+    if (data.value) {
+      loading.value = false
+    }
+      return data.value
+
+  }
   // post Data
   const postData = async (payload: SaleForm) => {
     errors.value = [];
@@ -97,6 +115,6 @@ export const useSalesStore = defineStore('sale', () => {
   getData()
 
 
-  return { sales, loading, errors, salesCount, getData, postData, updateData, deleteData }
+  return { sales, loading, errors, salesCount, getData,getSale, postData, updateData, deleteData }
 })
 

@@ -11,12 +11,12 @@
           </button>
         </div>
         <!-- Contenu du modal -->
-        <div style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
+        <div v-if="selectedData" style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
           <!-- Ajoutez ici le contenu du modal -->
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
-          <li><strong>Nom du produit:</strong> {{ selectedData?.product?.name }}</li>
+          <li><strong>Nom du produit:</strong> {{ JSON.parse(selectedData?.product).name }}</li>
           <li><strong>Quantité:</strong> {{ selectedData?.quantity }}</li>
-          <li v-if="selectedData"><strong>Montant total de la perte:</strong> {{ selectedData?.product.purchase_price*selectedData?.quantity }}</li>
+          <li v-if="selectedData"><strong>Montant total de la perte:</strong> {{ JSON.parse(selectedData?.product).purchase_price*selectedData?.quantity }}</li>
           <li><strong>Description:</strong> {{ selectedData?.description }}</li>
           <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.createdAt) }}</li>
           <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.updatedAt) }}</li>

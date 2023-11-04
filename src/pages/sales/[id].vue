@@ -1,6 +1,6 @@
 <template>
   
-  <div v-if="!sale" class="flex bg-white h-64 w-full justify-center items-center">
+  <div v-if="sale==null" class="flex bg-white h-64 w-full justify-center items-center">
     <Spinner class="h-12" />
   </div>
   <div v-else id="print" class="bg-white p-6 rounded shadow-md">
@@ -34,7 +34,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(product, index) in sale.saleDetails">
+          <tr v-for="(product, index) in JSON.parse(sale.saleDetails)">
             <td class="border border-gray-300 p-2">{{ product.name }}</td>
             <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
             <td class="border border-gray-300 p-2">{{ product.selling_price }}</td>
@@ -68,12 +68,15 @@ import { Sale } from '~/types';
 const route = useRoute();
 const router = useRouter();
 const storeSales = useSalesStore();
-const sale = ref<Sale>();
+const sale = ref<any>(null);
 // Vérifiez si le paramètre de requête 'showalert' est présent
 
 onMounted(async () => {
   if (typeof route.params.id === 'string') {
      sale.value = await storeSales.getSale(route.params.id);
+     console.log('=================only===================');
+     console.log(sale.value);
+     console.log('====================================');
      if(!sale.value){
       router.push('/404')
      }

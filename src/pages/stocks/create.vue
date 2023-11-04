@@ -275,17 +275,12 @@ function existProduct(productId: string) {
 const submitForm = async () => {
   loading.value = true;
   await stocksStore.postData(formData.value).then(async (status) => {
-    for (const product of formData.value.stockDetails) {
-      await productsStore.updateData(
-        { stock: product.stock + product.quantity },
-        product.id
-      );
-    }
     if (status) {
       const state = {
         showAlert: "true",
         alertMessage: "Stock enregistré avec succès",
       };
+      productsStore.getData()
       router.push({ path: "/stocks", query: state });
     }
 

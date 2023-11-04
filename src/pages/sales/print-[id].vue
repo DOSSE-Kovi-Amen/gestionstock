@@ -1,20 +1,20 @@
 <template>
-    <div v-if="!sale" class="flex bg-white h-64 w-full justify-center items-center">
+    <div v-if="sale == null" class="flex bg-white h-64 w-full justify-center items-center">
         <Spinner class="h-12" />
     </div>
-    <div v-else class="bg-white p-6 rounded">
+    <div v-else id="print" class="bg-white p-6 rounded shadow-md">
         <div class="text-center">
             <h1 class="text-2xl font-semibold">Facture</h1>
         </div>
         <div class="mt-4">
-            <div class="flex flex-row justify-between">
-                <div class="cols-span-2">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
                     <p><strong>De:</strong></p>
                     <p>Votre entreprise</p>
                     <p>Adresse de votre entreprise</p>
                     <p>Email: votre@email.com</p>
                 </div>
-                <div class="cols-span-2">
+                <div>
                     <p><strong>À:</strong></p>
                     <p>{{ sale.client.name }}</p>
                     <p>{{ sale.client.telephone }}</p>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="mt-6">
-            <table class="w-full border-collapse border border-gray-300">
+            <table class="w-full bg-blue-100 border-collapse border border-gray-300">
                 <thead>
                     <tr>
                         <th class="border border-gray-300 p-2">Description</th>
@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(product, index) in sale.saleDetails">
+                    <tr v-for="(product, index) in JSON.parse(sale.saleDetails)">
                         <td class="border border-gray-300 p-2">{{ product.name }}</td>
                         <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
                         <td class="border border-gray-300 p-2">{{ product.selling_price }}</td>
@@ -53,8 +53,7 @@
             <p><strong>Remise:</strong> {{ sale.discount }}</p>
             <p><strong>Total de la facture:</strong> {{ sale.totalAmount }}</p>
         </div>
-
-    </div>
+        </div>
 </template>
   
 <script setup lang="ts">
@@ -110,26 +109,25 @@ async function print() {
 </script>
   
 <style scoped>
-
 @media print {
 
-  #print,
-  #print * {
-    visibility: visible;
-  }
+    #print,
+    #print * {
+        visibility: visible;
+    }
 
-  #print {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-  }
+    #print {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+    }
 
-  table {
-    background-color: #dbeafe !important;
-    color: black;
-    /* Vous pouvez définir la couleur du texte ici */
-  }
+    table {
+        background-color: #dbeafe !important;
+        color: black;
+        /* Vous pouvez définir la couleur du texte ici */
+    }
 }
 </style>

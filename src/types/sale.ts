@@ -17,7 +17,7 @@ export interface Sale {
 }
 
 export interface SaleForm {
-    client: Client|any;
+    clientId: string;
     amountPaid: number|any;
     discount: number|any;
     subTotal: number;

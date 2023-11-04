@@ -59,18 +59,7 @@ defineProps<{
 const deleteData = async (id: string, sale: Sale) => {
   loading.value = true;
   store.deleteData(id).then(async () => {
-
-    // Ajuter les stocks des produits après suppression
-    for (const productDetail of sale.saleDetails) {
-      productStore.getProduct(productDetail.id).then(async (product) => {
-        await productStore.updateData(
-          { stock: product.stock + productDetail.quantity },
-          productDetail.id
-        );
-
-      })
-    }
-
+    productStore.getData()
     emit('onClose')
     emit('onSuccess', "Vente annulée avec succès")
   })

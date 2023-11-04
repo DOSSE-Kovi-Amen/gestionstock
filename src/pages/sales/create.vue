@@ -11,19 +11,13 @@
       <Spinner class="h-12" />
     </div>
     <div v-else>
-      <div
-      v-if="salesStore.errors && salesStore.errors.length != 0"
-      class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
-    >
-      <p
-        v-for="(error, index) in salesStore.errors"
-        :key="index"
-        class="font-semibold my-1"
-      >
-        {{ error }} :
-      </p>
-    </div>
- 
+      <div v-if="salesStore.errors && salesStore.errors.length != 0"
+        class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+        <p v-for="(error, index) in salesStore.errors" :key="index" class="font-semibold my-1">
+          {{ error }} :
+        </p>
+      </div>
+
       <div class="flex flex-row gap-2 mb-2">
         <button @click="addAllProducts()" class="py-2 p-4 rounded-lg shadow-xl bg-blue-400 hover:bg-blue-500 text-white">
           <i class="fa-solid fa-check"></i> Tout sélectionner
@@ -43,21 +37,17 @@
           </label> -->
             <v-select v-model="selectedProduct"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-              :options="productsStore.products"
-              label="name" placeholder="Choisir un produit">
+              :options="productsStore.products" label="name" placeholder="Choisir un produit">
             </v-select>
           </div>
           <div class="mb-1">
             <!-- <label for="selectedProduct" class="block text-black mb-2">Choisir un client:
           </label> -->
-            <v-select v-model="formData.client" placeholder="Choisir un client"
+            <v-select v-model="formData.clientId" placeholder="Choisir un client"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500" required
-              :options="clientsStore.clients"
-              :reduce="(option:any) => option.id"
-
-              label="name">
-              <template #search="{ attributes, events }:any">
-                <input class="vs__search" :required="!formData.client" v-bind="attributes" v-on="events" />
+              :options="clientsStore.clients" :reduce="(option: any) => option.id" label="name">
+              <template #search="{ attributes, events }: any">
+                <input class="vs__search" :required="!formData.clientId" v-bind="attributes" v-on="events" />
               </template></v-select>
           </div>
         </div>
@@ -153,11 +143,12 @@
           </div>
         </div>
 
-        
-        
-        
+
+
+
         <button type="submit" :class="{ 'cursor-not-allowed': formData.saleDetails.length === 0 }"
-          class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white" :disabled="formData.saleDetails.length === 0">
+          class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white"
+          :disabled="formData.saleDetails.length === 0">
           <i class="fa-solid fa-save fa-2x"></i>
         </button>
         <!-- <div class="fixed flex flex-row  bg-white bottom-0 w-full h-16 justify-center">
@@ -171,33 +162,30 @@
 </template>
 <style scoped>
 /*************box-shadow*****************/
-.box-shadow-pulse{
-	
+.box-shadow-pulse {
+
   display: grid;
-  place-items:center;
-  border-radius:50%;
-  aspect-ratio:1;
-  animation:pulsation_bouton 2s ease-out infinite
+  place-items: center;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  animation: pulsation_bouton 2s ease-out infinite
+}
 
-    }
-    
 
-    
-  @keyframes pulsation_bouton {
-    
-  from{
-    
-    box-shadow:0 0 0 -3px #9b292900,0 0 0 0 #45e66d
-    
-    }
-  to{
-    
-    box-shadow:0 0 0 1px #0000,0 0 0 20px #fa0d0d00
-    
-    }
-    
-    }
-    
+
+@keyframes pulsation_bouton {
+
+  from {
+
+    box-shadow: 0 0 0 -3px #9b292900, 0 0 0 0 #45e66d
+  }
+
+  to {
+
+    box-shadow: 0 0 0 1px #0000, 0 0 0 20px #fa0d0d00
+  }
+
+}
 </style>
 <script lang="ts" setup>
 import { useProductsStore } from "~/stores/productsStore";
@@ -217,7 +205,7 @@ const selectedProduct = ref();
 const isOpenCreate = ref(false);
 const router = useRouter();
 const formData = ref<SaleForm>({
-  client: null,
+  clientId: "",
   amountPaid: null,
   discount: null,
   subTotal: 0,
@@ -325,18 +313,13 @@ function existProduct(productId: string) {
 const submitForm = async () => {
   loading.value = true;
   await salesStore.postData(formData.value).then(async (status) => {
-    for (const product of formData.value.saleDetails) {
-      await productsStore.updateData(
-        { stock: product.stock - product.quantity },
-        product.id
-      );
-    }
     if (status) {
       const state = {
         showAlert: "true",
         alertMessage: "Vente enregistrée avec succès",
       };
       router.push({ path: "/sales", query: state });
+      productsStore.getData()
     }
 
     loading.value = false;
