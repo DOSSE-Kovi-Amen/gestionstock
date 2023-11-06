@@ -36,6 +36,26 @@ export const useStocksStore = defineStore('stock', () => {
       loading.value = false
     }
   }
+
+  const getStock=async(stockId:string):Promise<Stock>=>{
+    loading.value = true
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/stocks/${stockId}`, {
+      headers: headers
+    })
+    
+    if (error.value?.statusCode == 401) {
+      await useAuthStore().logout();
+    }
+
+    console.log('=============dtaonly=======================');
+    console.log(data.value);
+    console.log('====================================');
+    if (data.value) {
+      loading.value = false
+    }
+      return data.value
+
+  }
   // post Data
   const postData = async (payload: StockForm) => {
     errors.value = [];
@@ -97,6 +117,6 @@ export const useStocksStore = defineStore('stock', () => {
   getData()
 
 
-  return { stocks, loading, errors, stocksCount, getData, postData, updateData, deleteData }
+  return { stocks, loading, errors, stocksCount,getStock, getData, postData, updateData, deleteData }
 })
 

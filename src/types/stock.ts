@@ -11,7 +11,7 @@ export interface Stock {
 }
 
 export interface StockForm {
-    supplier: Supplier|any;
+    supplierId: string;
     totalNewStock: number;
     stockDetails: StockDetails[]|any;
 }

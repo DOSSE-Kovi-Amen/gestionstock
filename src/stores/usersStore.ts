@@ -1,4 +1,4 @@
-import { User, UserCreate } from "~/types/users";
+import { User, UserCreate } from "~/types/user";
 
 export const useUsersStore = defineStore('user', () => {
   const users = ref<User[]>([]);
@@ -37,12 +37,12 @@ export const useUsersStore = defineStore('user', () => {
     }
   }
   // post Data
-  const postData = async (payload: UserCreate) => {
+  const createUser = async (payload: UserCreate) => {
     errors.value = [];
     console.log('================post====================');
     console.log(payload);
     console.log('====================================');
-    const { data, error } = await useFetch(`${apiBaseURL}/users`, {
+    const { data, error } = await useFetch(`${apiBaseURL}/auth/register`, {
       headers: headers,
       method: 'POST',
       body: {...payload}
@@ -97,6 +97,6 @@ export const useUsersStore = defineStore('user', () => {
   getData()
 
 
-  return { users, loading, errors, usersCount, getData, postData, updateData, deleteData }
+  return { users, loading, errors, usersCount, getData, createUser, updateData, deleteData }
 })
 

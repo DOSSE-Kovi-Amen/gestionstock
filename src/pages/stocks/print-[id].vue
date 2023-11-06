@@ -3,7 +3,7 @@
     <Spinner class="h-12" />
   </div>
 
-  <div v-else id="print" class="bg-white p-6 rounded shadow-md">
+  <div v-else class="bg-white p-6 rounded shadow-md">
     <div class="text-center">
       <h1 class="text-2xl font-semibold">Entrée de stock du {{ frenchDate(stock.createdAt) }}</h1>
     </div>
@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(product, index) in stock.stockDetails">
+          <tr v-for="(product, index) in stock.stockDetails" :key="index">
             <td class="border border-gray-300 p-2">{{ product.name }}</td>
             <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
           </tr>
@@ -36,10 +36,8 @@
 
     <div class="mt-6 text-right">
       <p><strong>Total nouvelle entrée:</strong> {{ stock.totalNewStock }}</p>
-
     </div>
-
-  </div>
+    </div>
 </template>
 <style scoped>
 /*************box-shadow*****************/

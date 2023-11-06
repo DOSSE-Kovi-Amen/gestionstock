@@ -17,50 +17,32 @@
 
         <div v-else>
 
-          <div
-          v-if="store.errors && store.errors.length != 0"
-          class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
-        >
-          <p
-            v-for="(error, index) in store.errors"
-            :key="index"
-            class="font-semibold my-1"
-          >
-            {{ error }} :
-          </p>
-        </div>
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
             <div style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
-              <div v-if="store.errors && store.errors.length!=0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
-                <p  v-for="(error, index) in  store.errors" :key="index" class="font-semibold my-1">
-                  {{ getFieldFromPointer(error.source.pointer) }} : {{error.detail}}</p>
-              </div>
+              <div
+              v-if="store.errors && store.errors.length != 0"
+              class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
+            >
+              <p
+                v-for="(error, index) in store.errors"
+                :key="index"
+                class="font-semibold my-1"
+              >
+                {{ error }}
+              </p>
+            </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Pseudo :</label>
-                  <input v-model="user.username" class="border rounded-md py-2 px-3 w-full" type="text" id="username"
-                    name="username" placeholder="Nom d'utilisateur" required />
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Nom :</label>
+                  <input v-model="user.name" class="border rounded-md py-2 px-3 w-full" type="text" id="username"
+                    name="username" placeholder="Nom et prénoms" required />
                 </div>
                 <div class="mb-4">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" for="last_name">Nom :</label>
-                  <input v-model="user.last_name" class="border rounded-md py-2 px-3 w-full" type="text" id="last_name"
-                    name="last_name" placeholder="Nom de famille" required />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-                <div class="mb-4">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" for="first_name">Prénom :</label>
-                  <input v-model="user.first_name" class="border rounded-md py-2 px-3 w-full" type="text" id="first_name"
-                    name="first_name" placeholder="Prénom" required />
-                </div>
-
-                <div class="mb-4">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" for="middle_name">Deuxième prénom :</label>
-                  <input v-model="user.middle_name" class="border rounded-md py-2 px-3 w-full" type="text"
-                    id="middle_name" name="middle_name" placeholder="Deuxième prénom" />
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="last_name">Pseudo :</label>
+                  <input v-model="user.username" class="border rounded-md py-2 px-3 w-full" type="text" id="last_name"
+                    name="last_name" placeholder="Pseudo" required />
                 </div>
               </div>
 
@@ -70,11 +52,10 @@
                   name="email" placeholder="Email" required />
               </div>
               <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_number">Numéro de téléphone :</label>
-                <input v-model="user.phone_number" class="border rounded-md py-2 px-3 w-full" type="tel" id="phone_number"
-                  name="phone_number" placeholder="Numéro de téléphone" />
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="phoneNumber">Téléphone :</label>
+                <input v-model="user.phoneNumber" class="border rounded-md py-2 px-3 w-full" type="text" id="phoneNumber"
+                  name="phoneNumber" placeholder="Numéro de téléphone" required />
               </div>
-
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                 <div class="mb-4">
@@ -83,9 +64,9 @@
                     name="password" placeholder="Mot de passe" required />
                 </div>
                 <div class="mb-4">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe :</label>
-                  <input v-model="user.password2" class="border rounded-md py-2 px-3 w-full" type="password"
-                    id="password2" name="password2" placeholder="Confirmer Mot de passe" required />
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Confirmer mot de passe :</label>
+                  <input v-model="user.confirmPassword " class="border rounded-md py-2 px-3 w-full" type="password" id="password"
+                    name="password" placeholder="Confirmer Mot de passe" required />
                 </div>
               </div>
 
@@ -114,19 +95,17 @@ const store = useUsersStore();
 const emit = defineEmits(['onClose', 'onSuccess'])
 const loading = ref(false)
 const user = {
+  name:'',
   username: '',
-  first_name: '',
-  last_name: '',
-  middle_name: null,
   email: '',
-  phone_number: null,
+  phoneNumber: '',
   password: '',
-  password2: '',
+  confirmPassword:'' 
 };
 
 const submitForm = async () => {
   loading.value = true
-  await store.postData(user).then((status) => {
+  await store.createUser(user).then((status) => {
 
     if (status) {
       console.log('=============data=======================');

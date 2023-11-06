@@ -68,7 +68,7 @@ import { Sale } from '~/types';
 const route = useRoute();
 const router = useRouter();
 const storeSales = useSalesStore();
-const sale = ref<any>(null);
+const sale = ref<Sale>();
 // Vérifiez si le paramètre de requête 'showalert' est présent
 
 onMounted(async () => {

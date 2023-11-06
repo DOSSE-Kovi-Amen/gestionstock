@@ -6,3 +6,4 @@ export * from './loss';
 export * from './category';
 export * from './client';
 export * from './supplier';
+export * from './user';

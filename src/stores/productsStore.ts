@@ -9,8 +9,8 @@ export const useProductsStore = defineStore('product', () => {
   authToken.value = localStorage.getItem('access_token') ?? ""
 
   const headers = {
-    Accept: "*/*",
-    "Content-type": "application/json",
+    // Accept: "*/*",
+    // "Content-type": "application/json",
     'Authorization': `Bearer ${authToken.value}`, // Include the Bearer token
 
   }
@@ -37,7 +37,7 @@ export const useProductsStore = defineStore('product', () => {
     }
   }
   // post Data
-  const postData = async (payload: ProductForm) => {
+  const postData = async (payload: any) => {
     errors.value = [];
     console.log('================post====================');
     console.log(payload);
@@ -45,7 +45,7 @@ export const useProductsStore = defineStore('product', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/products`, {
       headers: headers,
       method: 'POST',
-      body: {...payload}
+      body: payload
     })
 
     if (error.value?.statusCode == 401) {

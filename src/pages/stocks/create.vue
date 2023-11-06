@@ -12,18 +12,12 @@
     </div>
     <div v-else>
 
-      <div
-      v-if="stocksStore.errors && stocksStore.errors.length != 0"
-      class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
-    >
-      <p
-        v-for="(error, index) in stocksStore.errors"
-        :key="index"
-        class="font-semibold my-1"
-      >
-        {{ error }} :
-      </p>
-    </div>
+      <div v-if="stocksStore.errors && stocksStore.errors.length != 0"
+        class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+        <p v-for="(error, index) in stocksStore.errors" :key="index" class="font-semibold my-1">
+          {{ error }} :
+        </p>
+      </div>
       <div class="flex flex-row gap-2 mb-2">
         <button @click="addAllProducts()" class="py-2 p-4 rounded-lg shadow-xl bg-blue-400 hover:bg-blue-500 text-white">
           <i class="fa-solid fa-check"></i> Tout sélectionner
@@ -44,7 +38,7 @@
             <v-select v-model="selectedProduct"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
               :options="productsStore.products" label="name" placeholder="Choisir un produit">
-              <template #option="option:any">
+              <template #option="option: any">
                 <div class="flex gap-2">
                   <span>{{ option.name }}</span>
                   <span class="text-green-500">({{ option.stock }})</span>
@@ -55,11 +49,13 @@
           <div class="mb-1">
             <!-- <label for="selectedProduct" class="block text-black mb-2">Choisir un client:
           </label> -->
-            <v-select v-model="formData.supplier" placeholder="Choisir un fournisseur"
+            <v-select v-model="formData.supplierId" placeholder="Choisir un fournisseur"
               class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500" required
-              :options="supplierStore.suppliers" label="name">
-              <template #search="{ attributes, events }:any">
-                <input class="vs__search" :required="!formData.supplier" v-bind="attributes" v-on="events" />
+              :options="supplierStore.suppliers"
+              :reduce="(option:any)=>option.id"
+              label="name">
+              <template #search="{ attributes, events }: any">
+                <input class="vs__search" :required="!formData.supplierId" v-bind="attributes" v-on="events" />
               </template></v-select>
           </div>
         </div>
@@ -170,10 +166,12 @@
   aspect-ratio: 1;
   animation: pulsation_bouton 2s ease-out infinite
 }
+
 @keyframes pulsation_bouton {
   from {
     box-shadow: 0 0 0 -3px #9b292900, 0 0 0 0 #45e66d
   }
+
   to {
     box-shadow: 0 0 0 1px #0000, 0 0 0 20px #fa0d0d00
   }
@@ -197,7 +195,7 @@ const selectedProduct = ref();
 const isOpenCreate = ref(false);
 const router = useRouter();
 const formData = ref<StockForm>({
-  supplier: null,
+  supplierId: "",
   totalNewStock: 0,
   stockDetails: [],
 });

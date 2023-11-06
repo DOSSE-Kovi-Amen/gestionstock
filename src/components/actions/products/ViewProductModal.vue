@@ -23,7 +23,7 @@
             <!-- Prévisualisation de l'image -->
             <img
               v-if="selectedData?.imageUrl"
-              :src="selectedData?.imageUrl"
+              :src="apiBaseURL+'/'+selectedData?.imageUrl"
               alt="Prévisualisation de l'image"
               class="mt-2 max-h-32 object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
             />

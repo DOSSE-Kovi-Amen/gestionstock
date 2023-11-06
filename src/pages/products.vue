@@ -1,9 +1,9 @@
 <template>
   <div>
-  
+
     <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
-  
-    <ViewProductModal @on-close="isOpenRead = false" :is-open="isOpenRead"  :selected-data="selectedData" />
+
+    <ViewProductModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
 
     <!-- Create -->
     <AddProductModal @on-success="(e) => {
@@ -15,7 +15,7 @@
     <EditProductModal @on-success="(e) => {
       alertMessage = e;
       showAlert = true
-    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit"  :selected-data="selectedData"/>
+    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
     <!-- Read -->
     <DeleteProductModal @on-success="(e) => {
@@ -32,26 +32,31 @@
       <Datatable v-if="!store.loading">
         <thead>
           <tr>
+            <th class="px-6 py-3 text-left text-sm font-bold">Image</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">P.U vente</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Stock</th>            
+            <th class="px-6 py-3 text-left text-sm font-bold">Stock</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(product, index) in store.products" :key="index" :title="`Créé le ${frenchDate(product.createdAt)}\nModifié le ${frenchDate(product.updatedAt)}}`">
+          <tr v-for="(product, index) in store.products" :key="index"
+            :title="`Créé le ${frenchDate(product.createdAt)}\nModifié le ${frenchDate(product.updatedAt)}}`">
+            <td> <img style="object-fit: contain;height:70px; width:70px" v-if="product?.imageUrl" :src="apiBaseURL+'/'+product?.imageUrl" alt="Prévisualisation de l'image"
+                class="border rounded px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+            </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.selling_price }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
 
-            <td class="flex gap-2">
+            <td class="flex gap-2 mt-2">
               <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 @click="openModal(product, 'read')">
                 <i class="fa-regular fa-eye"></i>
               </a>
-              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg" 
-              @click="openModal(product, 'edit')">
+              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg"
+                @click="openModal(product, 'edit')">
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>
               <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
