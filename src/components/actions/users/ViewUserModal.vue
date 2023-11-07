@@ -14,39 +14,22 @@
         <div style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
           <!-- Ajoutez ici le contenu du modal -->
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
-          <li><strong>Nom d'utilisateur:</strong> {{ selectedData?.attributes.username }}</li>
-          <li><strong>Prénom:</strong> {{ selectedData?.attributes.first_name }}</li>
-          <li><strong>Nom de famille:</strong> {{ selectedData?.attributes.last_name }}</li>
-          <li><strong>Nom complet:</strong> {{ selectedData?.attributes.full_name }}</li>
-          <li><strong>Email:</strong> {{ selectedData?.attributes.email }}</li>
-          <li><strong>Téléphone:</strong> {{ selectedData?.attributes.phone_number }}</li>
-          <li><strong>CNI:</strong> {{ selectedData?.attributes.cni }}</li>
-          <li><strong>Passeport:</strong> {{ selectedData?.attributes.passport }}</li>
-          <li><strong>Dernière connexion:</strong> {{ selectedData?.attributes.last_login }}</li>
-          <li><strong>Est agent: </strong> 
-            <i v-if="selectedData?.attributes.is_agent == true" class="fa fa-check-circle fa-2x text-green-500"
-              aria-hidden="true"></i>
-            <i v-else class="fa fa-xmark-circle fa-lg text-red-500" aria-hidden="true"></i>
-          </li>
-          <li><strong>Est personnel: </strong> 
-            <i v-if="selectedData?.attributes.is_staff == true" class="fa fa-check-circle fa-2x text-green-500"
+          <li><strong>Nom et prénoms:</strong> {{ selectedData?.name }}</li>
+          <li><strong>Pseudo</strong>{{ selectedData?.username }}</li>
+          <li><strong>Email:</strong> {{ selectedData?.email }}</li>
+          <li><strong>Téléphone:</strong> {{ selectedData?.phoneNumber }}</li>
+          <li><strong>Dernière connexion:</strong> {{ selectedData?.lastLogin }}</li>
+          <!-- <li><strong>Est super utilisateur:</strong>
+            <i v-if="selectedData?.is_superuser == true" class="fa fa-check-circle fa-2x text-green-500"
             aria-hidden="true"></i>
           <i v-else class="fa fa-xmark-circle fa-lg text-red-500" aria-hidden="true"></i>
       
-          </li>
-          <li><strong>Est super utilisateur:</strong>
-            <i v-if="selectedData?.attributes.is_superuser == true" class="fa fa-check-circle fa-2x text-green-500"
-            aria-hidden="true"></i>
-          <i v-else class="fa fa-xmark-circle fa-lg text-red-500" aria-hidden="true"></i>
-      
-          </li>
-          <li><strong>Statut:</strong> {{ selectedData?.attributes.status }}</li>
-          <li><strong>Évaluation:</strong> {{ selectedData?.attributes.rating }}</li>
-          <li><strong>Commentaires:</strong> {{ selectedData?.attributes.reviews }}</li>
-          <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.attributes.created ?? "") }}</li>
-          <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.attributes.modified ?? "") }}</li>
-          <li><strong>Date d'activation:</strong> {{ frenchDate(selectedData?.attributes.activate_date ?? "") }}</li>
-          <li><strong>Date de désactivation:</strong> {{ frenchDate(selectedData?.attributes.deactivate_date ?? "") }}
+          </li> -->
+          <li><strong>Statut:</strong> {{ selectedData?.status }}</li>
+          <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.createdAt ?? "") }}</li>
+          <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.updatedAt ?? "") }}</li>
+          <li><strong>Date d'activation:</strong> {{ frenchDate(selectedData?.activate_date ?? "") }}</li>
+          <li><strong>Date de désactivation:</strong> {{ frenchDate(selectedData?.deactivate_date ?? "") }}
           </li>
 
         </div>
@@ -64,11 +47,11 @@
 </template>
 
 <script setup lang="ts">
-import { UserList } from '~/types/types';
+import { User } from '~/types';
 
 defineProps<{
   isOpen: boolean
-  selectedData?: UserList
+  selectedData?: User
 }>()
 
 </script>

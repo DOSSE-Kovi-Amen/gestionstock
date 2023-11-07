@@ -19,20 +19,13 @@
 
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
-            <div style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
+            <div style="height: 85vh;" class="modal-body pb-16 p-5 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
-              <div
-              v-if="store.errors && store.errors.length != 0"
-              class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
-            >
-              <p
-                v-for="(error, index) in store.errors"
-                :key="index"
-                class="font-semibold my-1"
-              >
-                {{ error }}
-              </p>
-            </div>
+              <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+                <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
+                  {{ error }}
+                </p>
+              </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Nom :</label>
@@ -64,10 +57,20 @@
                     name="password" placeholder="Mot de passe" required />
                 </div>
                 <div class="mb-4">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Confirmer mot de passe :</label>
-                  <input v-model="user.confirmPassword " class="border rounded-md py-2 px-3 w-full" type="password" id="password"
-                    name="password" placeholder="Confirmer Mot de passe" required />
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Confirmer mot de passe
+                    :</label>
+                  <input v-model="user.confirmPassword" class="border rounded-md py-2 px-3 w-full" type="password"
+                    id="password" name="password" placeholder="Confirmer Mot de passe" required />
                 </div>
+              </div>
+              <div class="mb-1">
+                <label for="selectedProduct" class="block text-black mb-2">Rôles:
+                </label>
+                <v-select v-model="user.roles" taggable multiple
+                  class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                  :options="rolesStore.roles" :reduce="(option: any) => option.name" label="name"
+                  placeholder="Attribuer un rôle">
+                </v-select>
               </div>
 
             </div>
@@ -91,25 +94,30 @@
 </template>
 
 <script setup lang="ts">
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 const store = useUsersStore();
+const rolesStore = useRolesStore();
+
 const emit = defineEmits(['onClose', 'onSuccess'])
 const loading = ref(false)
-const user = {
-  name:'',
+const user = ref({
+  name: '',
   username: '',
   email: '',
   phoneNumber: '',
   password: '',
-  confirmPassword:'' 
-};
+  confirmPassword: '',
+  roles: null
+});
 
 const submitForm = async () => {
   loading.value = true
-  await store.createUser(user).then((status) => {
+  await store.createUser(user.value).then((status) => {
 
     if (status) {
       console.log('=============data=======================');
-      console.log(status);
+      console.log(user);
       console.log('====================================');
       emit('onClose')
       emit('onSuccess', "Utilisateur ajouté avec succès")
