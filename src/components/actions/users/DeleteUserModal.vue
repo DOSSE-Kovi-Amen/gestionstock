@@ -20,7 +20,7 @@
         <div v-else>
           <div  class="modal-body p-5">
             <!-- Ajoutez ici le contenu du modal -->
-            <p>{{ `Supprimer ${selectedData?.attributes.last_name} ${selectedData?.attributes.first_name} ?` }}</p>
+            <p>{{ `Supprimer l'utilisateur ${selectedData?.name}? Cette action est irréversible.` }}</p>
           </div>
   
           <!-- Pied du modal -->
@@ -41,14 +41,15 @@
 </template>
 
 <script setup lang="ts">
-import { UserList } from '~/types/types';
+import { User } from '~/types';
+
 const emit =defineEmits(['onClose','onSuccess'])
 
 const loading=ref(false);
 const store = useUsersStore();
 defineProps<{
   isOpen: boolean
-  selectedData?:UserList
+  selectedData?:User
 }>()
 
 const deleteData = async (id: string) => {
@@ -63,4 +64,4 @@ const deleteData = async (id: string) => {
 
 <style scoped>
 
-</style>~/types/users
+</style>

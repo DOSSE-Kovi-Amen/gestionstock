@@ -64,6 +64,27 @@ export const useUsersStore = defineStore('user', () => {
       return true
     }
   }
+  const retrieveData = async (id: string) => {
+    errors.value = [];
+    const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
+      method: 'GET',
+      headers: headers,
+    })
+
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      errors.value = error.value?.data.errors;
+    }
+    if (data.value) {
+      await getData()
+
+      return data.value
+    } else{
+      
+    }
+  }
 
   const updateData = async (payload: UserCreate, id: string) => {
     errors.value = [];
@@ -97,6 +118,6 @@ export const useUsersStore = defineStore('user', () => {
   getData()
 
 
-  return { users, loading, errors, usersCount, getData, createUser, updateData, deleteData }
+  return { users, loading, errors, usersCount, getData,retrieveData, createUser, updateData, deleteData }
 })
 

@@ -2,29 +2,26 @@ import { User, type authLogin } from "~/types/user";
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>();
-  const errors=ref<any|null>([])
+  const errors = ref<any | null>([])
   const isAuth = ref(false);
   const access_token = ref("");
-  const loading= ref(false);
+  const loading = ref(false);
 
-  const authUser = localStorage.getItem('auth_user');
   const authToken = localStorage.getItem('access_token');
 
-  if (authUser) {
+  if (authToken) {
     // S'il y a une valeur dans le localStorage, l'utiliser
-    user.value = JSON.parse(authUser);
     access_token.value = authToken ?? "";
     isAuth.value = true;
   } else {
     // Sinon, initialiser à null
-    user.value = null;
     isAuth.value = false;
     access_token.value = "";
   }
 
   const signin = async (payload: authLogin): Promise<boolean> => {
-    loading.value=true
-    const { data, pending, error, refresh }:any = await useFetch(`${apiBaseURL}/auth/login`, {
+    loading.value = true
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/auth/login`, {
       method: 'POST',
       headers: {
         Accept: "*/*",
@@ -41,14 +38,14 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     if (error.value?.statusCode == 404) {
-      errors.value=error.value.data.message
+      errors.value = error.value.data.message
       loading.value = false
       return false;
 
     }
 
     if (error.value?.statusCode == 400) {
-      errors.value=error.value.data.message
+      errors.value = error.value.data.message
       loading.value = false
       return false;
     }
@@ -70,16 +67,44 @@ export const useAuthStore = defineStore('auth', () => {
 
 
   }
+  const getProfile = async () => {
+    errors.value = [];
+    const { data, error } = await useFetch(`${apiBaseURL}/auth/profile`, {
+      method: 'GET',
+      headers: {
+        Accept: "*/*",
+        "Content-type": "application/json",
+        'Authorization': `Bearer ${access_token.value}`, // Include the Bearer token
+
+      },
+    })
+
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      errors.value = error.value?.data.errors;
+    }
+
+    if (data.value) {
+      user.value = data.value
+      return data.value
+    } else {
+      useAuthStore().logout();
+
+    }
+  }
+  getProfile()
 
   const logout = async () => {
     localStorage.clear();
     user.value = null;
     isAuth.value = false;
     access_token.value = "";
-    useRouter().push({path:"/login",query:{sessionExpired: 'true'}})
+    useRouter().push({ path: "/login", query: { sessionExpired: 'true' } })
   }
 
-  return { user, access_token,errors,loading, signin, isAuth, logout }
+  return { user, access_token, errors, loading, signin, isAuth, logout }
 
 
 })
