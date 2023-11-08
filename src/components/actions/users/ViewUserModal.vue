@@ -18,7 +18,6 @@
           <li><strong>Pseudo</strong>{{ selectedData?.username }}</li>
           <li><strong>Email:</strong> {{ selectedData?.email }}</li>
           <li><strong>Téléphone:</strong> {{ selectedData?.phoneNumber }}</li>
-          <li><strong>Dernière connexion:</strong> {{ selectedData?.lastLogin }}</li>
           <!-- <li><strong>Est super utilisateur:</strong>
             <i v-if="selectedData?.is_superuser == true" class="fa fa-check-circle fa-2x text-green-500"
             aria-hidden="true"></i>

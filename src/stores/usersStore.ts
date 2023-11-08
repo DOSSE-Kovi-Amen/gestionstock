@@ -9,8 +9,8 @@ export const useUsersStore = defineStore('user', () => {
   authToken.value = localStorage.getItem('access_token') ?? ""
 
   const headers = {
-    Accept: "*/*",
-    "Content-type": "application/json",
+    // Accept: "*/*",
+    // "Content-type": "application/json",
     'Authorization': `Bearer ${authToken.value}`, // Include the Bearer token
 
   }
@@ -86,7 +86,7 @@ export const useUsersStore = defineStore('user', () => {
     }
   }
 
-  const updateData = async (payload: UserCreate, id: string) => {
+  const updateData = async (payload: any, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
       method: 'PATCH',
@@ -106,7 +106,29 @@ export const useUsersStore = defineStore('user', () => {
       return true
     }
   }
+  const updatePhoto = async (payload: any, id: string) => {
+    errors.value = [];
+    const { data, error } = await useFetch(`${apiBaseURL}/users/edit-photo/${id}`, {
+      method: 'PATCH',
+      headers: headers,
+      body: payload
+    })
+    console.log('=================error===================');
+    console.log(data.value);
+    console.log('====================================');
 
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      errors.value = error.value?.data.errors;
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
+  }
   const deleteData = async (id: string) => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
       method: 'DELETE',
@@ -118,6 +140,6 @@ export const useUsersStore = defineStore('user', () => {
   getData()
 
 
-  return { users, loading, errors, usersCount, getData,retrieveData, createUser, updateData, deleteData }
+  return { users, loading, errors, usersCount,updatePhoto, getData,retrieveData, createUser, updateData, deleteData }
 })
 

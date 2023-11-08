@@ -24,9 +24,9 @@
               <!-- Bouton d'icône arrondi -->
               <a @click="toggleDropdown" @blur="onBlur"
                 class="rounded-full text-white hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-2">
-                <img class="rounded-full w-10 h-10 object-cover"
-                  src="https://images.unsplash.com/photo-1687360440984-3a0d7cfde903?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                  alt="" srcset="">
+                <img class="rounded-full shadow-xl w-10 h-10 object-cover"
+                :src="apiBaseURL + '/' + auth.user?.photo"
+                alt="" srcset="">
               </a>
 
 

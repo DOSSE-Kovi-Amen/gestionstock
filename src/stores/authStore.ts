@@ -91,7 +91,6 @@ export const useAuthStore = defineStore('auth', () => {
       return data.value
     } else {
       useAuthStore().logout();
-
     }
   }
   getProfile()
@@ -104,7 +103,7 @@ export const useAuthStore = defineStore('auth', () => {
     useRouter().push({ path: "/login", query: { sessionExpired: 'true' } })
   }
 
-  return { user, access_token, errors, loading, signin, isAuth, logout }
+  return { user, access_token,getProfile, errors, loading, signin, isAuth, logout }
 
 
 })

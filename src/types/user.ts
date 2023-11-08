@@ -1,5 +1,3 @@
-import { Role } from "./role";
-
 export interface authLogin {
   login: string;
   password: string;
@@ -10,9 +8,10 @@ export interface User {
   name:string;
   username: string;
   email: string;
+  photo:string;
   phoneNumber: string;
-  lastLogin: string;
   isOwner: boolean;
+  roles: string;
   status: number;
   createdAt: string;
   updatedAt: string;
