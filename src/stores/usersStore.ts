@@ -114,14 +114,14 @@ export const useUsersStore = defineStore('user', () => {
       body: payload
     })
     console.log('=================error===================');
-    console.log(data.value);
+    console.log(error.value);
     console.log('====================================');
 
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
     if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.errors;
+      errors.value = error.value?.data.message;
     }
     if (data.value) {
       await getData()

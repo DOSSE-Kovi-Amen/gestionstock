@@ -21,7 +21,6 @@
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
             <div style="height: 85vh" class="modal-body pb-16 p-5 overflow-y-auto">
-              {{ formData }}
               <!-- Ajoutez ici le contenu du modal -->
               <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">

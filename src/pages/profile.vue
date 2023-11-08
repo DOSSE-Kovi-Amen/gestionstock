@@ -2,6 +2,18 @@
   <div class="min-h-screen">
     <!-- Contenu du profil -->
     <div class="p-2 md:p-2 lg:p-2">
+      {{ auth.errors }}
+      <div v-if="auth.errors && auth.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+        <p v-for="(error, index) in auth.errors" :key="index" class="font-semibold my-1">
+          {{ error }} :
+        </p>
+      </div>
+      <div v-if="usersStore.errors && usersStore.errors.length != 0"
+        class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+        <p v-for="(error, index) in usersStore.errors" :key="index" class="font-semibold my-1">
+          {{ error }} :
+        </p>
+      </div>
       <!-- En-tête du profil -->
       <div class="mb-6 flex items-center justify-between">
         <h1 class="text-xl font-semibold">Nom de l'utilisateur</h1>
@@ -18,26 +30,27 @@
             <h2 class="text-lg font-semibold mb-2">Logo</h2>
             <!-- Logo -->
             <span v-if="!auth.user?.photo">Aucune photo de profile disponible</span>
-            <img v-if="auth.user?.photo && !imagePreview" :src="apiBaseURL + '/' + auth.user?.photo"
+            <img v-if="auth.user?.photo && !photo" :src="apiBaseURL + '/' + auth.user?.photo"
               alt="Prévisualisation de l'image" style="width: 200px;"
               class="mt-2 mb-3  object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
             <div class="mb-4"></div>
             <form @submit.prevent="editPhoto">
+              <div class="mb-4">
+                <!-- <label for="image" class="block text-gray-700 font-bold mb-2"
+                >Image du produit</label
+              > -->
+                <!-- Prévisualisation de l'image -->
+                <img v-if="imagePreview && photo" :src="imagePreview" alt="Prévisualisation de l'image" style="width: 200px;"
+                  class="mt-2 bg-black object-contain border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+              </div>
               <label for="image"
                 class="cursor-pointer bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                 <i class="fa fa-camera">
                 </i>
               </label>
               <input @change="handleImageChange" type="file" class="hidden" accept="image/*" id="image" name="image" />
-              <div class="mb-4">
-                <!-- <label for="image" class="block text-gray-700 font-bold mb-2"
-                >Image du produit</label
-              > -->
-                <!-- Prévisualisation de l'image -->
-                <img v-if="imagePreview" :src="imagePreview" alt="Prévisualisation de l'image" style="width: 200px;"
-                  class="mt-2 bg-black object-contain border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
-              </div>
-              <button v-if="photo" class="bg-blue-500 hover:bg-blue-600 py-1 px-2 rounded-lg text-white"
+
+              <button v-if="photo" class="bg-blue-500 mx-5 py-2 hover:bg-blue-600 py-1 px-2 rounded-lg text-white"
                 type="submit">Changer</button>
             </form>
 
@@ -68,15 +81,23 @@
             </div>
             <div class="mb-4">
               <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe :</label>
+              <input v-model="formData.oldPassword" class="border rounded-md py-2 px-3 w-full" type="password"
+                id="password" name="password" placeholder="Mot de passe" />
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe :</label>
               <input v-model="formData.password" class="border rounded-md py-2 px-3 w-full" type="password" id="password"
-                name="password" placeholder="Mot de passe" required />
+                name="password" placeholder="Mot de passe" />
             </div>
             <div class="mb-4">
               <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Confirmer mot de passe
                 :</label>
               <input v-model="formData.confirmPassword" class="border rounded-md py-2 px-3 w-full" type="password"
-                id="password" name="password" placeholder="Confirmer Mot de passe" required />
+                id="password" name="password" placeholder="Confirmer Mot de passe" />
             </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Soumettre
+            </button>
           </form>
         </div>
       </div>
@@ -87,6 +108,7 @@
 import { useUsersStore } from '#imports';
 const formData = ref<any>({
   name: "",
+  oldPassword: null,
   password: null,
   confirmPassword: null
 })
@@ -126,17 +148,19 @@ const editPhoto = async () => {
   const formDataToSend = new FormData();
   formDataToSend.append('photo', photo.value);
   if (auth.user) {
-    await usersStore.updatePhoto(formDataToSend, auth.user.id).then(async() => {
+    await usersStore.updatePhoto(formDataToSend, auth.user.id).then(async () => {
       photo.value = null;
-     await auth.getProfile()
+      imagePreview.value="";
+      imageFile.value=null
+      await auth.getProfile()
     });
   }
 }
 
 const updateData = async () => {
   if (auth.user) {
-    usersStore.updateData(formData, auth.user.id).then(() => {
-
+    auth.changePwdOrName(auth.user.id, formData,).then(async () => {
+      await auth.getProfile()
     })
   }
 }
