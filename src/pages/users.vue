@@ -8,6 +8,10 @@
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenCreate = false" :is-open="isOpenCreate" />
+    <EditUserModal @on-success="(e: string) => {
+      alertMessage = e;
+      showAlert = true
+    }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
     <!-- Read -->
     <DeleteUserModal @on-success="(e) => {
@@ -59,7 +63,7 @@
                 @click="openModal(user, 'read')">
                 <i class="fa-regular fa-eye"></i>
               </a>
-              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg" @click="">
+              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg" @click="openModal(user, 'edit')">
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>
               <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
@@ -83,6 +87,7 @@
 <script setup lang="ts">
 import AddUserModal from '@/components/actions/users/AddUserModal.vue';
 import ViewUserModal from '@/components/actions/users/ViewUserModal.vue';
+import EditUserModal from '@/components/actions/users/EditUserModal.vue';
 import DeleteUserModal from '@/components/actions/users/DeleteUserModal.vue';
 
 const store = useUsersStore();

@@ -83,26 +83,6 @@ export const useSalesStore = defineStore('sale', () => {
     }
   }
 
-  const updateData = async (payload: SaleForm, id: string) => {
-    errors.value = [];
-    const { data, error } = await useFetch(`${apiBaseURL}/sales/${id}`, {
-      method: 'PATCH',
-      headers: headers,
-      body: payload
-    })
-
-    if (error.value?.statusCode == 401) {
-      useAuthStore().logout();
-    }
-    if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.errors;
-    }
-    if (data.value) {
-      await getData()
-
-      return true
-    }
-  }
 
   const deleteData = async (id: string) => {
     const { data, error } = await useFetch(`${apiBaseURL}/sales/${id}`, {
@@ -115,6 +95,6 @@ export const useSalesStore = defineStore('sale', () => {
   getData()
 
 
-  return { sales, loading, errors, salesCount, getData,getSale, postData, updateData, deleteData }
+  return { sales, loading, errors, salesCount, getData,getSale, postData, deleteData }
 })
 

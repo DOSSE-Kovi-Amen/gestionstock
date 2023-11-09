@@ -77,7 +77,7 @@ export const useClientsStore = defineStore('client', () => {
       useAuthStore().logout();
     }
     if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.errors;
+      errors.value = error.value?.data.message;
     }
     if (data.value) {
       await getData()

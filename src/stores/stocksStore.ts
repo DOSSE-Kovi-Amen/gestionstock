@@ -85,27 +85,6 @@ export const useStocksStore = defineStore('stock', () => {
     }
   }
 
-  const updateData = async (payload: StockForm, id: string) => {
-    errors.value = [];
-    const { data, error } = await useFetch(`${apiBaseURL}/stocks/${id}`, {
-      method: 'PATCH',
-      headers: headers,
-      body: payload
-    })
-
-    if (error.value?.statusCode == 401) {
-      useAuthStore().logout();
-    }
-    if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.errors;
-    }
-    if (data.value) {
-      await getData()
-
-      return true
-    }
-  }
-
   const deleteData = async (id: string) => {
     const { data, error } = await useFetch(`${apiBaseURL}/stocks/${id}`, {
       method: 'DELETE',
@@ -117,6 +96,6 @@ export const useStocksStore = defineStore('stock', () => {
   getData()
 
 
-  return { stocks, loading, errors, stocksCount,getStock, getData, postData, updateData, deleteData }
+  return { stocks, loading, errors, stocksCount,getStock, getData, postData, deleteData }
 })
 

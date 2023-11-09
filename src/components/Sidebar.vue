@@ -99,16 +99,6 @@
             <span :class="{ 'hidden': !isSidebarOpen }">Utilisateurs</span>
           </NuxtLink>
         </li>
-        <li>
-          <NuxtLink to="/roles" :class="{ 'justify-center': !isSidebarOpen }"
-            class="block flex items-center gap-4 p-3 router-link">
-            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <Icon name="lock" size="20" />
-
-            <span :class="{ 'hidden': !isSidebarOpen }">Roles</span>
-          </NuxtLink>
-        </li>
-        <!-- Ajoutez d'autres liens de la sidebar ici -->
       </ul>
     </nav>
 

@@ -86,8 +86,7 @@ export const useUsersStore = defineStore('user', () => {
     }
   }
 
-  const updateData = async (payload: any, id: string) => {
-    errors.value = [];
+  const updateData = async (id: string,payload: any ) => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
       method: 'PATCH',
       headers: headers,
@@ -98,6 +97,9 @@ export const useUsersStore = defineStore('user', () => {
       useAuthStore().logout();
     }
     if (error.value?.statusCode == 400) {
+      console.log('====================================');
+      console.log();
+      console.log('====================================');
       errors.value = error.value?.data.errors;
     }
     if (data.value) {
