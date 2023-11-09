@@ -140,9 +140,13 @@
 
       <button @click="toggleDropdown" @blur="onBlur" class="flex " id="dropdown-button" aria-haspopup="true"
         aria-expanded="true">
-        <img class="rounded-full w-10 h-10 object-cover"
+        <img v-if="auth.user?.photo" class="rounded-full w-10 h-10 object-cover"
           :src="apiBaseURL + '/' + auth.user?.photo"
           alt="" srcset="">
+          <div v-else class="bg-gray-200 w-8 h-8 flex justify-center items-center rounded-full p-5">
+            <i class="fa fa-user"></i>
+
+          </div>
         <span :class="{ 'hidden': !isSidebarOpen }" class="mt-2 mx-2 text-white font-semibold">{{
           `${auth.user?.name}` }}</span>
 
@@ -190,9 +194,7 @@ const toggleDropdown = () => {
 }
 
 const onBlur = () => {
-  setTimeout(() => {
-    // isDropdownOpen.value = false
-  }, 100);
+    isDropdownOpen.value = false
 }
 
 const logout = () => {

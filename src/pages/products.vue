@@ -97,9 +97,9 @@ const isOpenDelete = ref(false);
 const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
-// onMounted(() => {
-//   store.getRealTimeData()
-// })
+onMounted(() => {
+  store.getData()
+})
 const openModal = (data: Product, action: String) => {
   selectedData.value = data
 

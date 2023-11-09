@@ -68,7 +68,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   }
   const getProfile = async () => {
-    errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/auth/profile`, {
       method: 'GET',
       headers: {
@@ -115,6 +114,13 @@ export const useAuthStore = defineStore('auth', () => {
       console.log('====================================');
 
       errors.value = error.value?.data.message;
+    }
+    console.log('====================================');
+    console.log(data.value);
+    console.log('====================================');
+    if (data.value) {
+      return true
+      
     }
 
   }

@@ -22,12 +22,15 @@
             <!-- Ajoutez ici les éléments du menu de votre navbar -->
             <div class="relative inline-block text-left">
               <!-- Bouton d'icône arrondi -->
-              <a @click="toggleDropdown" @blur="onBlur"
+              <button @click="toggleDropdown" @focus="onBlur" @blur="onBlur"
                 class="rounded-full text-white hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-2">
-                <img class="rounded-full shadow-xl w-10 h-10 object-cover"
-                :src="apiBaseURL + '/' + auth.user?.photo"
-                alt="" srcset="">
-              </a>
+                <img v-if="auth.user?.photo" class="rounded-full shadow-xl w-10 h-10 object-cover"
+                  :src="apiBaseURL + '/' + auth.user?.photo" alt="" srcset="">
+                <div v-else class="bg-gray-200 text-black w-8 h-8 flex justify-center items-center rounded-full p-5">
+                  <i class="fa fa-user"></i>
+
+                </div>
+              </button>
 
 
               <!-- Menu déroulant -->
@@ -44,7 +47,7 @@
                   <NuxtLink to="profile"
                     class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
-                    <i class="fa-solid fa-user"></i>          
+                    <i class="fa-solid fa-user"></i>
                     Profil
                   </NuxtLink>
                   <NuxtLink @click="logout"
@@ -70,7 +73,7 @@
 <script setup lang="ts">
 const auth = useAuthStore();
 const router = useRouter();
-const route:any = useRoute();
+const route: any = useRoute();
 
 const isDropdownOpen = ref(false);
 const toggleDropdown = () => {

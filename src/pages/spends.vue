@@ -81,8 +81,6 @@ import DeleteSpendModal from '~/components/actions/spends/DeleteSpendModal.vue';
 import { Spend } from '~/types';
 import { frenchDate } from '~/utils/constants';
 
-
-
 const store = useSpendsStore();
 
 const selectedData = ref<Spend>();
@@ -93,6 +91,9 @@ const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
 
+onMounted(() => {
+  store.getData()
+})
 const openModal = (data: Spend, action: String) => {
   selectedData.value = data
 

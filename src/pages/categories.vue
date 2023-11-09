@@ -3,7 +3,7 @@
     <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
 
     <!-- Create -->
-    <AddCategoryModal @on-success="(e:string) => {
+    <AddCategoryModal @on-success="(e: string) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenCreate = false" :is-open="isOpenCreate" />
@@ -16,7 +16,7 @@
     }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
     <!-- Read -->
-    <DeleteCategoryModal @on-success="(e:string) => {
+    <DeleteCategoryModal @on-success="(e: string) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
@@ -37,7 +37,8 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(category, index) in store.categories" :key="index" :title="`Créé le ${frenchDate(category.createdAt)}\nModifié le ${frenchDate(category.updatedAt)}}`">
+          <tr v-for="(category, index) in store.categories" :key="index"
+            :title="`Créé le ${frenchDate(category.createdAt)}\nModifié le ${frenchDate(category.updatedAt)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.slug }}</td>
@@ -90,6 +91,9 @@ const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
 
+onMounted(() => {
+  store.getData()
+})
 const openModal = (data: Category, action: String) => {
   selectedData.value = data
 

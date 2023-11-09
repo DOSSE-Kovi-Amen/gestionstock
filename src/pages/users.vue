@@ -22,25 +22,38 @@
     <!-- Liste des users -->
     <div class="p-5 bg-white w-full h-full shadow-2xl rounded-lg bg-opacity-25">
 
-      <Datatable v-if="store.users && store.users.length != 0">
+      <Datatable v-if="!store.loading">
         <thead>
           <tr>
+            <th class="px-6 py-3 text-left text-sm font-bold">Avatar</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Email</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Agent</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Rôles</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(user, index) in store.users" :key="index">
+            <td> 
+              <img v-if="user?.photo" class="rounded-full w-10 h-10 object-cover"
+          :src="apiBaseURL + '/' + user?.photo"
+          alt="" srcset="">
+          <div v-else class="bg-gray-200 w-8 h-8 flex justify-center items-center rounded-full p-5">
+            <i class="fa fa-user"></i>
+
+          </div>
+      
+            </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ user.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ user.email }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ user.roles }}</td>
+
+            <!-- <td class="px-6 py-4 whitespace-no-wrap">
               <i v-if="user.isOwner == true" class="fa fa-check-circle fa-2x text-green-500" aria-hidden="true"></i>
               <i v-else class="fa fa-xmark-circle fa-2x text-red-500" aria-hidden="true"></i>
 
-            </td>
+            </td> -->
             <td class="flex gap-2">
               <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 @click="openModal(user, 'read')">
@@ -53,10 +66,7 @@
                 @click="openModal(user, 'delete')">
                 <i class="fa-regular fa-trash-can"></i>
               </a>
-
             </td>
-
-
           </tr>
 
         </tbody>
@@ -85,6 +95,10 @@ const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
 
+
+onMounted(() => {
+  store.getData()
+})
 const openModal = (user: User, action: String) => {
   selectedData.value = user
 
@@ -106,18 +120,6 @@ const openModal = (user: User, action: String) => {
 import { collection, addDoc } from "firebase/firestore";
 import { User } from '~/types';
 const { $db } = useNuxtApp()
-
-try {
-  const docRef = await addDoc(collection($db, "users"), {
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
-  });
-  console.log("Document written with ID: ", docRef.id);
-} catch (e) {
-  console.error("Error adding document: ", e);
-}
-// Add a second document with a generated ID.
 definePageMeta({
   layout: "main",
 });

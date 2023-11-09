@@ -13,24 +13,19 @@
         <!-- Contenu du modal -->
         <div style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
           <!-- Ajoutez ici le contenu du modal -->
-          <li><strong>ID:</strong> {{ selectedData?.id }}</li>
-          <li><strong>Nom et prénoms:</strong> {{ selectedData?.name }}</li>
-          <li><strong>Pseudo</strong>{{ selectedData?.username }}</li>
-          <li><strong>Email:</strong> {{ selectedData?.email }}</li>
-          <li><strong>Téléphone:</strong> {{ selectedData?.phoneNumber }}</li>
+          <li><strong>ID: </strong> {{ selectedData?.id }}</li>
+          <li><strong>Nom et prénoms: </strong> {{ selectedData?.name }}</li>
+          <li><strong>Pseudo: </strong>{{ selectedData?.username }}</li>
+          <li><strong>Email: </strong> {{ selectedData?.email }}</li>
+          <li><strong>Téléphone: </strong> {{ selectedData?.phoneNumber }}</li>
           <!-- <li><strong>Est super utilisateur:</strong>
             <i v-if="selectedData?.is_superuser == true" class="fa fa-check-circle fa-2x text-green-500"
             aria-hidden="true"></i>
           <i v-else class="fa fa-xmark-circle fa-lg text-red-500" aria-hidden="true"></i>
       
           </li> -->
-          <li><strong>Statut:</strong> {{ selectedData?.status }}</li>
-          <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.createdAt ?? "") }}</li>
-          <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.updatedAt ?? "") }}</li>
-          <li><strong>Date d'activation:</strong> {{ frenchDate(selectedData?.activate_date ?? "") }}</li>
-          <li><strong>Date de désactivation:</strong> {{ frenchDate(selectedData?.deactivate_date ?? "") }}
-          </li>
-
+          <li><strong>Date de création: </strong> {{ frenchDate(selectedData?.createdAt ?? "") }}</li>
+          <li><strong>Date de modification: </strong> {{ frenchDate(selectedData?.updatedAt ?? "") }}</li>
         </div>
 
         <!-- Pied du modal -->

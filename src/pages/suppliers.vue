@@ -121,6 +121,10 @@ const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
 
+onMounted(() => {
+  store.getData()
+})
+
 const openModal = (data: Supplier, action: String) => {
   selectedData.value = data;
 

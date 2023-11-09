@@ -1,25 +1,19 @@
 <template>
   <div class="min-h-screen">
+    <SweetAlert
+    :show="showAlert"
+    title="alertTitle"
+    :message="alertMessage"
+    @on-close="showAlert = false"
+  />
     <!-- Contenu du profil -->
     <div class="p-2 md:p-2 lg:p-2">
-      {{ auth.errors }}
-      <div v-if="auth.errors && auth.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
-        <p v-for="(error, index) in auth.errors" :key="index" class="font-semibold my-1">
-          {{ error }} :
-        </p>
-      </div>
+
       <div v-if="usersStore.errors && usersStore.errors.length != 0"
         class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
         <p v-for="(error, index) in usersStore.errors" :key="index" class="font-semibold my-1">
           {{ error }} :
         </p>
-      </div>
-      <!-- En-tête du profil -->
-      <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-xl font-semibold">Nom de l'utilisateur</h1>
-        <button class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600">
-          Éditer le profil
-        </button>
       </div>
 
       <!-- Contenu du profil (informations utilisateur, etc.) -->
@@ -80,12 +74,12 @@
                 placeholder="Nom d'utilisateur" required />
             </div>
             <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe :</label>
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Ancien Mot de passe :</label>
               <input v-model="formData.oldPassword" class="border rounded-md py-2 px-3 w-full" type="password"
                 id="password" name="password" placeholder="Mot de passe" />
             </div>
             <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe :</label>
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Nouveau Mot de passe :</label>
               <input v-model="formData.password" class="border rounded-md py-2 px-3 w-full" type="password" id="password"
                 name="password" placeholder="Mot de passe" />
             </div>
@@ -102,10 +96,18 @@
         </div>
       </div>
     </div>
+       
+    <div v-if="auth.errors && auth.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+      <p v-for="(error, index) in auth.errors" :key="index" class="font-semibold my-1">
+        {{ error }} :
+      </p>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-import { useUsersStore } from '#imports';
+
+const showAlert = ref(false);
+const alertMessage = ref("");
 const formData = ref<any>({
   name: "",
   oldPassword: null,
@@ -116,7 +118,9 @@ const formData = ref<any>({
 const photo = ref<any>()
 const usersStore = useUsersStore()
 const auth = useAuthStore();
-
+onMounted(() => {
+  auth.getProfile()
+})
 const imageFile = ref(null);
 const imagePreview = ref("");
 
@@ -159,8 +163,13 @@ const editPhoto = async () => {
 
 const updateData = async () => {
   if (auth.user) {
-    auth.changePwdOrName(auth.user.id, formData,).then(async () => {
-      await auth.getProfile()
+    auth.changePwdOrName(auth.user.id, formData,).then(async (status) => {
+      if (status) {
+      showAlert.value=true;
+      alertMessage.value="Mise à jour réussie"
+      await auth.getProfile()        
+      }
+
     })
   }
 }
