@@ -3,8 +3,8 @@
     <Modal :is-open="isOpen">
       <div class="modal-content text-left">
         <!-- En-tête du modal -->
-        <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">
-          <h3 class="text-xl"><i class="fa-solid fa-edit"></i> Modifier un utilisateur</h3>
+        <div class="flex p-4 bg-gray-900 text-white justify-between pb-3">
+          <h3 class="text-xl"><i class="fa-solid fa-lock"></i> Attribuer un rôle à un utilisateur</h3>
           <button @click="$emit('onClose')" class="modal-close">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -16,39 +16,25 @@
         </div>
 
         <div v-else>
-
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
-            <div style="height: 85vh;" class="modal-body pb-16 p-5 overflow-y-auto">
+            <div style="height: 35vh;" class="modal-body pb-16 p-5 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
               <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
                   {{ error }}
                 </p>
               </div>
-              <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Nom :</label>
-                <input v-model="user.name" class="border rounded-md py-2 px-3 w-full" type="text" id="name" name="name"
-                  placeholder="Nom et prénoms" required />
+              <div class="mb-1">
+                <label for="selectedProduct" class="block text-black mb-2">Rôles:
+                </label>
+                <v-select v-model="user.roles" taggable multiple
+                  class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                  :options="rolesStore.roles" :reduce="(option: any) => option.name" label="name"
+                  placeholder="Attribuer un rôle">
+                </v-select>
               </div>
 
-
-              <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="oldPwd">Ancien Mot de passe :</label>
-                <input v-model="user.oldPassword" class="border rounded-md py-2 px-3 w-full" type="password" id="oldPwd"
-                  name="password" placeholder="Mot de passe" />
-              </div>
-              <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="newPwd">Nouveau Mot de passe :</label>
-                <input v-model="user.password" class="border rounded-md py-2 px-3 w-full" type="password" id="newPwd"
-                  name="password" placeholder="Mot de passe" />
-              </div>
-              <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPwd">Confirmer mot de passe
-                  :</label>
-                <input v-model="user.confirmPassword" class="border rounded-md py-2 px-3 w-full" type="password"
-                  id="confirmPwd" name="password" placeholder="Confirmer Mot de passe" />
-              </div>
 
             </div>
 
@@ -84,29 +70,26 @@ const props = defineProps<{
 const emit = defineEmits(['onClose', 'onSuccess'])
 const loading = ref(false)
 const user = ref<any>({
-  name: "",
-  oldPassword: null,
-  password: null,
-  confirmPassword: '',
+  roles: "",
 });
 watch(
   () => props.isOpen,
   (newValue, oldValue) => {
     if (newValue && props.selectedData) {
       // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
-      user.value = { name:props.selectedData.name };
+      user.value = { roles:JSON.parse(props.selectedData.roles) };
     }
   }
 );
 const submitForm = async () => {
   loading.value = true
   if (props.selectedData) {
-    await store.updateData(props.selectedData.id, user.value).then((status) => {
+    await store.updateRole(props.selectedData.id, user.value).then((status) => {
 
       if (status) {
 
         emit('onClose')
-        emit('onSuccess', "Compte utilisateur modifié avec succès")
+        emit('onSuccess', "Rôle(s) utilisateur attribué avec succès")
 
       }
       loading.value = false

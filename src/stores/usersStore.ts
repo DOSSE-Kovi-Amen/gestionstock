@@ -5,7 +5,7 @@ export const useUsersStore = defineStore('user', () => {
   const errors = ref<any>([]);
   const loading = ref(false);
   const authToken = ref("");
- 
+
   authToken.value = localStorage.getItem('access_token') ?? ""
 
   const headers = {
@@ -45,7 +45,7 @@ export const useUsersStore = defineStore('user', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/auth/register`, {
       headers: headers,
       method: 'POST',
-      body: {...payload}
+      body: { ...payload }
     })
 
     if (error.value?.statusCode == 401) {
@@ -56,7 +56,7 @@ export const useUsersStore = defineStore('user', () => {
     console.log('====================================');
     if (error.value?.statusCode == 400) {
       errors.value = error.value?.data.message;
-    
+
     }
     if (data.value) {
       await getData()
@@ -81,26 +81,55 @@ export const useUsersStore = defineStore('user', () => {
       await getData()
 
       return data.value
-    } else{
-      
+    } else {
+
     }
   }
 
-  const updateData = async (id: string,payload: any ) => {
+  const updateData = async (id: string, payload: any) => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: payload
+      body: { name: payload.name }
     })
+    console.log('=================good===================');
+    console.log(payload);
+    console.log('====================================');
 
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
     if (error.value?.statusCode == 400) {
       console.log('====================================');
-      console.log();
+      console.log(error.value?.data.message);
       console.log('====================================');
-      errors.value = error.value?.data.errors;
+      errors.value = error.value?.data.message;
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
+  }
+
+  const updateRole = async (id: string, payload: any) => {
+    const { data, error } = await useFetch(`${apiBaseURL}/users/edit-roles/${id}`, {
+      method: 'PATCH',
+      headers: headers,
+      body: { roles: payload.roles }
+    })
+    console.log('=================good===================');
+    console.log(payload);
+    console.log('====================================');
+
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      console.log('====================================');
+      console.log(error.value?.data.message);
+      console.log('====================================');
+      errors.value = error.value?.data.message;
     }
     if (data.value) {
       await getData()
@@ -142,6 +171,6 @@ export const useUsersStore = defineStore('user', () => {
   getData()
 
 
-  return { users, loading, errors, usersCount,updatePhoto, getData,retrieveData, createUser, updateData, deleteData }
+  return { users, loading, errors, usersCount, updatePhoto, updateRole, getData, retrieveData, createUser, updateData, deleteData }
 })
 

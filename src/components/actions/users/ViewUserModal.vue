@@ -5,7 +5,7 @@
       <div class="modal-content text-left">
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-yellow-500 text-white justify-between pb-3">
-          <h3 class="text-xl"> <i class="fa-regular fa-eye"></i> Voir un utilistaeur</h3>
+          <h3 class="text-xl"> <i class="fa-regular fa-eye"></i> Voir un utilisateur</h3>
           <button @click="$emit('onClose')" class="modal-close">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -18,6 +18,7 @@
           <li><strong>Pseudo: </strong>{{ selectedData?.username }}</li>
           <li><strong>Email: </strong> {{ selectedData?.email }}</li>
           <li><strong>Téléphone: </strong> {{ selectedData?.phoneNumber }}</li>
+          <li v-if="selectedData?.roles"><strong>Rôles: </strong> {{ JSON.parse(selectedData?.roles).length !== 0 ?selectedData?.roles:"Aucun rôle" }}</li>
           <!-- <li><strong>Est super utilisateur:</strong>
             <i v-if="selectedData?.is_superuser == true" class="fa fa-check-circle fa-2x text-green-500"
             aria-hidden="true"></i>

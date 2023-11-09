@@ -98,7 +98,7 @@
                       <span>{{ option.name }}</span>
                     </div>
                   </template>
-                  <template #search="{ attributes, events }">
+                  <template #search="{ attributes, events }:any">
                     <input
                       class="vs__search"
                       :required="!formData.category"
@@ -205,7 +205,7 @@ const props = defineProps<{
   isOpen: boolean;
   selectedData?: Product;
 }>();
-const formData = ref({
+const formData = ref<any>({
   name: "", // Nom du produit
   description: "", // Description du produit
   purchase_price: 0, // Prix d'achat du produit
