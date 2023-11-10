@@ -8,3 +8,4 @@ export * from './client';
 export * from './supplier';
 export * from './user';
 export * from './role';
+export * from './setting';
