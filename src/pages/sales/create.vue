@@ -29,7 +29,6 @@
           <i class="fa-solid fa-user"></i> Ajouter client
         </button>
       </div>
-      {{ formData }}
       <form @submit.prevent="submitForm">
         <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-3">
           <div class="mb-1">

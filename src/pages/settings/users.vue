@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Settings>
     <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
     <ViewUserModal @on-close="isOpenRead = false" :is-open="isOpenRead" :selected-data="selectedData" />
 
@@ -29,7 +30,7 @@
       Ajouter nouveau
     </button>
     <!-- Liste des users -->
-    <div class="p-5 bg-white w-full h-full shadow-2xl rounded-lg bg-opacity-25">
+    <div class="w-full h-full shadow-2xl rounded-lg bg-opacity-25">
 
       <Datatable v-if="!store.loading">
         <thead>
@@ -89,6 +90,9 @@
         <Spinner class="h-12" />
       </div>
     </div>
+
+      
+    </Settings>
   </div>
 </template>
 <style scoped></style>
@@ -99,6 +103,7 @@ import UserRoleModal from '@/components/actions/users/UserRoleModal.vue';
 import ViewUserModal from '@/components/actions/users/ViewUserModal.vue';
 import EditUserModal from '@/components/actions/users/EditUserModal.vue';
 import DeleteUserModal from '@/components/actions/users/DeleteUserModal.vue';
+import { useUsersStore } from "~/stores/usersStore";
 
 const store = useUsersStore();
 
@@ -135,11 +140,8 @@ const openModal = (user: User, action: String) => {
   console.log(isOpenRead.value);
   console.log('====================================');
 }
-import { collection, addDoc } from "firebase/firestore";
 import { User } from '~/types';
-const { $db } = useNuxtApp()
 definePageMeta({
   layout: "main",
 });
 </script>
-~/types/users

@@ -40,4 +40,3 @@ export const useRolesStore = defineStore('role', () => {
 
   return { roles, loading, errors, getData }
 })
-

@@ -18,7 +18,7 @@ export interface Client {
 export interface ClientForm {
     codeCli: string; //
     name: string;
-    email: string;
+    email: string|null;
     telephone:string;
     zipCode:string;
     address:string;

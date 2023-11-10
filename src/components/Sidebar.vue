@@ -91,12 +91,13 @@
             <span :class="{ 'hidden': !isSidebarOpen }">Pertes</span>
           </NuxtLink>
         </li>
+
         <li>
-          <NuxtLink to="/users" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/settings" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <i class="fa-solid fa-users"></i>
-            <span :class="{ 'hidden': !isSidebarOpen }">Utilisateurs</span>
+            <i class="fa-solid fa-cog"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Paramètres</span>
           </NuxtLink>
         </li>
       </ul>

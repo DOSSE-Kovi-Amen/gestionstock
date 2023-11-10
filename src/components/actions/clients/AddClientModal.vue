@@ -217,7 +217,7 @@ const loading = ref(false);
 const formData = ref({
   codeCli: "", //
   name: "",
-  email: "",
+  email: null,
   telephone: "",
   zipCode: "",
   address: "",
@@ -238,7 +238,7 @@ const submitForm = async () => {
       formData.value.codeCli = "";
       formData.value.country = "";
       formData.value.zipCode = "";
-      formData.value.email = "";
+      formData.value.email = null;
       formData.value.description;
       formData.value.telephone = "";
     }
