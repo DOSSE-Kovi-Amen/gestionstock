@@ -8,6 +8,7 @@ export interface Product {
   description: string; // Description du produit
   purchase_price: number; // Prix d'achat du produit
   selling_price: number; // Prix de vente du produit
+  categoryId: string; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
   stock: number; // Stock disponible
   category: Category; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
   imageUrl: string; // URL de l'image du produit

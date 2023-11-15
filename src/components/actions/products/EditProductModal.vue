@@ -135,7 +135,7 @@ const formData = ref<ProductForm>({
   selling_price: 0, // Prix du produit
   stock: 0, // Stock disponible
   categoryId: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-  imageUrl: "",
+  imageUrl: null,
 }); // Champ de nom de catégorie // Champ de nom de catégorie
 const storageService = new FirebaseStorageService();
 
@@ -164,6 +164,7 @@ const handleImageChange = (event: any) => {
         imagePreview.value = e.target.result;
       }
     };
+    formData.value.imageUrl = file
 
     reader.readAsDataURL(file);
   }
@@ -180,19 +181,14 @@ const submitForm = async () => {
     formDataToSend.append('selling_price', formData.value.selling_price);
     formDataToSend.append('stock', formData.value.stock);
     formDataToSend.append('categoryId', formData.value.categoryId);
-    formDataToSend.append('imageUrl', formData.value.imageUrl);
-
-    console.log('====================================');
-    console.log(formDataToSend);
-    console.log('====================================');
+    if (formData.value.imageUrl) {
+      formDataToSend.append('imageUrl', formData.value.imageUrl);
+    }
 
     await store
       .updateData(formDataToSend, props.selectedData.id)
       .then((status) => {
         if (status) {
-          console.log("=============status=======================");
-          console.log(status);
-          console.log("====================================");
           emit("onClose");
           emit("onSuccess", "Produit mis à jour avec succès");
         }
