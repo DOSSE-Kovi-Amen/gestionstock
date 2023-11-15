@@ -136,7 +136,6 @@ const formData = ref<any>({
   categoryId: "",
   imageUrl: null
 }); // Champ de nom de catégorie
-const storageService = new FirebaseStorageService();
 
 const imageFile = ref(null);
 const imagePreview = ref("");

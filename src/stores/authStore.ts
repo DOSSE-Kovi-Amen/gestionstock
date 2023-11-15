@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     if (error.value?.statusCode == 404) {
-      errors.value = error.value.data.message
+      errors.value = ["Cet utilisateur n'existe pas"]
       loading.value = false
       return false;
 
@@ -102,7 +102,7 @@ export const useAuthStore = defineStore('auth', () => {
         'Authorization': `Bearer ${access_token.value}`, // Include the Bearer token
 
       },
-      body: payload
+      body: {...payload}
     })
 
     if (error.value?.statusCode == 401) {

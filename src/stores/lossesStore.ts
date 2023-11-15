@@ -70,7 +70,7 @@ export const useLossesStore = defineStore('loss', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/losses/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: payload
+      body: {...payload}
     })
 
     if (error.value?.statusCode == 401) {

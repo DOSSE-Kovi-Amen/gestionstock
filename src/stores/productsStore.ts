@@ -45,7 +45,7 @@ export const useProductsStore = defineStore('product', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/products`, {
       headers: headers,
       method: 'POST',
-      body: payload
+      body: {...payload}
     })
 
     if (error.value?.statusCode == 401) {
@@ -65,12 +65,12 @@ export const useProductsStore = defineStore('product', () => {
     }
   }
 
-  const updateData = async (payload: ProductForm, id: string) => {
+  const updateData = async (payload: any, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/products/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: payload
+      body: {...payload}
     })
 
     if (error.value?.statusCode == 401) {

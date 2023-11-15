@@ -70,7 +70,7 @@ export const useSuppliersStore = defineStore('supplier', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/suppliers/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: payload
+      body: {...payload}
     })
 
     if (error.value?.statusCode == 401) {

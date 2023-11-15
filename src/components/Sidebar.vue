@@ -185,7 +185,10 @@ const toggleDropdown = () => {
 }
 
 const onBlur = () => {
+  setTimeout(() => {
     isDropdownOpen.value = false
+    
+  }, 300);
 }
 
 const logout = () => {

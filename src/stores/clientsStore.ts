@@ -70,7 +70,7 @@ export const useClientsStore = defineStore('client', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/clients/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: payload
+      body: {...payload}
     })
 
     if (error.value?.statusCode == 401) {

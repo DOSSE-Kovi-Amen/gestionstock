@@ -13,176 +13,99 @@
         </div>
 
         <!-- Contenu du modal -->
-        <div
-          v-if="loading"
-          class="flex bg-white h-64 w-full justify-center items-center"
-        >
+        <div v-if="loading" class="flex bg-white h-64 w-full justify-center items-center">
           <Spinner class="h-12" />
         </div>
 
         <div v-else>
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
-            <div
-              style="height: 85vh"
-              class="modal-body pb-16 p-5 overflow-y-auto"
-            >
+            <div style="height: 85vh" class="modal-body pb-16 mb-5 p-5 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
 
               <div></div>
               <!-- Champ de sélection d'image -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
-                  <label for="image" class="block text-gray-700 font-bold mb-2"
-                    >Image du produit</label
-                  >
+                  <label for="image" class="block text-gray-700 font-bold mb-2">Image du produit</label>
 
-                  <label
-                    for="image"
-                    class="cursor-pointer mt-2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-                  >
+                  <label for="image"
+                    class="cursor-pointer mt-2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                     Choisissez un fichier
                   </label>
-                  <input
-                    @change="handleImageChange"
-                    type="file"
-                    class="hidden"
-                    accept="image/*"
-                    id="image"
-                    name="image"
-                  />
+                  <input @change="handleImageChange" type="file" class="hidden" accept="image/*" id="image"
+                    name="image" />
                 </div>
                 <div class="mb-4">
                   <!-- <label for="image" class="block text-gray-700 font-bold mb-2"
                     >Image du produit</label
                   > -->
                   <!-- Prévisualisation de l'image -->
-                  <img
-                    v-if="imagePreview"
-                    :src="imagePreview"
-                    alt="Prévisualisation de l'image"
-                    class="mt-2 max-h-32 object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  />
+                  <img v-if="imagePreview" :src="imagePreview" alt="Prévisualisation de l'image"
+                    class="mt-2 max-h-32 object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
                 </div>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
-                  <label for="name" class="block text-gray-700 font-bold mb-2"
-                    >Nom du produit</label
-                  >
-                  <input
-                    v-model="formData.name"
-                    type="text"
-                    id="name"
-                    name="name"
+                  <label for="name" class="block text-gray-700 font-bold mb-2">Nom du produit</label>
+                  <input v-model="formData.name" type="text" id="name" name="name"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required
-                  />
+                    required />
                 </div>
                 <div class="mb-4">
-                  <label
-                    for="category"
-                    class="block text-gray-700 font-bold mb-2"
-                    >Catégorie du produit</label
-                  >
-                  <v-select
-                  v-model="formData.category"
-                  class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-                  required
-                  :options="storeCat.categories"
-                  label="name"
-                >
-                  <!-- Personnalisation de l'affichage des options -->
-                  <template #option="option: any">
-                    <div class="flex gap-2">
-                      <span>{{ option.name }}</span>
-                    </div>
-                  </template>
-                  <template #search="{ attributes, events }:any">
-                    <input
-                      class="vs__search"
-                      :required="!formData.category"
-                      v-bind="attributes"
-                      v-on="events"
-                    />
-                  </template>
-                </v-select>
-                
+                  <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie du produit</label>
+                  <v-select v-model="formData.categoryId"
+                    class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                    required :options="storeCat.categories" label="name" :reduce="(option: any) => option.id">
+                    <!-- Personnalisation de l'affichage des options -->
+                    <template #option="option: any">
+                      <div class="flex gap-2">
+                        <span>{{ option.name }}</span>
+                      </div>
+                    </template>
+                    <template #search="{ attributes, events }: any">
+                      <input class="vs__search" :required="!formData.categoryId" v-bind="attributes" v-on="events" />
+                    </template>
+                  </v-select>
+
                 </div>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
-                  <label for="price" class="block text-gray-700 font-bold mb-2"
-                    >Prix d'achat du produit</label
-                  >
-                  <input
-                    v-model.number="formData.purchase_price"
-                    type="number"
-                    id="purchase_price"
-                    name="purchase_price"
+                  <label for="price" class="block text-gray-700 font-bold mb-2">Prix d'achat du produit</label>
+                  <input v-model.number="formData.purchase_price" type="number" id="purchase_price" name="purchase_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required
-                  />
+                    required />
                 </div>
                 <div class="mb-4">
-                  <label for="price" class="block text-gray-700 font-bold mb-2"
-                    >Prix de vente produit</label
-                  >
-                  <input
-                    v-model.number="formData.selling_price"
-                    type="number"
-                    id="selling_price"
-                    name="selling_price"
+                  <label for="price" class="block text-gray-700 font-bold mb-2">Prix de vente produit</label>
+                  <input v-model.number="formData.selling_price" type="number" id="selling_price" name="selling_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required
-                  />
+                    required />
                 </div>
               </div>
               <div class="mb-4">
-                <label for="stock" class="block text-gray-700 font-bold mb-2"
-                  >Stock disponible</label
-                >
-                <input
-                  v-model.number="formData.stock"
-                  type="number"
-                  id="stock"
-                  name="stock"
+                <label for="stock" class="block text-gray-700 font-bold mb-2">Stock disponible</label>
+                <input v-model.number="formData.stock" type="number" id="stock" name="stock"
                   class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  required
-                />
+                  required />
               </div>
               <div class="mb-4">
-                <label
-                  for="description"
-                  class="block text-gray-700 font-bold mb-2"
-                  >Description du produit</label
-                >
-                <textarea
-                  v-model="formData.description"
-                  id="description"
-                  name="description"
+                <label for="description" class="block text-gray-700 font-bold mb-2">Description du produit</label>
+                <textarea v-model="formData.description" id="description" name="description"
                   class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  required
-                ></textarea>
+                  required></textarea>
               </div>
             </div>
 
             <!-- Pied du modal -->
-            <div
-              class="absolute bg-gray-100 w-full flex justify-end bottom-0 p-4"
-            >
-              <a
-                class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2"
-                @click="$emit('onClose')"
-              >
-              <i class="fa-solid fa-close"></i> Fermer
+            <div class="absolute bg-gray-100 w-full flex justify-end bottom-0 p-4">
+              <a class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2" @click="$emit('onClose')">
+                <i class="fa-solid fa-close"></i> Fermer
               </a>
-              <button
-                type="submit"
-                class="btn-primary text-white py-2 px-4 rounded-sm"
-              >
-              <i class="fa-solid fa-save"></i>  Enregistrer
+              <button type="submit" class="btn-primary text-white py-2 px-4 rounded-sm">
+                <i class="fa-solid fa-save"></i> Enregistrer
               </button>
             </div>
           </form>
@@ -205,24 +128,24 @@ const props = defineProps<{
   isOpen: boolean;
   selectedData?: Product;
 }>();
-const formData = ref<any>({
+const formData = ref<ProductForm>({
   name: "", // Nom du produit
   description: "", // Description du produit
   purchase_price: 0, // Prix d'achat du produit
   selling_price: 0, // Prix du produit
   stock: 0, // Stock disponible
-  category: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
+  categoryId: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
   imageUrl: "",
 }); // Champ de nom de catégorie // Champ de nom de catégorie
 const storageService = new FirebaseStorageService();
 
 watch(
   () => props.isOpen,
-  () => {
-    if (props.selectedData) {
+  (newValue, oldValue) => {
+    if (newValue && props.selectedData) {
       // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
       formData.value = { ...props.selectedData };
-      imagePreview.value = props.selectedData.imageUrl;
+      imagePreview.value = apiBaseURL + '/' + props.selectedData.imageUrl;
     }
   }
 );
@@ -250,20 +173,21 @@ const submitForm = async () => {
   loading.value = true;
   if (props.selectedData) {
     // Soumettre le formulaire avec l'image à Firebase Storage
-    if (imageFile.value) {
-      // Télécharger l'image vers Firebase Storage ici
-      // Utilisez Firebase Storage pour obtenir l'URL de téléchargement de l'image
-      const downloadURL = await storageService.uploadFile(imageFile.value);
-      if (downloadURL) {
-        formData.value.imageUrl = downloadURL;
-        console.log('=====================url===============');
-        console.log(formData.value);
-        console.log('====================================');
-      }
-    }
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', formData.value.name);
+    formDataToSend.append('description', formData.value.description);
+    formDataToSend.append('purchase_price', formData.value.purchase_price);
+    formDataToSend.append('selling_price', formData.value.selling_price);
+    formDataToSend.append('stock', formData.value.stock);
+    formDataToSend.append('categoryId', formData.value.categoryId);
+    formDataToSend.append('imageUrl', formData.value.imageUrl);
+
+    console.log('====================================');
+    console.log(formDataToSend);
+    console.log('====================================');
 
     await store
-      .updateData(formData.value, props.selectedData.id)
+      .updateData(formDataToSend, props.selectedData.id)
       .then((status) => {
         if (status) {
           console.log("=============status=======================");

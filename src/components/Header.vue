@@ -81,8 +81,12 @@ const toggleDropdown = () => {
 }
 
 const onBlur = () => {
-  isDropdownOpen.value = false
+  setTimeout(() => {
+    isDropdownOpen.value = false
+    
+  }, 300);
 }
+
 const logout = () => {
   auth.logout().then(() => {
     router.replace('/login')

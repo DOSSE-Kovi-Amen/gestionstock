@@ -90,11 +90,8 @@ export const useUsersStore = defineStore('user', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: { name: payload.name }
+      body: { ...{name: payload.name} }
     })
-    console.log('=================good===================');
-    console.log(payload);
-    console.log('====================================');
 
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
@@ -116,7 +113,7 @@ export const useUsersStore = defineStore('user', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/edit-roles/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: { roles: payload.roles }
+      body: { ...{roles: payload.roles} }
     })
     console.log('=================good===================');
     console.log(payload);
@@ -142,7 +139,7 @@ export const useUsersStore = defineStore('user', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/edit-photo/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: payload
+      body: {...payload}
     })
     console.log('=================error===================');
     console.log(error.value);

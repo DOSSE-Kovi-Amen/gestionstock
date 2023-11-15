@@ -71,7 +71,7 @@ export const useCategoriesStore = defineStore('category', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/categories/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: payload
+      body: {...payload}
     })
 
     if (error.value?.statusCode == 401) {

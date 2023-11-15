@@ -1,11 +1,6 @@
 <template>
   <div class="min-h-screen">
-    <SweetAlert
-    :show="showAlert"
-    title="alertTitle"
-    :message="alertMessage"
-    @on-close="showAlert = false"
-  />
+    <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
     <!-- Contenu du profil -->
     <div class="p-2 md:p-2 lg:p-2">
 
@@ -34,7 +29,8 @@
                 >Image du produit</label
               > -->
                 <!-- Prévisualisation de l'image -->
-                <img v-if="imagePreview && photo" :src="imagePreview" alt="Prévisualisation de l'image" style="width: 200px;"
+                <img v-if="imagePreview && photo" :src="imagePreview" alt="Prévisualisation de l'image"
+                  style="width: 200px;"
                   class="mt-2 bg-black object-contain border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
               </div>
               <label for="image"
@@ -96,7 +92,7 @@
         </div>
       </div>
     </div>
-       
+
     <div v-if="auth.errors && auth.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
       <p v-for="(error, index) in auth.errors" :key="index" class="font-semibold my-1">
         {{ error }} :
@@ -108,12 +104,14 @@
 
 const showAlert = ref(false);
 const alertMessage = ref("");
-const formData = ref<any>({
+const formData = ref({
   name: "",
   oldPassword: null,
   password: null,
   confirmPassword: null
 })
+
+
 
 const photo = ref<any>()
 const usersStore = useUsersStore()
@@ -154,8 +152,8 @@ const editPhoto = async () => {
   if (auth.user) {
     await usersStore.updatePhoto(formDataToSend, auth.user.id).then(async () => {
       photo.value = null;
-      imagePreview.value="";
-      imageFile.value=null
+      imagePreview.value = "";
+      imageFile.value = null
       await auth.getProfile()
     });
   }
@@ -163,11 +161,11 @@ const editPhoto = async () => {
 
 const updateData = async () => {
   if (auth.user) {
-    auth.changePwdOrName(auth.user.id, formData,).then(async (status) => {
+    auth.changePwdOrName(auth.user.id, formData.value ).then(async (status) => {
       if (status) {
-      showAlert.value=true;
-      alertMessage.value="Mise à jour réussie"
-      await auth.getProfile()        
+        showAlert.value = true;
+        alertMessage.value = "Mise à jour réussie"
+        await auth.getProfile()
       }
 
     })

@@ -22,7 +22,6 @@
 
         <div v-else>
           <form @submit.prevent="submitForm">
-            {{ formData }}
             <!-- Contenu du modal -->
             <div
               style="height: 50vh"
