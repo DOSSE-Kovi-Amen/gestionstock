@@ -35,15 +35,13 @@ export const useSettingsStore = defineStore('setting', () => {
     }
   }
   // post Data
-  const postData = async (payload: any) => {
+  const updateData = async (id: string, payload: any) => {
     errors.value = [];
-    console.log('================post====================');
-    console.log(payload);
-    console.log('====================================');
-    const { data, error } = await useFetch(`${apiBaseURL}/settings`, {
+    loading.value = true;
+    const { data, error } = await useFetch(`${apiBaseURL}/settings/${id}`, {
       headers: headers,
-      method: 'POST',
-      body: { ...payload }
+      method: 'PATCH',
+      body: payload
     })
 
     if (error.value?.statusCode == 401) {
@@ -58,15 +56,15 @@ export const useSettingsStore = defineStore('setting', () => {
     }
     if (data.value) {
       await getData()
-
+      loading.value = false
       return true
     }
   }
- 
+
   // Call getData
   getData()
 
 
-  return { settings, loading, errors, getData, postData }
+  return { settings, loading, errors, getData, updateData }
 })
 

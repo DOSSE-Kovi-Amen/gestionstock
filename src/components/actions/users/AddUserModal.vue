@@ -19,7 +19,7 @@
 
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
-            <div style="height: 85vh;" class="modal-body pb-16 p-5 overflow-y-auto">
+            <div style="height: 85vh;" class="modal-body pb-32 p-5 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
               <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
@@ -77,7 +77,7 @@
 
 
             <!-- Pied du modal -->
-            <div class="absolute bg-gray-100 w-full flex justify-end bottom-0  p-4">
+            <div style="z-index: 100;" class="absolute bg-gray-100 w-full flex justify-end bottom-0  p-4">
               <button class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2" @click="$emit('onClose')">
                 Fermer
               </button>

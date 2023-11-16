@@ -120,8 +120,8 @@ const formData = ref({
 
 watch(
   () => props.isOpen,
-  () => {
-    if (props.selectedData) {
+  (newValue, oldValue) => {
+    if (newValue && props.selectedData) {
       // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
       formData.value = { ...props.selectedData };
     }

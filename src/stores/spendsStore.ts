@@ -65,6 +65,26 @@ export const useSpendsStore = defineStore('spend', () => {
     }
   }
 
+  const updateData = async (payload: SpendForm, id: string) => {
+    errors.value = [];
+    const { data, error } = await useFetch(`${apiBaseURL}/spends/${id}`, {
+      method: 'PATCH',
+      headers: headers,
+      body: {...payload}
+    })
+
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    if (error.value?.statusCode == 400) {
+      errors.value = error.value?.data.message;
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
+  }
 
   const deleteData = async (id: string) => {
     const { data, error } = await useFetch(`${apiBaseURL}/spends/${id}`, {
@@ -77,6 +97,6 @@ export const useSpendsStore = defineStore('spend', () => {
   getData()
 
 
-  return { spends, loading, errors, spendsCount, getData, postData, deleteData }
+  return { spends, loading, errors, spendsCount, getData,updateData, postData, deleteData }
 })
 

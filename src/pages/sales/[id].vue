@@ -11,9 +11,10 @@
       <div class="grid grid-cols-2 gap-4">
         <div>
           <p><strong>De:</strong></p>
-          <p>Votre entreprise</p>
-          <p>Adresse de votre entreprise</p>
-          <p>Email: votre@email.com</p>
+          <p>{{ storeSettings.settings?.societyName }}</p>
+          <!-- <p>{{ storeSettings.settings?. }}</p> -->
+          <p>{{ storeSettings.settings?.societyContact }}</p>
+          <p>Email: {{ storeSettings.settings?.societyEmail }}</p>
         </div>
         <div>
           <p><strong>À:</strong></p>
@@ -68,6 +69,7 @@ import { Sale } from '~/types';
 const route = useRoute();
 const router = useRouter();
 const storeSales = useSalesStore();
+const storeSettings= useSettingsStore();
 const sale = ref<Sale>();
 // Vérifiez si le paramètre de requête 'showalert' est présent
 

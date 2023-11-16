@@ -19,7 +19,7 @@
           <li class="my-2">
             <NuxtLink to="/settings/users" class="block flex items-center gap-4">
               <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-              <i class="fa-solid fa-cog"></i>
+              <i class="fa-solid fa-users"></i>
               <span>Utilisateurs</span>
             </NuxtLink>
           </li>
