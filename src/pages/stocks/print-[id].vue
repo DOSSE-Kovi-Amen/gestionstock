@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(product, index) in stock.stockDetails" :key="index">
+          <tr v-for="(product, index) in JSON.parse(stock.stockDetails)" :key="index">
             <td class="border border-gray-300 p-2">{{ product.name }}</td>
             <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
           </tr>

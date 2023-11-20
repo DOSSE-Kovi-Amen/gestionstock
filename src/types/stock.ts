@@ -4,7 +4,7 @@ import { Supplier } from "./supplier";
 export interface Stock {
     id: string;
     supplier: Supplier;
-    stockDetails: StockDetails[];
+    stockDetails: string;
     totalNewStock: number;
     createdAt: any;
     updatedAt: any;

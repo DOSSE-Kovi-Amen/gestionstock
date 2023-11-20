@@ -139,7 +139,7 @@ export const useUsersStore = defineStore('user', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/edit-photo/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: {...payload}
+      body:payload
     })
     console.log('=================error===================');
     console.log(error.value);

@@ -10,7 +10,7 @@ export interface Sale {
     totalAmount: number;
     debt:number;
     change: number;
-    saleDetails: SaleDetails[];
+    saleDetails: string;
     authorId: string;
     createdAt: any;
     updatedAt: any;

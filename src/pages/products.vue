@@ -17,6 +17,12 @@
       showAlert = true
     }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
+    <!-- barcode -->
+    <ProductBarcodeModal @on-success="(e) => {
+      alertMessage = e;
+      showAlert = true
+    }" @on-close="isOpenBarcode = false" :is-open="isOpenBarcode" :selected-data="selectedData" />
+
     <!-- Read -->
     <DeleteProductModal @on-success="(e) => {
       alertMessage = e;
@@ -43,7 +49,8 @@
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(product, index) in store.products" :key="index"
             :title="`Créé le ${frenchDate(product.createdAt)}\nModifié le ${frenchDate(product.updatedAt)}}`">
-            <td> <img style="object-fit: contain;height:70px; width:70px" v-if="product?.imageUrl" :src="apiBaseURL+'/'+product?.imageUrl" alt="Prévisualisation de l'image"
+            <td> <img style="object-fit: contain;height:70px; width:70px" v-if="product?.imageUrl"
+                :src="apiBaseURL + '/' + product?.imageUrl" alt="Prévisualisation de l'image"
                 class="border rounded px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
@@ -51,6 +58,10 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
 
             <td class="flex gap-2 mt-2">
+              <a class="p-0.5 px-2 text-white  bg-blue-900 hover:bg-black shadow-xl rounded-lg"
+                @click="openModal(product, 'barcode')">
+                <Barcode :barcode="product.id" />
+              </a>
               <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 @click="openModal(product, 'read')">
                 <i class="fa-regular fa-eye"></i>
@@ -76,6 +87,7 @@
         <Spinner class="h-12" />
       </div>
     </div>
+
   </div>
 </template>
 <style scoped></style>
@@ -84,8 +96,8 @@
 import AddProductModal from '~/components/actions/products/AddProductModal.vue';
 import ViewProductModal from '~/components/actions/products/ViewProductModal.vue';
 import EditProductModal from '~/components/actions/products/EditProductModal.vue';
+import ProductBarcodeModal from '~/components/actions/products/ProductBarcodeModal.vue';
 import DeleteProductModal from '~/components/actions/products/DeleteProductModal.vue';
-
 import { Product } from '~/types';
 
 const store = useProductsStore();
@@ -93,18 +105,24 @@ const store = useProductsStore();
 const selectedData = ref<Product>();
 const isOpenCreate = ref(false);
 const isOpenRead = ref(false);
+const isOpenBarcode = ref(false);
 const isOpenDelete = ref(false);
 const isOpenEdit = ref(false);
 const showAlert = ref(false);
+
 const alertMessage = ref("");
+
 onMounted(() => {
   store.getData()
 })
+
+
 const openModal = (data: Product, action: String) => {
   selectedData.value = data
 
-
   switch (action) {
+    case 'barcode': isOpenBarcode.value = true;
+      break;
     case 'read': isOpenRead.value = true;
       break;
     case 'edit': isOpenEdit.value = true;

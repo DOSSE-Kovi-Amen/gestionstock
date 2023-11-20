@@ -1,6 +1,5 @@
 <template>
-  
-  <div v-if="sale==null" class="flex bg-white h-64 w-full justify-center items-center">
+  <div v-if="sale == null" class="flex bg-white h-64 w-full justify-center items-center">
     <Spinner class="h-12" />
   </div>
   <div v-else id="print" class="bg-white p-6 rounded shadow-md">
@@ -8,13 +7,19 @@
       <h1 class="text-2xl font-semibold">Facture</h1>
     </div>
     <div class="mt-4">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <p><strong>De:</strong></p>
-          <p>{{ storeSettings.settings?.societyName }}</p>
-          <!-- <p>{{ storeSettings.settings?. }}</p> -->
-          <p>{{ storeSettings.settings?.societyContact }}</p>
-          <p>Email: {{ storeSettings.settings?.societyEmail }}</p>
+      <div class="flex flex-row justify-between gap-4">
+        <div class="flex flex-row">
+          <div>
+            <img class="w-28 object-cover" :src="apiBaseURL + '/' + storeSettings.settings?.societyLogo" alt="">
+          </div>
+          <div>
+            <p><strong>De:</strong></p>
+            <p>{{ storeSettings.settings?.societyName }}</p>
+            <!-- <p>{{ storeSettings.settings?. }}</p> -->
+            <p>{{ storeSettings.settings?.societyContact }}</p>
+            <p>Email: {{ storeSettings.settings?.societyEmail }}</p>
+
+          </div>
         </div>
         <div>
           <p><strong>À:</strong></p>
@@ -22,6 +27,8 @@
           <p>{{ sale.client.telephone }}</p>
           <p>{{ sale.client.email }}</p>
         </div>
+
+
       </div>
     </div>
     <div class="mt-6">
@@ -39,7 +46,7 @@
             <td class="border border-gray-300 p-2">{{ product.name }}</td>
             <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
             <td class="border border-gray-300 p-2">{{ product.selling_price }}</td>
-            <td class="border border-gray-300 p-2">{{ product.selling_price*product.quantity }}</td>
+            <td class="border border-gray-300 p-2">{{ product.selling_price * product.quantity }}</td>
           </tr>
           <!-- Ajoutez d'autres lignes de facturation ici -->
         </tbody>
@@ -56,9 +63,9 @@
       <p><strong>Total de la facture:</strong> {{ sale.totalAmount }}</p>
     </div>
     <NuxtLink :to="`/sales/print-${sale.id}`" target="_blank" title="Imprimer"
-    class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white">
-    <i class="fa-solid fa-print fa-2x"></i>
-  </NuxtLink>
+      class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white">
+      <i class="fa-solid fa-print fa-2x"></i>
+    </NuxtLink>
   </div>
 </template>
 
@@ -69,19 +76,19 @@ import { Sale } from '~/types';
 const route = useRoute();
 const router = useRouter();
 const storeSales = useSalesStore();
-const storeSettings= useSettingsStore();
+const storeSettings = useSettingsStore();
 const sale = ref<Sale>();
 // Vérifiez si le paramètre de requête 'showalert' est présent
 
 onMounted(async () => {
   if (typeof route.params.id === 'string') {
-     sale.value = await storeSales.getSale(route.params.id);
-     console.log('=================only===================');
-     console.log(sale.value);
-     console.log('====================================');
-     if(!sale.value){
+    sale.value = await storeSales.getSale(route.params.id);
+    console.log('=================only===================');
+    console.log(sale.value);
+    console.log('====================================');
+    if (!sale.value) {
       router.push('/404')
-     }
+    }
   }
 })
 definePageMeta({
@@ -108,5 +115,4 @@ definePageMeta({
     box-shadow: 0 0 0 1px #0000, 0 0 0 20px #fa0d0d00
   }
 }
-
 </style>

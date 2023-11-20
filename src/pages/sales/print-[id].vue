@@ -7,20 +7,28 @@
             <h1 class="text-2xl font-semibold">Facture</h1>
         </div>
         <div class="mt-4">
-            <div class="grid grid-cols-2 gap-4">
-                <div>
+            <div class="flex flex-row justify-between gap-4">
+                <div class="flex flex-row">
+                  <div>
+                    <img class="w-28 object-cover" :src="apiBaseURL + '/' + storeSettings.settings?.societyLogo" alt="">
+                  </div>
+                  <div>
                     <p><strong>De:</strong></p>
-                    <p>Votre entreprise</p>
-                    <p>Adresse de votre entreprise</p>
-                    <p>Email: votre@email.com</p>
+                    <p>{{ storeSettings.settings?.societyName }}</p>
+                    <!-- <p>{{ storeSettings.settings?. }}</p> -->
+                    <p>{{ storeSettings.settings?.societyContact }}</p>
+                    <p>Email: {{ storeSettings.settings?.societyEmail }}</p>
+        
+                  </div>
                 </div>
                 <div>
-                    <p><strong>À:</strong></p>
-                    <p>{{ sale.client.name }}</p>
-                    <p>{{ sale.client.telephone }}</p>
-                    <p>{{ sale.client.email }}</p>
+                  <p><strong>À:</strong></p>
+                  <p>{{ sale.client.name }}</p>
+                  <p>{{ sale.client.telephone }}</p>
+                  <p>{{ sale.client.email }}</p>
                 </div>
-            </div>
+    
+              </div>
         </div>
         <div class="mt-6">
             <table class="w-full bg-blue-100 border-collapse border border-gray-300">
@@ -53,7 +61,7 @@
             <p><strong>Remise:</strong> {{ sale.discount }}</p>
             <p><strong>Total de la facture:</strong> {{ sale.totalAmount }}</p>
         </div>
-        </div>
+    </div>
 </template>
   
 <script setup lang="ts">
@@ -63,6 +71,8 @@ import { Sale } from '~/types';
 const route = useRoute();
 const router = useRouter();
 const storeSales = useSalesStore();
+const storeSettings = useSettingsStore();
+
 const sale = ref<Sale>();
 // Vérifiez si le paramètre de requête 'showalert' est présent
 
