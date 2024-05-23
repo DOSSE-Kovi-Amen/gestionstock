@@ -54,7 +54,7 @@
                 </div>
                 <div class="mb-4">
                   <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie du produit</label>
-                  <v-select v-model="formData.categoryId"
+                  <v-select v-model="formData.category_id"
                     class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
                     required :options="storeCat.categories" label="name" :reduce="(option: any) => option.id">
                     <!-- Personnalisation de l'affichage des options -->
@@ -64,7 +64,7 @@
                       </div>
                     </template>
                     <template #search="{ attributes, events }: any">
-                      <input class="vs__search" :required="!formData.categoryId" v-bind="attributes" v-on="events" />
+                      <input class="vs__search" :required="!formData.category_id" v-bind="attributes" v-on="events" />
                     </template>
                   </v-select>
 
@@ -134,8 +134,8 @@ const formData = ref<ProductForm>({
   purchase_price: 0, // Prix d'achat du produit
   selling_price: 0, // Prix du produit
   stock: 0, // Stock disponible
-  categoryId: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-  imageUrl: null,
+  category_id: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
+  image_url: null,
 }); // Champ de nom de catégorie // Champ de nom de catégorie
 const storageService = new FirebaseStorageService();
 
@@ -145,7 +145,7 @@ watch(
     if (newValue && props.selectedData) {
       // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
       formData.value = { ...props.selectedData };
-      imagePreview.value = apiBaseURL + '/' + props.selectedData.imageUrl;
+      imagePreview.value = apiBaseURL + '/' + props.selectedData.image_url;
     }
   }
 );
@@ -164,7 +164,7 @@ const handleImageChange = (event: any) => {
         imagePreview.value = e.target.result;
       }
     };
-    formData.value.imageUrl = file
+    formData.value.image_url = file
 
     reader.readAsDataURL(file);
   }
@@ -180,9 +180,9 @@ const submitForm = async () => {
     formDataToSend.append('purchase_price', formData.value.purchase_price);
     formDataToSend.append('selling_price', formData.value.selling_price);
     formDataToSend.append('stock', formData.value.stock);
-    formDataToSend.append('categoryId', formData.value.categoryId);
-    if (formData.value.imageUrl) {
-      formDataToSend.append('imageUrl', formData.value.imageUrl);
+    formDataToSend.append('category_id', formData.value.category_id);
+    if (formData.value.image_url) {
+      formDataToSend.append('image_url', formData.value.image_url);
     }
 
     await store

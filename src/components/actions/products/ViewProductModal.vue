@@ -19,11 +19,11 @@
               >Image:
              
             </strong>
-             <span v-if="!selectedData?.imageUrl">Aucune image</span>
+             <span v-if="!selectedData?.image_url">Aucune image</span>
             <!-- Prévisualisation de l'image -->
             <img
-              v-if="selectedData?.imageUrl"
-              :src="apiBaseURL+'/'+selectedData?.imageUrl"
+              v-if="selectedData?.image_url"
+              :src="apiBaseURL+'/'+selectedData?.image_url"
               alt="Prévisualisation de l'image"
               class="mt-2 max-h-32 object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
             />

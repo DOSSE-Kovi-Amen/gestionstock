@@ -57,7 +57,7 @@
                 </div>
                 <div class="mb-4">
                   <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie (Optionnel)</label>
-                  <v-select v-model="formData.categoryId"
+                  <v-select v-model="formData.category_id"
                     class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
                     required :options="storeCat.categories" :reduce="(option: any) => option.id" label="name">
                     <!-- Personnalisation de l'affichage des options -->
@@ -67,7 +67,7 @@
                       </div>
                     </template>
                     <template #search="{ attributes, events }: any">
-                      <input class="vs__search" :required="!formData.categoryId" v-bind="attributes" v-on="events" />
+                      <input class="vs__search" :required="!formData.category_id" v-bind="attributes" v-on="events" />
                     </template>
                   </v-select>
 
@@ -133,8 +133,8 @@ const formData = ref<any>({
   purchase_price: null, // Prix d'achat du produit
   selling_price: null, // Prix du produit
   stock: null, // Stock disponible
-  categoryId: "",
-  imageUrl: null
+  category_id: "",
+  image_url: null
 }); // Champ de nom de catégorie
 
 const imageFile = ref(null);
@@ -153,7 +153,7 @@ const handleImageChange = (event: any) => {
         imagePreview.value = e.target.result;
       }
     };
-    formData.value.imageUrl =file
+    formData.value.image_url =file
 
       reader.readAsDataURL(file);
   }
@@ -168,8 +168,8 @@ const submitForm = async () => {
   formDataToSend.append('purchase_price', formData.value.purchase_price);
   formDataToSend.append('selling_price', formData.value.selling_price);
   formDataToSend.append('stock', formData.value.stock);
-  formDataToSend.append('categoryId', formData.value.categoryId);
-  formDataToSend.append('imageUrl', formData.value.imageUrl);
+  formDataToSend.append('category_id', formData.value.category_id);
+  formDataToSend.append('image_url', formData.value.image_url);
 
   console.log('====================================');
   console.log(formDataToSend);
@@ -179,9 +179,9 @@ const submitForm = async () => {
       emit("onClose");
       emit("onSuccess", "Produit ajouté avec succès");
       // reset data
-      formData.value.categoryId = "";
+      formData.value.category_id = "";
       formData.value.description = "";
-      formData.value.imageUrl = "";
+      formData.value.image_url = "";
       formData.value.name = "";
       formData.value.purchase_price = null;
       formData.value.selling_price = null;
