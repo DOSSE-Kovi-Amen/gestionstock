@@ -25,8 +25,8 @@
           <i v-else class="fa fa-xmark-circle fa-lg text-red-500" aria-hidden="true"></i>
       
           </li> -->
-          <li><strong>Date de création: </strong> {{ frenchDate(selectedData?.createdAt ?? "") }}</li>
-          <li><strong>Date de modification: </strong> {{ frenchDate(selectedData?.updatedAt ?? "") }}</li>
+          <li><strong>Date de création: </strong> {{ frenchDate(selectedData?.created_at ?? "") }}</li>
+          <li><strong>Date de modification: </strong> {{ frenchDate(selectedData?.updated_at ?? "") }}</li>
         </div>
 
         <!-- Pied du modal -->

@@ -35,7 +35,7 @@ export const useSettingsStore = defineStore('setting', () => {
     }
   }
   // post Data
-  const updateData = async (id: string, payload: any) => {
+  const updated_ata = async (id: string, payload: any) => {
     errors.value = [];
     loading.value = true;
     const { data, error } = await useFetch(`${apiBaseURL}/settings/${id}`, {
@@ -65,6 +65,6 @@ export const useSettingsStore = defineStore('setting', () => {
   getData()
 
 
-  return { settings, loading, errors, getData, updateData }
+  return { settings, loading, errors, getData, updated_ata }
 })
 

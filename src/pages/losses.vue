@@ -58,8 +58,8 @@
             v-for="(loss, index) in store.losses"
             :key="index"
             :title="`Créé le ${frenchDate(
-              loss.createdAt
-            )}\nModifié le ${frenchDate(loss.updatedAt)}}`"
+              loss.created_at
+            )}\nModifié le ${frenchDate(loss.updated_at)}}`"
           >
             <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(loss.product).name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(loss.product).purchase_price }}</td>

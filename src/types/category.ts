@@ -3,8 +3,8 @@ export interface Category {
     id: string; // L'ID du document Firestore
     name: string;
     slug: string; // Le nom de la catégorie
-    createdAt: any;
-    updatedAt: any;
+    created_at: any;
+    updated_at: any;
 
 }
 

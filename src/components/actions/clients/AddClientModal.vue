@@ -60,15 +60,15 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="codeCli"
+                    for="code_cli"
                     >Code Client :</label
                   >
                   <input
-                    v-model="formData.codeCli"
+                    v-model="formData.code_cli"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
-                    id="codeCli"
-                    name="codeCli"
+                    id="code_cli"
+                    name="code_cli"
                     placeholder="Code Client"
                     required
                   />
@@ -111,15 +111,15 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="zipCode"
+                    for="zip_code"
                     >Code postal :</label
                   >
                   <input
-                    v-model="formData.zipCode"
+                    v-model="formData.zip_code"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
-                    id="zipCode"
-                    name="zipCode"
+                    id="zip_code"
+                    name="zip_code"
                     placeholder="Code postal"
                   />
                 </div>
@@ -215,11 +215,11 @@ const store = useClientsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
 const formData = ref({
-  codeCli: "", //
+  code_cli: "", //
   name: "",
   email: null,
   telephone: "",
-  zipCode: "",
+  zip_code: "",
   address: "",
   description: "",
   country: "",
@@ -235,9 +235,9 @@ const submitForm = async () => {
       formData.value.name = "";
       formData.value.address = "";
       formData.value.city = "";
-      formData.value.codeCli = "";
+      formData.value.code_cli = "";
       formData.value.country = "";
-      formData.value.zipCode = "";
+      formData.value.zip_code = "";
       formData.value.email = null;
       formData.value.description;
       formData.value.telephone = "";

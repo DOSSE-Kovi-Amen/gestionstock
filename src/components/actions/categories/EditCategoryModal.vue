@@ -147,7 +147,7 @@ const submitForm = async () => {
   loading.value = true;
   if (props.selectedData) {
     await store
-      .updateData(category.value, props.selectedData.id)
+      .updated_ata(category.value, props.selectedData.id)
       .then((status) => {
         if (status) {
           console.log("=============status=======================");

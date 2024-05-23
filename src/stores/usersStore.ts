@@ -86,7 +86,7 @@ export const useUsersStore = defineStore('user', () => {
     }
   }
 
-  const updateData = async (id: string, payload: any) => {
+  const updated_ata = async (id: string, payload: any) => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
       method: 'PATCH',
       headers: headers,
@@ -168,6 +168,6 @@ export const useUsersStore = defineStore('user', () => {
   getData()
 
 
-  return { users, loading, errors, usersCount, updatePhoto, updateRole, getData, retrieveData, createUser, updateData, deleteData }
+  return { users, loading, errors, usersCount, updatePhoto, updateRole, getData, retrieveData, createUser, updated_ata, deleteData }
 })
 

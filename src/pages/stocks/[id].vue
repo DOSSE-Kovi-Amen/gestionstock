@@ -6,7 +6,7 @@
 
     <div v-else class="bg-white p-6 rounded shadow-md">
       <div class="text-center">
-        <h1 class="text-2xl font-semibold">Entrée de stock du {{ frenchDate(stock.createdAt) }}</h1>
+        <h1 class="text-2xl font-semibold">Entrée de stock du {{ frenchDate(stock.created_at) }}</h1>
       </div>
       <div class="mt-4">
         <div class="grid grid-cols-2 gap-4">

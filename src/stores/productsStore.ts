@@ -65,7 +65,7 @@ export const useProductsStore = defineStore('product', () => {
     }
   }
 
-  const updateData = async (payload: any, id: string) => {
+  const updated_ata = async (payload: any, id: string) => {
     errors.value = [];
     console.log('=================v===================');
     console.log(payload);
@@ -100,6 +100,6 @@ export const useProductsStore = defineStore('product', () => {
   getData()
 
 
-  return { products, loading, errors, productsCount, getData, postData, updateData, deleteData }
+  return { products, loading, errors, productsCount, getData, postData, updated_ata, deleteData }
 })
 

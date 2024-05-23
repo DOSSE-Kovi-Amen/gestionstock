@@ -22,15 +22,15 @@
           <li><strong>Telephone:</strong> {{ selectedData?.telephone }}</li>
           <li><strong>Pays:</strong> {{ selectedData?.country }}</li>
           <li><strong>Ville:</strong> {{ selectedData?.city }}</li>
-          <li><strong>Code postal:</strong> {{ selectedData?.zipCode }}</li>
+          <li><strong>Code postal:</strong> {{ selectedData?.zip_code }}</li>
           <li><strong>Description:</strong> {{ selectedData?.description }}</li>
           <li>
             <strong>Date de création:</strong>
-            {{ frenchDate(selectedData?.createdAt) }}
+            {{ frenchDate(selectedData?.created_at) }}
           </li>
           <li>
             <strong>Date de modification:</strong>
-            {{ frenchDate(selectedData?.updatedAt) }}
+            {{ frenchDate(selectedData?.updated_at) }}
           </li>
         </div>
 

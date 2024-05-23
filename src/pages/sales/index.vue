@@ -28,8 +28,8 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(sale, index) in store.sales" :key="index" :title="`Créé le ${frenchDate(sale.createdAt)}\nModifié le ${frenchDate(sale.updatedAt)}}`">
-            <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(sale.createdAt) }}</td>
+          <tr v-for="(sale, index) in store.sales" :key="index" :title="`Créé le ${frenchDate(sale.created_at)}\nModifié le ${frenchDate(sale.updated_at)}}`">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(sale.created_at) }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ sale.totalAmount }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ sale.discount }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ sale.amountPaid }}</td>

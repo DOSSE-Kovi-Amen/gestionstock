@@ -65,7 +65,7 @@ export const useSuppliersStore = defineStore('supplier', () => {
     }
   }
 
-  const updateData = async (payload: SupplierForm, id: string) => {
+  const updated_ata = async (payload: SupplierForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/suppliers/${id}`, {
       method: 'PATCH',
@@ -97,6 +97,6 @@ export const useSuppliersStore = defineStore('supplier', () => {
   getData()
 
 
-  return { suppliers, loading, errors, suppliersCount, getData, postData, updateData, deleteData }
+  return { suppliers, loading, errors, suppliersCount, getData, postData, updated_ata, deleteData }
 })
 

@@ -5,8 +5,8 @@ export interface Loss {
     product:string;
     quantity:number;
     description: string;
-    createdAt: any;
-    updatedAt: any;
+    created_at: any;
+    updated_at: any;
 
 }
 export interface LossForm{

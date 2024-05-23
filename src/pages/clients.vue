@@ -66,8 +66,8 @@
             v-for="(client, index) in store.clients"
             :key="index"
             :title="`Créé le ${frenchDate(
-              client.createdAt
-            )}\nModifié le ${frenchDate(client.updatedAt)}}`"
+              client.created_at
+            )}\nModifié le ${frenchDate(client.updated_at)}}`"
           >
             <td class="px-6 py-4 whitespace-no-wrap">{{ client.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ client.telephone }}</td>

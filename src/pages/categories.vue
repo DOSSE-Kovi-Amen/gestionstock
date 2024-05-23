@@ -38,7 +38,7 @@
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(category, index) in store.categories" :key="index"
-            :title="`Créé le ${frenchDate(category.createdAt)}\nModifié le ${frenchDate(category.updatedAt)}}`">
+            :title="`Créé le ${frenchDate(category.created_at)}\nModifié le ${frenchDate(category.updated_at)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.slug }}</td>

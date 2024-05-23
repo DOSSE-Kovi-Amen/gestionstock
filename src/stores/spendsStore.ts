@@ -65,7 +65,7 @@ export const useSpendsStore = defineStore('spend', () => {
     }
   }
 
-  const updateData = async (payload: SpendForm, id: string) => {
+  const updated_ata = async (payload: SpendForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/spends/${id}`, {
       method: 'PATCH',
@@ -97,6 +97,6 @@ export const useSpendsStore = defineStore('spend', () => {
   getData()
 
 
-  return { spends, loading, errors, spendsCount, getData,updateData, postData, deleteData }
+  return { spends, loading, errors, spendsCount, getData,updated_ata, postData, deleteData }
 })
 

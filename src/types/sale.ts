@@ -12,8 +12,8 @@ export interface Sale {
     change: number;
     saleDetails: string;
     authorId: string;
-    createdAt: any;
-    updatedAt: any;
+    created_at: any;
+    updated_at: any;
 }
 
 export interface SaleForm {

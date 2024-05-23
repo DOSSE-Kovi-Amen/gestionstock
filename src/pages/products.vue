@@ -48,7 +48,7 @@
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(product, index) in store.products" :key="index"
-            :title="`Créé le ${frenchDate(product.createdAt)}\nModifié le ${frenchDate(product.updatedAt)}}`">
+            :title="`Créé le ${frenchDate(product.created_at)}\nModifié le ${frenchDate(product.updated_at)}}`">
             <td> <img style="object-fit: contain;height:70px; width:70px" v-if="product?.imageUrl"
                 :src="apiBaseURL + '/' + product?.imageUrl" alt="Prévisualisation de l'image"
                 class="border rounded px-3 text-gray-700 focus:outline-none focus:border-blue-500" />

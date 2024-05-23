@@ -3,8 +3,8 @@ export interface Spend {
     title: string;
     amount: number;
     description: string;
-    createdAt: any;
-    updatedAt: any;
+    created_at: any;
+    updated_at: any;
 
 }
 

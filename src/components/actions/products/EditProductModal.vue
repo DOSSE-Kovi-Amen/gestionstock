@@ -186,7 +186,7 @@ const submitForm = async () => {
     }
 
     await store
-      .updateData(formDataToSend, props.selectedData.id)
+      .updated_ata(formDataToSend, props.selectedData.id)
       .then((status) => {
         if (status) {
           emit("onClose");

@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(spend, index) in store.spends" :key="index" :title="`Créé le ${frenchDate(spend.createdAt)}\nModifié le ${frenchDate(spend.updatedAt)}}`">
+          <tr v-for="(spend, index) in store.spends" :key="index" :title="`Créé le ${frenchDate(spend.created_at)}\nModifié le ${frenchDate(spend.updated_at)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ spend.title }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ spend.amount }}</td>

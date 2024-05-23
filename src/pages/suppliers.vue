@@ -66,8 +66,8 @@
             v-for="(supplier, index) in store.suppliers"
             :key="index"
             :title="`Créé le ${frenchDate(
-              supplier.createdAt
-            )}\nModifié le ${frenchDate(supplier.updatedAt)}}`"
+              supplier.created_at
+            )}\nModifié le ${frenchDate(supplier.updated_at)}}`"
           >
             <td class="px-6 py-4 whitespace-no-wrap">{{ supplier.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ supplier.telephone }}</td>

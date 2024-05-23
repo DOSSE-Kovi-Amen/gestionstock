@@ -12,8 +12,8 @@ export interface Product {
   stock: number; // Stock disponible
   category: Category; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
   imageUrl: string; // URL de l'image du produit
-  createdAt: any;
-  updatedAt: any;
+  created_at: any;
+  updated_at: any;
 }
 
 // product.ts

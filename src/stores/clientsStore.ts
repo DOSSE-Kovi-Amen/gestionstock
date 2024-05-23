@@ -65,7 +65,7 @@ export const useClientsStore = defineStore('client', () => {
     }
   }
 
-  const updateData = async (payload: ClientForm, id: string) => {
+  const updated_ata = async (payload: ClientForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/clients/${id}`, {
       method: 'PATCH',
@@ -97,6 +97,6 @@ export const useClientsStore = defineStore('client', () => {
   getData()
 
 
-  return { clients, loading, errors, clientsCount, getData, postData, updateData, deleteData }
+  return { clients, loading, errors, clientsCount, getData, postData, updated_ata, deleteData }
 })
 

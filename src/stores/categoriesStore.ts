@@ -4,7 +4,6 @@ export const useCategoriesStore = defineStore('category', () => {
   const categories = ref<Category[]>([]);
   const errors = ref<any>([]);
   const loading = ref(false);
-  const collectionName = 'categories'
   const authToken = ref("");
  
   authToken.value = localStorage.getItem('access_token') ?? ""
@@ -66,7 +65,7 @@ export const useCategoriesStore = defineStore('category', () => {
     }
   }
 
-  const updateData = async (payload: CategoryForm, id: string) => {
+  const updated_ata = async (payload: CategoryForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/categories/${id}`, {
       method: 'PATCH',
@@ -98,6 +97,6 @@ export const useCategoriesStore = defineStore('category', () => {
   getData()
 
 
-  return { categories, loading, errors, categoriesCount, getData, postData, updateData, deleteData }
+  return { categories, loading, errors, categoriesCount, getData, postData, updated_ata, deleteData }
 })
 

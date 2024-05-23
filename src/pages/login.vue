@@ -5,7 +5,7 @@
       <form @submit.prevent="signin">
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="emailOrUsername">Email :</label>
-          <input v-model="user.login" class="border rounded-md py-2 px-3 w-full" type="text"
+          <input v-model="user.email" class="border rounded-md py-2 px-3 w-full" type="text"
             id="emailOrUsername" name="emailOrUsername" placeholder="Votre email ou pseudo" required />
         </div>
         <div class="mb-4">
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 
 const user = {
-  login: "",
+  email: "",
   password: ""
 }
 
@@ -54,9 +54,9 @@ onMounted(() => {
 })
 const signin = async () => {
   let creds: any = {}
-  if (user.login != "" && user.password != "") {
+  if (user.email != "" && user.password != "") {
 
-      creds = { login: user.login, password: user.password }
+      creds = { email: user.email, password: user.password }
     
     // Send data to api
     auth.signin(creds).then((status) => {

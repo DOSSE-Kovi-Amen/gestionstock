@@ -6,8 +6,8 @@ export interface Stock {
     supplier: Supplier;
     stockDetails: string;
     totalNewStock: number;
-    createdAt: any;
-    updatedAt: any;
+    created_at: any;
+    updated_at: any;
 }
 
 export interface StockForm {

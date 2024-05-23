@@ -16,21 +16,21 @@
           <!-- Ajoutez ici le contenu du modal -->
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
           <li><strong>Nom:</strong> {{ selectedData?.name }}</li>
-          <li><strong>Code Client:</strong> {{ selectedData?.codeCli }}</li>
+          <li><strong>Code Client:</strong> {{ selectedData?.code_cli }}</li>
           <li><strong>Adresse:</strong> {{ selectedData?.address }}</li>
           <li><strong>Email:</strong> {{ selectedData?.email }}</li>
           <li><strong>Telephone:</strong> {{ selectedData?.telephone }}</li>
           <li><strong>Pays:</strong> {{ selectedData?.country }}</li>
           <li><strong>Ville:</strong> {{ selectedData?.city }}</li>
-          <li><strong>Code postal:</strong> {{ selectedData?.zipCode }}</li>
+          <li><strong>Code postal:</strong> {{ selectedData?.zip_code }}</li>
           <li><strong>Description:</strong> {{ selectedData?.description }}</li>
           <li>
             <strong>Date de création:</strong>
-            {{ frenchDate(selectedData?.createdAt) }}
+            {{ frenchDate(selectedData?.created_at) }}
           </li>
           <li>
             <strong>Date de modification:</strong>
-            {{ frenchDate(selectedData?.updatedAt) }}
+            {{ frenchDate(selectedData?.updated_at) }}
           </li>
         </div>
 

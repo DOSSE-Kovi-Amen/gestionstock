@@ -16,7 +16,7 @@ class FirestoreService {
         let status=false;
     
         const colRef = collection(this.db, collectionName);
-        const dateObject= { createdAt: serverTimestamp(), updatedAt: serverTimestamp() }
+        const dateObject= { created_at: serverTimestamp(), updated_at: serverTimestamp() }
         const finalData = { ...data, ...dateObject }
         await setDoc(doc(colRef), finalData).then(() => {
         status=true;          
@@ -28,7 +28,7 @@ class FirestoreService {
     async update(collectionName: string, docId: string, data: Record<string, any>): Promise<boolean> {
         let status=false;
         const docRef = doc(this.db, collectionName, docId);
-        const finalData={...data,...{updatedAt: serverTimestamp()}}
+        const finalData={...data,...{updated_at: serverTimestamp()}}
         await updateDoc(docRef, finalData).then(() => status=true);
         return status;
     }
@@ -53,7 +53,7 @@ class FirestoreService {
     // Obtenir des mises à jour en temps réel pour une collection
      getRealTime(collectionName: string, callback: (data: any) => void) {
         const colRef = collection(this.db, collectionName);
-        const quer:any = query(colRef,orderBy("updatedAt"), limit(1000));
+        const quer:any = query(colRef,orderBy("updated_at"), limit(1000));
 
         const unsub=onSnapshot(quer, (querySnapshot:any) => {
             const data:any = [];
@@ -67,7 +67,7 @@ class FirestoreService {
 
     async getListFromCollection(collectionName: string) {
         const colRef = collection(this.db, collectionName);
-        const querySnapshot = await getDocs(query(colRef,orderBy("updatedAt","desc"), limit(1000)));
+        const querySnapshot = await getDocs(query(colRef,orderBy("updated_at","desc"), limit(1000)));
     
         const dataList:any = [];
         querySnapshot.forEach((doc) => {

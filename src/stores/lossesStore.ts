@@ -65,7 +65,7 @@ export const useLossesStore = defineStore('loss', () => {
     }
   }
 
-  const updateData = async (payload: LossForm, id: string) => {
+  const updated_ata = async (payload: LossForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/losses/${id}`, {
       method: 'PATCH',
@@ -97,6 +97,6 @@ export const useLossesStore = defineStore('loss', () => {
   getData()
 
 
-  return { losses, loading, errors, lossesCount, getData, postData, updateData, deleteData }
+  return { losses, loading, errors, lossesCount, getData, postData, updated_ata, deleteData }
 })
 

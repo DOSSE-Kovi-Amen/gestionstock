@@ -16,8 +16,8 @@
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
           <li><strong>Nom:</strong> {{ selectedData?.name }}</li>
           <li><strong>Slug:</strong> {{ selectedData?.slug }}</li>
-          <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.createdAt) }}</li>
-          <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.updatedAt) }}</li>
+          <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.created_at) }}</li>
+          <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.updated_at) }}</li>
 
         </div>
 

@@ -25,8 +25,8 @@
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-          <tr v-for="(stock, index) in store.stocks" :key="index" :title="`Créé le ${frenchDate(stock.createdAt)}\nModifié le ${frenchDate(stock.updatedAt)}}`">
-            <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(stock.createdAt) }}</td>
+          <tr v-for="(stock, index) in store.stocks" :key="index" :title="`Créé le ${frenchDate(stock.created_at)}\nModifié le ${frenchDate(stock.updated_at)}}`">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(stock.created_at) }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ stock.totalNewStock }}</td>
             <td class="flex gap-2">
               <NuxtLink :to="`/stocks/${stock.id}`" class="p-0.5 px-2  text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"

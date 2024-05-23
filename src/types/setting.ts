@@ -7,8 +7,8 @@ export interface Setting {
     societyContact: string;
     societyDescription: string;
     currency: string;
-    createdAt: string;
-    updatedAt: string;
+    created_at: string;
+    updated_at: string;
   }
 
   // types.ts

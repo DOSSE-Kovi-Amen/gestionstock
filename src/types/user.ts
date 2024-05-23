@@ -1,5 +1,5 @@
 export interface authLogin {
-  login: string;
+  email: string;
   password: string;
 }
 // types/userList.ts
@@ -13,8 +13,8 @@ export interface User {
   isOwner: boolean;
   roles: string;
   status: number;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
   activate_date: string;
   deactivate_date: string | null;
 }

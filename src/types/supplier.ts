@@ -5,13 +5,13 @@ export interface Supplier {
     name: string;
     email: string;
     telephone:string;
-    zipCode:string;
+    zip_code:string;
     address:string;
     description:string;
     country:string;
     city:string;
-    createdAt: any;
-    updatedAt: any;
+    created_at: any;
+    updated_at: any;
 
 }
 
@@ -20,7 +20,7 @@ export interface SupplierForm {
     name: string;
     email: string;
     telephone:string;
-    zipCode:string;
+    zip_code:string;
     address:string;
     description:string;
     country:string;

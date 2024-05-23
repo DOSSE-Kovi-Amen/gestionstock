@@ -49,15 +49,15 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="codeCli"
+                    for="code_cli"
                     >Code Client :</label
                   >
                   <input
-                    v-model="formData.codeCli"
+                    v-model="formData.code_cli"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
-                    id="codeCli"
-                    name="codeCli"
+                    id="code_cli"
+                    name="code_cli"
                     placeholder="Code Client"
                     required
                   />
@@ -100,15 +100,15 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="zipCode"
+                    for="zip_code"
                     >Code postal :</label
                   >
                   <input
-                    v-model="formData.zipCode"
+                    v-model="formData.zip_code"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
-                    id="zipCode"
-                    name="zipCode"
+                    id="zip_code"
+                    name="zip_code"
                     placeholder="Code postal"
                   />
                 </div>
@@ -211,11 +211,11 @@ const props = defineProps<{
   selectedData?: Client;
 }>();
 const formData = ref({
-  codeCli: "", //
+  code_cli: "", //
   name: "",
   email: "",
   telephone: "",
-  zipCode: "",
+  zip_code: "",
   address: "",
   description: "",
   country: "",
@@ -238,7 +238,7 @@ const submitForm = async () => {
   loading.value = true;
   if (props.selectedData) {
     await store
-      .updateData(formData.value, props.selectedData.id)
+      .updated_ata(formData.value, props.selectedData.id)
       .then((status) => {
         if (status) {
           console.log("=============status=======================");

@@ -101,7 +101,7 @@ watch(
 const submitForm = async () => {
   loading.value = true
   if (props.selectedData) {
-    await store.updateData(props.selectedData.id, user.value).then((status) => {
+    await store.updated_ata(props.selectedData.id, user.value).then((status) => {
 
       if (status) {
 

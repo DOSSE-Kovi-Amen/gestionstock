@@ -111,15 +111,15 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="zipCode"
+                    for="zip_code"
                     >Code postal :</label
                   >
                   <input
-                    v-model="formData.zipCode"
+                    v-model="formData.zip_code"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
-                    id="zipCode"
-                    name="zipCode"
+                    id="zip_code"
+                    name="zip_code"
                     placeholder="Code postal"
                   />
                 </div>
@@ -219,7 +219,7 @@ const formData = ref({
   name: "",
   email: "",
   telephone: "",
-  zipCode: "",
+  zip_code: "",
   address: "",
   description: "",
   country: "",
@@ -237,7 +237,7 @@ const submitForm = async () => {
       formData.value.city = "";
       formData.value.codeSupplier = "";
       formData.value.country = "";
-      formData.value.zipCode = "";
+      formData.value.zip_code = "";
       formData.value.email = "";
       formData.value.description;
       formData.value.telephone = "";
