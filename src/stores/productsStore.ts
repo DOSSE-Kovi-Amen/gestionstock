@@ -45,7 +45,7 @@ export const useProductsStore = defineStore('product', () => {
     const { data, error } = await useFetch(`${apiBaseURL}/products`, {
       headers: headers,
       method: 'POST',
-      body: {...payload}
+      body: payload
     })
 
     if (error.value?.statusCode == 401) {

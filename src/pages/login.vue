@@ -61,7 +61,8 @@ const signin = async () => {
     // Send data to api
     auth.signin(creds).then((status) => {
       if (status) {
-        router.replace("/");
+        // router.replace("/");
+        window.location.href='/';
       } else {
         // error.value = validation.invalidCreds
       }

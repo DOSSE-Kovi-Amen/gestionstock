@@ -20,78 +20,88 @@
         <div v-else>
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
-            <div style="height: 85vh" class="modal-body pb-16 mb-5 p-5 overflow-y-auto">
+            <div style="height: 85vh" class="modal-body pb-16 p-5 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
-
-              <div></div>
+              <div v-if="store.errors && store.errors.length != 0"
+                class="bg-red-200 border-l-4 border-red-500 p-4 mb-2">
+                <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
+                  {{ error }} :
+                </p>
+              </div>
               <!-- Champ de sélection d'image -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label for="image" class="block text-gray-700 font-bold mb-2">Image du produit</label>
+                <div class="mb-2 border rounded p-2">
+                  <label for="image" class="block text-gray-700 font-bold mb-2">Choisir une image</label>
 
-                  <label for="image"
-                    class="cursor-pointer mt-2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-                    Choisissez un fichier
+                  <label for="image" class="cursor-pointer">
+                    <div style="height:200px;width:200px; display: flex; justify-content: center; align-items: center;">
+                    <i v-if="!imagePreview" class="fa fa-image fa-10x text-gray-500 hover:text-gray-700"></i>
+
+                    <img v-if="imagePreview" style="object-fit: contain; height:200px;width:200px" :src="imagePreview"
+                      alt="Prévisualisation de l'image"
+                      class="mt-2 max-h-32 hover:bg-gray-500 object-contain text-gray-700 focus:outline-none focus:border-blue-500" />
+
+                    </div>
+
                   </label>
                   <input @change="handleImageChange" type="file" class="hidden" accept="image/*" id="image"
                     name="image" />
                 </div>
-                <div class="mb-4">
-                  <!-- <label for="image" class="block text-gray-700 font-bold mb-2"
-                    >Image du produit</label
-                  > -->
-                  <!-- Prévisualisation de l'image -->
-                  <img v-if="imagePreview" :src="imagePreview" alt="Prévisualisation de l'image"
-                    class="mt-2 max-h-32 object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label for="name" class="block text-gray-700 font-bold mb-2">Nom du produit</label>
-                  <input v-model="formData.name" type="text" id="name" name="name"
-                    class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required />
-                </div>
-                <div class="mb-4">
-                  <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie du produit</label>
-                  <v-select v-model="formData.categoryId"
-                    class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-                    required :options="storeCat.categories" label="name" :reduce="(option: any) => option.id">
-                    <!-- Personnalisation de l'affichage des options -->
-                    <template #option="option: any">
-                      <div class="flex gap-2">
-                        <span>{{ option.name }}</span>
-                      </div>
-                    </template>
-                    <template #search="{ attributes, events }: any">
-                      <input class="vs__search" :required="!formData.categoryId" v-bind="attributes" v-on="events" />
-                    </template>
-                  </v-select>
+                <div class="mb-2">
+                  <div>
+                    <div class="mb-2">
+                      <label for="name" class="block text-gray-700 font-bold mb-2">Nom du produit</label>
+                      <input v-model="formData.name" type="text" id="name" name="name"
+                        class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                        required />
+                    </div>
+                    <div class="mb-2">
+                      <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie (Optionnel)</label>
+                      <v-select v-model="formData.categoryId"
+                        class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                        required :options="storeCat.categories" :reduce="(option: any) => option.id" label="name">
+                        <!-- Personnalisation de l'affichage des options -->
+                        <template #option="option: any">
+                          <div class="flex gap-2">
+                            <span>{{ option.name }}</span>
+                          </div>
+                        </template>
+                        <template #search="{ attributes, events }: any">
+                          <input class="vs__search" :required="!formData.categoryId" v-bind="attributes"
+                            v-on="events" />
+                        </template>
+                      </v-select>
 
+                    </div>
+                    <div class="mb-2">
+                      <label for="stock" class="block text-gray-700 font-bold mb-2">Stock disponible</label>
+                      <input v-model.number="formData.stock" type="number" id="stock" name="stock"
+                        class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                        required />
+                    </div>
+                  </div>
                 </div>
+
               </div>
 
+
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
+                <div class="mb-2">
                   <label for="price" class="block text-gray-700 font-bold mb-2">Prix d'achat du produit</label>
-                  <input v-model.number="formData.purchase_price" type="number" id="purchase_price" name="purchase_price"
+                  <input v-model.number="formData.purchase_price" type="number" id="purchase_price"
+                    name="purchase_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required />
                 </div>
-                <div class="mb-4">
+                <div class="mb-2">
                   <label for="price" class="block text-gray-700 font-bold mb-2">Prix de vente produit</label>
                   <input v-model.number="formData.selling_price" type="number" id="selling_price" name="selling_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required />
                 </div>
               </div>
-              <div class="mb-4">
-                <label for="stock" class="block text-gray-700 font-bold mb-2">Stock disponible</label>
-                <input v-model.number="formData.stock" type="number" id="stock" name="stock"
-                  class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  required />
-              </div>
-              <div class="mb-4">
+
+              <div class="mb-2">
                 <label for="description" class="block text-gray-700 font-bold mb-2">Description du produit</label>
                 <textarea v-model="formData.description" id="description" name="description"
                   class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"

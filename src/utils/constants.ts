@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore";
 
 // Export the api baseURL
 const prod = false;
-export const apiBaseURL = prod ? 'https://...' : 'http://localhost:4000';
+export const apiBaseURL = prod ? 'https://...' : 'http://localhost:5000';
 
 export const frenchDate=(dateStr:string)=> {
   const options :any= { year: 'numeric', month: 'long', day: 'numeric' };
@@ -50,3 +50,10 @@ export function isValidEmail(email:string) {
 }
 
 
+export function validJSON(data:any){
+  if(typeof data === 'string') {
+    return JSON.parse(data);
+  }else{
+    return data;
+  }
+}

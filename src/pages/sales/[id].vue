@@ -42,7 +42,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(product, index) in JSON.parse(sale.saleDetails)">
+          <tr v-for="(product, index) in validJSON(sale.saleDetails)">
             <td class="border border-gray-300 p-2">{{ product.name }}</td>
             <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
             <td class="border border-gray-300 p-2">{{ product.selling_price }}</td>
