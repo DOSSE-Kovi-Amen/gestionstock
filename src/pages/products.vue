@@ -50,9 +50,12 @@
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(product, index) in store.products" :key="index"
             :title="`Créé le ${frenchDate(product.createdAt)}\nModifié le ${frenchDate(product.updatedAt)}}`">
-            <td> <img style="object-fit: contain;height:100px; width:100px" v-if="product?.imageUrl"
+            <td> <img v-if="product.imageUrl!='null'" style="object-fit: contain;height:70px; width:70px" 
                 :src="apiBaseURL + '/' + product?.imageUrl" alt="Prévisualisation de l'image"
-                class="border rounded px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+                class="px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+                <img v-if="product.imageUrl=='null'" style="object-fit: contain;height:70px; width:70px" 
+                src="../assets/images/noimage.jpeg" alt="Prévisualisation de l'image"
+                class="px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product?.category?.name }}</td>

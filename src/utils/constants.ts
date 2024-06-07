@@ -4,8 +4,8 @@ import { Timestamp } from "firebase/firestore";
 const prod = false;
 export const apiBaseURL = prod ? 'https://...' : 'http://localhost:5000';
 
-export const frenchDate=(dateStr:string)=> {
-  const options :any= { year: 'numeric', month: 'long', day: 'numeric' };
+export const frenchDate = (dateStr: string) => {
+  const options: any = { year: 'numeric', month: 'long', day: 'numeric' };
   const date = new Date(dateStr);
   return date.toLocaleDateString("fr-FR", options);
 }
@@ -36,12 +36,12 @@ export const frenchDate=(dateStr:string)=> {
 // }
 
 
-export const getFieldFromPointer=(pointer:any)=> {
+export const getFieldFromPointer = (pointer: any) => {
   // Cette méthode extrait le nom du champ de la chaîne pointer
   const parts = pointer.split('/');
   return parts[parts.length - 1];
 }
-export function isValidEmail(email:string) {
+export function isValidEmail(email: string) {
   // Modèle d'adresse email valide à l'aide d'une regex
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -50,10 +50,27 @@ export function isValidEmail(email:string) {
 }
 
 
-export function validJSON(data:any){
-  if(typeof data === 'string') {
+export function validJSON(data: any) {
+  if (typeof data === 'string') {
     return JSON.parse(data);
-  }else{
+  } else {
     return data;
   }
+}
+
+export function animateCounter(dataCount:number) {
+  const counter=ref(0);
+  const duration = 1000; // Durée de l'animation en millisecondes
+  const fps = 60; // Nombre de trames par seconde
+  const increment = Math.ceil(dataCount / (duration / 10000 * fps));
+  const interval = setInterval(() => {
+    if (counter.value < dataCount) {
+      counter.value += increment;
+    } else {
+      counter.value = dataCount;
+      clearInterval(interval);
+    }
+  }, 150 / fps);
+
+  return counter;
 }
