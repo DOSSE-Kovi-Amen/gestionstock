@@ -29,7 +29,7 @@ export const useUsersStore = defineStore('user', () => {
     }
 
     users.value = data.value;
-    console.log('=============dta=======================');
+    console.log('=============dta users=======================');
     console.log(users.value);
     console.log('====================================');
     if (data.value) {

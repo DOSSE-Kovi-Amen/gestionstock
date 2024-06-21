@@ -9,8 +9,8 @@ export interface User {
   username: string;
   email: string;
   photo:string;
-  phoneNumber: string;
-  isOwner: boolean;
+  phone_number: string;
+  is_owner: boolean;
   roles: string;
   status: number;
   created_at: string;
@@ -22,7 +22,7 @@ export interface UserCreate {
   name:string;
   username: string;
   email: string;
-  phoneNumber: string;
+  phone_number: string;
   password: string;
   confirmPassword :string;
   roles:any;

@@ -54,8 +54,8 @@ export const useCategoriesStore = defineStore('category', () => {
     console.log('====================================');
     console.log(error.value?.message);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.message;
+    if (error.value?.statusCode == 422) {
+      errors.value = error.value?.data.errors;
     
     }
     if (data.value) {
@@ -65,7 +65,7 @@ export const useCategoriesStore = defineStore('category', () => {
     }
   }
 
-  const updated_ata = async (payload: CategoryForm, id: string) => {
+  const updatedData = async (payload: CategoryForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/categories/${id}`, {
       method: 'PATCH',
@@ -73,11 +73,15 @@ export const useCategoriesStore = defineStore('category', () => {
       body: {...payload}
     })
 
+    console.log('====================================');
+    console.log(id);
+    console.log('====================================');
+
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.message;
+    if (error.value?.statusCode == 422) {
+      errors.value = error.value?.data.errors;
     }
     if (data.value) {
       await getData()
@@ -97,6 +101,6 @@ export const useCategoriesStore = defineStore('category', () => {
   getData()
 
 
-  return { categories, loading, errors, categoriesCount, getData, postData, updated_ata, deleteData }
+  return { categories, loading, errors, categoriesCount, getData, postData, updatedData, deleteData }
 })
 

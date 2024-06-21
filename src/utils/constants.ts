@@ -2,7 +2,9 @@ import { Timestamp } from "firebase/firestore";
 
 // Export the api baseURL
 const prod = false;
-export const apiBaseURL = prod ? 'https://...' : 'http://localhost:8000/api';
+export const baseURL = prod ? 'https://...' : 'http://localhost:8000';
+
+export const apiBaseURL = baseURL+'/api';
 
 export const frenchDate=(dateStr:string)=> {
   const options :any= { year: 'numeric', month: 'long', day: 'numeric' };
@@ -49,4 +51,8 @@ export function isValidEmail(email:string) {
   return emailPattern.test(email);
 }
 
+export function  getImageUrl(url:string) {
+  // Utilisez l'URL API pour récupérer les images
+  return `${baseURL}/storage/${url}`;
+}
 

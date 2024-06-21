@@ -11,7 +11,8 @@ export interface Product {
   category_id: string; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
   stock: number; // Stock disponible
   category: Category; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-  image_url: string; // URL de l'image du produit
+  image: string; // URL de l'image du produit
+  images: string; // URL de l'image du produit
   created_at: any;
   updated_at: any;
 }

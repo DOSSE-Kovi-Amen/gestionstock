@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const signin = async (payload: authLogin): Promise<boolean> => {
     loading.value = true
-    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/login`, {
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/auth/login`, {
       method: 'POST',
       headers: {
         Accept: "*/*",
@@ -55,10 +55,10 @@ export const useAuthStore = defineStore('auth', () => {
     console.log('====================================');
 
     if (data.value) {
-      localStorage.setItem('access_token', data.value.access_token);
+      localStorage.setItem('access_token', data.value.authorisation.token);
       localStorage.setItem('auth_user', JSON.stringify(data.value.user));
       isAuth.value = true;
-      access_token.value = data.value.authorisation.access_token;
+      access_token.value = data.value.authorisation.token;
       user.value = data.value?.user;
       loading.value = false
       return true;
@@ -68,7 +68,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   }
   const getProfile = async () => {
-    const { data, error } = await useFetch(`${apiBaseURL}/profile`, {
+    const { data, error } = await useFetch(`${apiBaseURL}/auth/me`, {
       method: 'GET',
       headers: {
         Accept: "*/*",
@@ -94,7 +94,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   }
   const changePwdOrName = async (id: string, payload: any) => {
-    const { data, error } = await useFetch(`${apiBaseURL}/reset-password-or-name/${id}`, {
+    const { data, error } = await useFetch(`${apiBaseURL}/auth/reset-password-or-name/${id}`, {
       method: 'PATCH',
       headers: {
         Accept: "*/*",

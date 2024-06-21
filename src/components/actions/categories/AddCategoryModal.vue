@@ -37,7 +37,7 @@
                   :key="index"
                   class="font-semibold my-1"
                 >
-                  {{ error }} :
+                  {{ error[0] }}
                 </p>
               </div>
               <div></div>
@@ -55,7 +55,6 @@
                     id="name"
                     name="name"
                     placeholder="Nom de la catégorie"
-                    required
                   />
                 </div>
                 <div class="mb-4">
@@ -72,7 +71,6 @@
                     name="slug"
                     placeholder="Slug de la catégorie"
                     readonly
-                    required
                   />
                 </div>
               </div>
@@ -137,7 +135,7 @@ const submitForm = async () => {
   });
   setTimeout(() => {
     loading.value = false;
-  }, 15000);
+  }, 5000);
 };
 
 defineProps({

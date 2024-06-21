@@ -64,7 +64,8 @@
                       </div>
                     </template>
                     <template #search="{ attributes, events }: any">
-                      <input class="vs__search" :required="!formData.category_id" v-bind="attributes" v-on="events" />
+                      <input class="vs__search" 
+                       v-bind="attributes" v-on="events" />
                     </template>
                   </v-select>
 
@@ -145,7 +146,7 @@ watch(
     if (newValue && props.selectedData) {
       // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
       formData.value = { ...props.selectedData };
-      imagePreview.value = apiBaseURL + '/' + props.selectedData.image_url;
+      imagePreview.value = getImageUrl(props.selectedData.image_url);
     }
   }
 );
@@ -186,7 +187,7 @@ const submitForm = async () => {
     }
 
     await store
-      .updated_ata(formDataToSend, props.selectedData.id)
+      .updated_Data(formDataToSend, props.selectedData.id)
       .then((status) => {
         if (status) {
           emit("onClose");

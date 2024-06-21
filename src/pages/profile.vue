@@ -53,8 +53,8 @@
             <p>Nom : {{ auth.user?.name }}</p>
             <p>Pseudo : {{ auth.user?.username }}</p>
             <p>Email : {{ auth.user?.email }}</p>
-            <p>Téléphone : {{ auth.user?.phoneNumber }}</p>
-            <p>Téléphone : {{ auth.user?.phoneNumber }}</p>
+            <p>Téléphone : {{ auth.user?.phone_number }}</p>
+            <p>Téléphone : {{ auth.user?.phone_number }}</p>
             <!-- ... -->
           </div>
         </div>

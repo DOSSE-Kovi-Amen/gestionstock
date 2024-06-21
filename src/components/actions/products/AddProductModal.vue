@@ -22,7 +22,8 @@
             <!-- Contenu du modal -->
             <div style="height: 85vh" class="modal-body pb-16 p-5 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
-              <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+              <div v-if="store.errors && store.errors.length != 0"
+                class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
                   {{ error }} :
                 </p>
@@ -51,33 +52,41 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <label for="name" class="block text-gray-700 font-bold mb-2">Nom du produit</label>
-                  <input v-model="formData.name" type="text" id="name" name="name"
+                  <input v-model="formData.name" @input="updateSlug" type="text" id="name" name="name"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required />
+                    required placeholder="Nom du produit" />
                 </div>
                 <div class="mb-4">
-                  <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie (Optionnel)</label>
-                  <v-select v-model="formData.category_id"
-                    class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-                    required :options="storeCat.categories" :reduce="(option: any) => option.id" label="name">
-                    <!-- Personnalisation de l'affichage des options -->
-                    <template #option="option: any">
-                      <div class="flex gap-2">
-                        <span>{{ option.name }}</span>
-                      </div>
-                    </template>
-                    <template #search="{ attributes, events }: any">
-                      <input class="vs__search" :required="!formData.category_id" v-bind="attributes" v-on="events" />
-                    </template>
-                  </v-select>
+                  <label for="name" class="block text-gray-700 font-bold mb-2">Slug du produit</label>
 
+                 <input v-model="formData.slug" class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" type="text" id="slug"
+                  name="slug" placeholder="Slug de la catégorie" readonly required /> 
                 </div>
+                
+               
               </div>
+              <div class="mb-4">
+                <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie (Optionnel)</label>
+                <v-select v-model="formData.category_id"
+                  class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                  required :options="storeCat.categories" :reduce="(option: any) => option.id" label="name">
+                  <!-- Personnalisation de l'affichage des options -->
+                  <template #option="option: any">
+                    <div class="flex gap-2">
+                      <span>{{ option.name }}</span>
+                    </div>
+                  </template>
+                  <template #search="{ attributes, events }: any">
+                    <input class="vs__search" :required="!formData.category_id" v-bind="attributes" v-on="events" />
+                  </template>
+                </v-select>
 
+              </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <label for="price" class="block text-gray-700 font-bold mb-2">Prix d'achat du produit</label>
-                  <input v-model.number="formData.purchase_price" type="number" id="purchase_price" name="purchase_price"
+                  <input v-model.number="formData.purchase_price" type="number" id="purchase_price"
+                    name="purchase_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required />
                 </div>
@@ -134,9 +143,19 @@ const formData = ref<any>({
   selling_price: null, // Prix du produit
   stock: null, // Stock disponible
   category_id: "",
+  slug: "",
   image_url: null
 }); // Champ de nom de catégorie
+function updateSlug() {
+  // Mettez en forme le champ de slug en fonction du nom de catégorie
+  formData.value.slug = formData.value.name
+    .trim() // Supprimez les espaces avant et après
+    .toLowerCase() // Convertissez en minuscules
+    .replace(/\s+/g, "-") // Remplacez les espaces par des tirets
+    .replace(/[^a-z0-9-]/g, ""); // Supprimez tous les caractères non autorisés
 
+  // Vous pouvez également ajouter d'autres transformations au slug si nécessaire
+}
 const imageFile = ref(null);
 const imagePreview = ref("");
 // Gérer le changement de fichier image
@@ -153,9 +172,9 @@ const handleImageChange = (event: any) => {
         imagePreview.value = e.target.result;
       }
     };
-    formData.value.image_url =file
+    formData.value.image_url = file
 
-      reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
   }
 };
 
@@ -168,12 +187,14 @@ const submitForm = async () => {
   formDataToSend.append('purchase_price', formData.value.purchase_price);
   formDataToSend.append('selling_price', formData.value.selling_price);
   formDataToSend.append('stock', formData.value.stock);
+  formDataToSend.append('slug', formData.value.slug);
   formDataToSend.append('category_id', formData.value.category_id);
   formDataToSend.append('image_url', formData.value.image_url);
 
+  console.log('==================formDataToSend==================');
+  console.log(formData.value);
   console.log('====================================');
-  console.log(formDataToSend);
-  console.log('====================================');
+
   await store.postData(formDataToSend).then((status) => {
     if (status) {
       emit("onClose");

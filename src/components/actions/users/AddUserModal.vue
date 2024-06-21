@@ -45,9 +45,9 @@
                   name="email" placeholder="Email" required />
               </div>
               <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="phoneNumber">Téléphone :</label>
-                <input v-model="user.phoneNumber" class="border rounded-md py-2 px-3 w-full" type="text" id="phoneNumber"
-                  name="phoneNumber" placeholder="Numéro de téléphone" required />
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_number">Téléphone :</label>
+                <input v-model="user.phone_number" class="border rounded-md py-2 px-3 w-full" type="text" id="phone_number"
+                  name="phone_number" placeholder="Numéro de téléphone" required />
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
@@ -105,7 +105,7 @@ const user = ref({
   name: '',
   username: '',
   email: '',
-  phoneNumber: '',
+  phone_number: '',
   password: '',
   confirmPassword: '',
   roles: null

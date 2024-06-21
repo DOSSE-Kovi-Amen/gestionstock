@@ -59,7 +59,7 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(user.roles).length!==0?user.roles:'Aucun rôle' }}</td>
 
             <!-- <td class="px-6 py-4 whitespace-no-wrap">
-              <i v-if="user.isOwner == true" class="fa fa-check-circle fa-2x text-green-500" aria-hidden="true"></i>
+              <i v-if="user.is_owner == true" class="fa fa-check-circle fa-2x text-green-500" aria-hidden="true"></i>
               <i v-else class="fa fa-xmark-circle fa-2x text-red-500" aria-hidden="true"></i>
 
             </td> -->

@@ -20,7 +20,11 @@
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
-
+    <!-- <div class="bg-yellow-100 border-l-4 border-black p-4 mb-4">
+      <p class="font-semibold my-1">
+        NB: Vous ne pouvez pas supprimer des catégories qui contiennent des produits. Pour supprimer une catégorie qui contient des produits il faut supprimer les produits qu'elle contient ou attribuer ces produits à d'autres catégories en allant dans édition produit ensuite revenir supprimer la categorie.
+      </p>
+    </div> -->
     <button @click="isOpenCreate = true" class="py-2 p-4 rounded-lg shadow-xl btn-primary my-4 text-white"><i
         class="fa-solid fa-circle-plus"></i>
       Ajouter nouveau</button>
@@ -33,6 +37,7 @@
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">Slug</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Nombres de produits</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
@@ -42,6 +47,8 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.slug }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap text-green-500">{{ category?.products_count }}</td>
+
             <td class="flex gap-2">
               <a class="p-0.5 px-2 text-white bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 @click="openModal(category, 'read')">

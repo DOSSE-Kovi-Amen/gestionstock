@@ -40,6 +40,7 @@
           <tr>
             <th class="px-6 py-3 text-left text-sm font-bold">Image</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Catégorie</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">P.U vente</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Stock</th>
@@ -48,13 +49,17 @@
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(product, index) in store.products" :key="index"
-            :title="`Créé le ${frenchDate(product.created_at)}\nModifié le ${frenchDate(product.updated_at)}}`">
-            <td> <img style="object-fit: contain;height:70px; width:70px" v-if="product?.image_url"
-                :src="apiBaseURL + '/' + product?.image_url" alt="Prévisualisation de l'image"
-                class="border rounded px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+            :title="`Créé le ${frenchDate(product.createdAt)}\nModifié le ${frenchDate(product.updatedAt)}}`">
+            <td> <img v-if="product.imageUrl!='null'" style="object-fit: contain;height:70px; width:70px" 
+                :src="apiBaseURL + '/' + product?.imageUrl" alt="Prévisualisation de l'image"
+                class="px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+                <img v-if="product.imageUrl=='null'" style="object-fit: contain;height:70px; width:70px" 
+                src="../assets/images/noimage.jpeg" alt="Prévisualisation de l'image"
+                class="px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ product.selling_price }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ product?.category?.name }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap font-semibold text-green-500">{{ product.selling_price }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
 
             <td class="flex gap-2 mt-2">

@@ -39,20 +39,18 @@ export const useProductsStore = defineStore('product', () => {
   // post Data
   const postData = async (payload: any) => {
     errors.value = [];
-    console.log('================post====================');
-    console.log(payload);
-    console.log('====================================');
+    
     const { data, error } = await useFetch(`${apiBaseURL}/products`, {
       headers: headers,
       method: 'POST',
-      body: {...payload}
+      body: payload
     })
 
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
     console.log('=================error===================');
-    console.log(error.value?.data);
+    console.log(data.value);
     console.log('====================================');
     if (error.value?.statusCode == 400) {
       errors.value = error.value?.data.message;

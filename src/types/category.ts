@@ -5,6 +5,7 @@ export interface Category {
     slug: string; // Le nom de la catégorie
     created_at: any;
     updated_at: any;
+    products_count:number;
 
 }
 
