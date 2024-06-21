@@ -16,7 +16,7 @@
     }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
     <!-- Read -->
-    <DeleteCategoryModal @on-success="(e: string) => {
+    <DeleteCategoryModal @on-success="(e: string) => { 
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />

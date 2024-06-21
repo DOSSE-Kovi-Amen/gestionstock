@@ -9,7 +9,6 @@ export interface Stock {
     created_at: any;
     updated_at: any;
 }
-
 export interface StockForm {
     supplierId: string;
     totalNewStock: number;

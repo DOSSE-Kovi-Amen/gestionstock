@@ -19,16 +19,30 @@ onMounted(() => {
     new Chart(ctx, {
         type: "line", // Type de graphique (par exemple, ligne)
         data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May"], // Libellés de l'axe des x
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // Libellés de l'axe des x
             datasets: [
                 {
                     label: "Ventes", // Légende du graphique
-                    data: [ 20, 15, 30, 25], // Valeurs du graphique
+                    data: [
+                        props.data.Jan || 0,
+                        props.data.Feb || 0,
+                        props.data.Mar || 0,
+                        props.data.Apr || 0,
+                        props.data.May || 0,
+                        props.data.Jun || 0,
+                        props.data.Jul || 0,
+                        props.data.Aug || 0,
+                        props.data.Sep || 0,
+                        props.data.Oct || 0,
+                        props.data.Nov || 0,
+                        props.data.Dec || 0
+                    ], // Valeurs du graphique
                 },
             ],
         },
     });
 });
+const props = defineProps(['data'])
 
 </script>
 

@@ -25,7 +25,8 @@
               v-if="selectedData?.image_url"
               :src="apiBaseURL+'/'+selectedData?.image_url"
               alt="Prévisualisation de l'image"
-              class="mt-2 max-h-32 object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              style="object-fit: cover;"
+              class="mt-2  object-contain w-full rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
             />
           </li>
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
@@ -36,8 +37,10 @@
           <li>
             <strong>Prix de vente:</strong> {{ selectedData?.selling_price }}
           </li>
+
           <li><strong>Stock:</strong> {{ selectedData?.stock }}</li>
           <li><strong>Catégorie:</strong> {{ selectedData?.category.name }}</li>
+          
           <li>
             <strong>Date de création:</strong>
             {{ frenchDate(selectedData?.created_at) }}

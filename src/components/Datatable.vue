@@ -19,6 +19,8 @@ import 'datatables.net-select-bs5';
 let table: any = null;
 onMounted(() => {
   table = $('#myTable').DataTable({
+    "ordering": false, // Désactive le tri
+
     dom: 'Blfrtip',
     buttons: [
       {

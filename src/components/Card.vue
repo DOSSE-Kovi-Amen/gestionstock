@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 defineProps(['title', 'count', 'icon'])
-
 </script>
 
 <style scoped></style>
