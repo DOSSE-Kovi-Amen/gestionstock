@@ -25,7 +25,7 @@
               <div v-if="store.errors && store.errors.length != 0"
                 class="bg-red-200 border-l-4 border-red-500 p-4 mb-2">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
-                  {{ error }} :
+                  {{ error[0] }} :
                 </p>
               </div>
               <!-- Champ de sélection d'image -->
@@ -47,38 +47,30 @@
                   <input @change="handleImageChange" type="file" class="hidden" accept="image/*" id="image"
                     name="image" />
                 </div>
-                <div class="mb-4">
-                  <!-- <label for="image" class="block text-gray-700 font-bold mb-2"
-                    >Image du produit</label
-                  > -->
-                  <!-- Prévisualisation de l'image -->
-                  <img v-if="imagePreview" :src="imagePreview" alt="Prévisualisation de l'image"
-                    class="mt-2 max-h-32 object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label for="name" class="block text-gray-700 font-bold mb-2">Nom du produit</label>
-                  <input v-model="formData.name" type="text" id="name" name="name"
-                    class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required />
-                </div>
-                <div class="mb-4">
-                  <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie du produit</label>
-                  <v-select v-model="formData.category_id"
-                    class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-                    required :options="storeCat.categories" label="name" :reduce="(option: any) => option.id">
-                    <!-- Personnalisation de l'affichage des options -->
-                    <template #option="option: any">
-                      <div class="flex gap-2">
-                        <span>{{ option.name }}</span>
-                      </div>
-                    </template>
-                    <template #search="{ attributes, events }: any">
-                      <input class="vs__search" 
-                       v-bind="attributes" v-on="events" />
-                    </template>
-                  </v-select>
+                <div class="mb-2">
+                  <div>
+                    <div class="mb-2">
+                      <label for="name" class="block text-gray-700 font-bold mb-2">Nom du produit</label>
+                      <input v-model="formData.name" type="text" id="name" name="name"
+                        class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                        required />
+                    </div>
+                    <div class="mb-2">
+                      <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie (Optionnel)</label>
+                      <v-select v-model="formData.categoryId"
+                        class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                        required :options="storeCat.categories" :reduce="(option: any) => option.id" label="name">
+                        <!-- Personnalisation de l'affichage des options -->
+                        <template #option="option: any">
+                          <div class="flex gap-2">
+                            <span>{{ option.name }}</span>
+                          </div>
+                        </template>
+                        <template #search="{ attributes, events }: any">
+                          <input class="vs__search" :required="!formData.categoryId" v-bind="attributes"
+                            v-on="events" />
+                        </template>
+                      </v-select>
 
                     </div>
                     <div class="mb-2">
