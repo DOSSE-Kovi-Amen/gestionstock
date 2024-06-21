@@ -60,24 +60,6 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="code_cli"
-                    >Code Client :</label
-                  >
-                  <input
-                    v-model="formData.code_cli"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="code_cli"
-                    name="code_cli"
-                    placeholder="Code Client"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
                     for="email"
                     >Email :</label
                   >
@@ -90,6 +72,10 @@
                     placeholder="Email"
                   />
                 </div>
+                
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -106,23 +92,6 @@
                     required
                   />
                 </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="zip_code"
-                    >Code postal :</label
-                  >
-                  <input
-                    v-model="formData.zip_code"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="zip_code"
-                    name="zip_code"
-                    placeholder="Code postal"
-                  />
-                </div>
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -136,38 +105,6 @@
                     id="address"
                     name="address"
                     placeholder="Adresse"
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="country"
-                    >Pays :</label
-                  >
-                  <input
-                    v-model="formData.country"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="country"
-                    id="country"
-                    name="country"
-                    placeholder="Pays"
-                  />
-                </div>
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="city"
-                    >Ville :</label
-                  >
-                  <input
-                    v-model="formData.city"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="city"
-                    name="city"
-                    placeholder="Ville"
                   />
                 </div>
               </div>

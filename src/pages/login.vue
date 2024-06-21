@@ -62,12 +62,8 @@ const signin = async () => {
     auth.signin(creds).then((status) => {
       if (status) {
         // router.replace("/");
-<<<<<<< HEAD
         window.location.href = '/';
 
-=======
-        window.location.href='/';
->>>>>>> 9a50e1fcae1ed53abf740f8b499219423cef50a0
       } else {
         // error.value = validation.invalidCreds
       }

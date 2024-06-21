@@ -2,13 +2,9 @@ import { Timestamp } from "firebase/firestore";
 
 // Export the api baseURL
 const prod = false;
-<<<<<<< HEAD
 export const baseURL = prod ? 'https://...' : 'http://localhost:8000';
 
 export const apiBaseURL = baseURL+'/api';
-=======
-export const apiBaseURL = prod ? 'https://...' : 'http://localhost:5000';
->>>>>>> 9a50e1fcae1ed53abf740f8b499219423cef50a0
 
 export const frenchDate = (dateStr: string) => {
   const options: any = { year: 'numeric', month: 'long', day: 'numeric' };

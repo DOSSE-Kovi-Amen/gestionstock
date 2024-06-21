@@ -26,6 +26,6 @@ export interface ProductForm {
   selling_price: number|any; // Prix de vente du produit
   stock: number|any;  // Stock disponible
   category_id: string; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-  image_url: string|null; // URL de l'image du produit
+  image: string|null; // URL de l'image du produit
   // Vous pouvez ajouter d'autres propriétés pertinentes pour votre application
 }

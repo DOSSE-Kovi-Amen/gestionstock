@@ -75,7 +75,7 @@ export const useStocksStore = defineStore('stock', () => {
     console.log(error.value?.message);
     console.log('====================================');
     if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.message;
+      errors.value = error.value?.data.errors;
     
     }
     if (data.value) {

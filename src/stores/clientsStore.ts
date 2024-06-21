@@ -52,10 +52,10 @@ export const useClientsStore = defineStore('client', () => {
       useAuthStore().logout();
     }
     console.log('====================================');
-    console.log(error.value?.message);
+    console.log(error.value?.data);
     console.log('====================================');
     if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.message;
+      errors.value = error.value?.data.errors;
     
     }
     if (data.value) {
@@ -77,7 +77,7 @@ export const useClientsStore = defineStore('client', () => {
       useAuthStore().logout();
     }
     if (error.value?.statusCode == 400) {
-      errors.value = error.value?.data.message;
+      errors.value = error.value?.data.errors;
     }
     if (data.value) {
       await getData()
