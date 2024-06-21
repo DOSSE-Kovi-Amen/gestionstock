@@ -54,7 +54,7 @@ export const useSuppliersStore = defineStore('supplier', () => {
     console.log('====================================');
     console.log(error.value?.message);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     
     }
@@ -65,7 +65,7 @@ export const useSuppliersStore = defineStore('supplier', () => {
     }
   }
 
-  const updated_ata = async (payload: SupplierForm, id: string) => {
+  const updatedData = async (payload: SupplierForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/suppliers/${id}`, {
       method: 'PATCH',
@@ -76,7 +76,7 @@ export const useSuppliersStore = defineStore('supplier', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.message;
     }
     if (data.value) {
@@ -97,6 +97,6 @@ export const useSuppliersStore = defineStore('supplier', () => {
   getData()
 
 
-  return { suppliers, loading, errors, suppliersCount, getData, postData, updated_ata, deleteData }
+  return { suppliers, loading, errors, suppliersCount, getData, postData, updatedData, deleteData }
 })
 

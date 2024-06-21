@@ -63,7 +63,7 @@
 
         <div>
           <!-- Contenu de la section 2 -->
-          <form @submit.prevent="updated_ata">
+          <form @submit.prevent="updatedData">
             <div class="mb-4">
               <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Noms :</label>
               <input v-model="formData.name" class="border rounded-md py-2 px-3 w-full" type="text" id="name" name="name"
@@ -159,7 +159,7 @@ const editPhoto = async () => {
   }
 }
 
-const updated_ata = async () => {
+const updatedData = async () => {
   if (auth.user) {
     auth.changePwdOrName(auth.user.id, formData.value ).then(async (status) => {
       if (status) {

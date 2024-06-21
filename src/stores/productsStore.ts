@@ -52,7 +52,7 @@ export const useProductsStore = defineStore('product', () => {
     console.log('=================error===================');
     console.log(data.value);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     
     }
@@ -77,7 +77,7 @@ export const useProductsStore = defineStore('product', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     }
     if (data.value) {

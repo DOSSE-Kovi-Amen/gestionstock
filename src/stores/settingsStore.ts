@@ -35,7 +35,7 @@ export const useSettingsStore = defineStore('setting', () => {
     }
   }
   // post Data
-  const updated_ata = async (id: string, payload: any) => {
+  const updatedData = async (id: string, payload: any) => {
     errors.value = [];
     loading.value = true;
     const { data, error } = await useFetch(`${apiBaseURL}/settings/${id}`, {
@@ -50,7 +50,7 @@ export const useSettingsStore = defineStore('setting', () => {
     console.log('====================================');
     console.log(error.value?.data.errors);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
 
     }
@@ -65,6 +65,6 @@ export const useSettingsStore = defineStore('setting', () => {
   getData()
 
 
-  return { settings, loading, errors, getData, updated_ata }
+  return { settings, loading, errors, getData, updatedData }
 })
 

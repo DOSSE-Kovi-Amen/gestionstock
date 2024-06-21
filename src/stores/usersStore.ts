@@ -54,7 +54,7 @@ export const useUsersStore = defineStore('user', () => {
     console.log('====================================');
     console.log(error.value?.data);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
 
     }
@@ -74,7 +74,7 @@ export const useUsersStore = defineStore('user', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     }
     if (data.value) {
@@ -86,7 +86,7 @@ export const useUsersStore = defineStore('user', () => {
     }
   }
 
-  const updated_ata = async (id: string, payload: any) => {
+  const updatedData = async (id: string, payload: any) => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
       method: 'PATCH',
       headers: headers,
@@ -96,7 +96,7 @@ export const useUsersStore = defineStore('user', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       console.log('====================================');
       console.log(error.value?.data.message);
       console.log('====================================');
@@ -122,7 +122,7 @@ export const useUsersStore = defineStore('user', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       console.log('====================================');
       console.log(error.value?.data.message);
       console.log('====================================');
@@ -148,7 +148,7 @@ export const useUsersStore = defineStore('user', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.message;
     }
     if (data.value) {
@@ -168,6 +168,6 @@ export const useUsersStore = defineStore('user', () => {
   getData()
 
 
-  return { users, loading, errors, usersCount, updatePhoto, updateRole, getData, retrieveData, createUser, updated_ata, deleteData }
+  return { users, loading, errors, usersCount, updatePhoto, updateRole, getData, retrieveData, createUser, updatedData, deleteData }
 })
 

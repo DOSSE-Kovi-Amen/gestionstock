@@ -14,12 +14,9 @@ export interface Client {
 }
 
 export interface ClientForm {
-    code_cli: string;
     name: string;
     email?: string; // Email est nullable
     telephone: string;
     address: string;
     description: string;
-    country:string;
-    city:string;
 }

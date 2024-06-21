@@ -52,9 +52,9 @@ export const useSpendsStore = defineStore('spend', () => {
       useAuthStore().logout();
     }
     console.log('====================================');
-    console.log(error.value?.message);
+    console.log(error.value?.data);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     
     }
@@ -65,7 +65,7 @@ export const useSpendsStore = defineStore('spend', () => {
     }
   }
 
-  const updated_ata = async (payload: SpendForm, id: string) => {
+  const updatedData = async (payload: SpendForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/spends/${id}`, {
       method: 'PATCH',
@@ -76,7 +76,7 @@ export const useSpendsStore = defineStore('spend', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     }
     if (data.value) {
@@ -97,6 +97,6 @@ export const useSpendsStore = defineStore('spend', () => {
   getData()
 
 
-  return { spends, loading, errors, spendsCount, getData,updated_ata, postData, deleteData }
+  return { spends, loading, errors, spendsCount, getData,updatedData, postData, deleteData }
 })
 

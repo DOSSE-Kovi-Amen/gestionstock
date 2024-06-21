@@ -28,7 +28,18 @@
               class="modal-body pb-16 p-5 overflow-y-auto"
             >
               <!-- Ajoutez ici le contenu du modal -->
-
+              <div
+                v-if="store.errors && store.errors.length != 0"
+                class="bg-red-200 border-l-4 border-red-500 p-4 mb-4"
+              >
+                <p
+                  v-for="(error, index) in store.errors"
+                  :key="index"
+                  class="font-semibold my-1"
+                >
+                  {{ error[0] }} :
+                </p>
+              </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <label
@@ -49,24 +60,6 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="code_cli"
-                    >Code Client :</label
-                  >
-                  <input
-                    v-model="formData.codeSupplier"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="code_cli"
-                    name="code_cli"
-                    placeholder="Code Client"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
                     for="email"
                     >Email :</label
                   >
@@ -79,6 +72,9 @@
                     placeholder="Email"
                   />
                 </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -93,23 +89,6 @@
                     name="telephone"
                     placeholder="Téléphone"
                     required
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="zip_code"
-                    >Code postal :</label
-                  >
-                  <input
-                    v-model="formData.zip_code"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="zip_code"
-                    name="zip_code"
-                    placeholder="Code postal"
                   />
                 </div>
                 <div class="mb-4">
@@ -128,38 +107,7 @@
                   />
                 </div>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="country"
-                    >Pays :</label
-                  >
-                  <input
-                    v-model="formData.country"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="country"
-                    id="country"
-                    name="country"
-                    placeholder="Pays"
-                  />
-                </div>
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="city"
-                    >Ville :</label
-                  >
-                  <input
-                    v-model="formData.city"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="city"
-                    name="city"
-                    placeholder="Ville"
-                  />
-                </div>
-              </div>
+              
               <div class="mb-4">
                 <label
                   for="description"
@@ -237,7 +185,7 @@ const submitForm = async () => {
   loading.value = true;
   if (props.selectedData) {
     await store
-      .updated_ata(formData.value, props.selectedData.id)
+      .updatedData(formData.value, props.selectedData.id)
       .then((status) => {
         if (status) {
           console.log("=============status=======================");

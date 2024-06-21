@@ -44,7 +44,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     }
 
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value.data.errors
       loading.value = false
       return false;
@@ -81,7 +81,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     }
 
@@ -108,7 +108,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       console.log('=================error===================');
       console.log(error.value.data.errors);
       console.log('====================================');

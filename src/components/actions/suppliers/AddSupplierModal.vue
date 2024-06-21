@@ -37,7 +37,7 @@
                   :key="index"
                   class="font-semibold my-1"
                 >
-                  {{ error }} :
+                  {{ error[0] }} :
                 </p>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -60,24 +60,6 @@
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
-                    for="codeSupplier"
-                    >Code Fournisseur :</label
-                  >
-                  <input
-                    v-model="formData.codeSupplier"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="codeSupplier"
-                    name="codeSupplier"
-                    placeholder="Code Fournisseur"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
                     for="email"
                     >Email :</label
                   >
@@ -90,6 +72,9 @@
                     placeholder="Email"
                   />
                 </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -104,23 +89,6 @@
                     name="telephone"
                     placeholder="Téléphone"
                     required
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="zip_code"
-                    >Code postal :</label
-                  >
-                  <input
-                    v-model="formData.zip_code"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="zip_code"
-                    name="zip_code"
-                    placeholder="Code postal"
                   />
                 </div>
                 <div class="mb-4">
@@ -139,38 +107,7 @@
                   />
                 </div>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="country"
-                    >Pays :</label
-                  >
-                  <input
-                    v-model="formData.country"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="country"
-                    id="country"
-                    name="country"
-                    placeholder="Pays"
-                  />
-                </div>
-                <div class="mb-4">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="city"
-                    >Ville :</label
-                  >
-                  <input
-                    v-model="formData.city"
-                    class="border rounded-md py-2 px-3 w-full"
-                    type="text"
-                    id="city"
-                    name="city"
-                    placeholder="Ville"
-                  />
-                </div>
-              </div>
+              
               <div class="mb-4">
                 <label
                   for="description"

@@ -23,76 +23,39 @@
         <div v-else>
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
-            <div
-              style="height: 60vh"
-              class="modal-body pb-16 p-5 overflow-y-auto"
-            >
-              <!-- Ajoutez ici le contenu du modal -->
+            <div style="height: 60vh" class="modal-body pb-16 p-5 overflow-y-auto">
+              <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+                <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
+                  {{ error[0] }}
+                </p>
+              </div>
 
+              <div></div>
               <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="name"
-                  >Titre :</label
-                >
-                <input
-                  v-model="formData.title"
-                  class="border rounded-md py-2 px-3 w-full"
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Titre"
-                  required
-                />
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Titre :</label>
+                <input v-model="formData.title" class="border rounded-md py-2 px-3 w-full" type="text" id="title"
+                  name="title" placeholder="Titre" />
               </div>
               <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="name"
-                  >Montant :</label
-                >
-                <input
-                  v-model="formData.amount"
-                  class="border rounded-md py-2 px-3 w-full"
-                  type="number"
-                  id="amount"
-                  name="amount"
-                  placeholder="Montant"
-                  required
-                />
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Montant :</label>
+                <input v-model="formData.amount" class="border rounded-md py-2 px-3 w-full" type="number" id="amount"
+                  name="amount" placeholder="Montant" step="any" />
               </div>
               <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="slug"
-                  >Description :</label
-                >
-                <textarea
-                  v-model="formData.description"
-                  id="description"
-                  name="description"
-                  class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  required
-                  placeholder="Description"
-                ></textarea>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="slug">Description :</label>
+                <textarea v-model="formData.description" id="description" name="description"
+                  class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" required
+                  placeholder="Description"></textarea>
               </div>
             </div>
 
             <!-- Pied du modal -->
-            <div
-              class="absolute bg-gray-100 w-full flex justify-end bottom-0 p-4"
-            >
-              <a
-                class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2"
-                @click="$emit('onClose')"
-              >
-              <i class="fa-solid fa-close"></i> Fermer
+            <div class="absolute bg-gray-100 w-full flex justify-end bottom-0 p-4">
+              <a class="bg-gray-200 text-black py-2 px-4 rounded-sm mr-2" @click="$emit('onClose')">
+                <i class="fa-solid fa-close"></i> Fermer
               </a>
-              <button
-                type="submit"
-                class="btn-primary text-white py-2 px-4 rounded-sm"
-              >
-              <i class="fa-solid fa-save"></i> Enregistrer
+              <button type="submit" class="btn-primary text-white py-2 px-4 rounded-sm">
+                <i class="fa-solid fa-save"></i> Enregistrer
               </button>
             </div>
           </form>
@@ -132,7 +95,7 @@ const submitForm = async () => {
   loading.value = true;
   if (props.selectedData) {
     await store
-      .updated_ata(formData.value, props.selectedData.id)
+      .updatedData(formData.value, props.selectedData.id)
       .then((status) => {
         if (status) {
           console.log("=============status=======================");

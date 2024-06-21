@@ -72,7 +72,7 @@ export const useSalesStore = defineStore('sale', () => {
     console.log('====================================');
     console.log(error.value?.data.errors);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     
     }

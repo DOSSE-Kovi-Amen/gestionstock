@@ -94,7 +94,7 @@ const submitForm = async () => {
   formDataToSend.append('societyDescription', formData.value.societyDescription);
   formDataToSend.append('currency', formData.value.currency);
   if (storeSettings.settings) {
-    await storeSettings.updated_ata(storeSettings.settings?.id, formDataToSend).then((status) => {
+    await storeSettings.updatedData(storeSettings.settings?.id, formDataToSend).then((status) => {
       if (status) {
         emit("onClose");
         emit("onSuccess", "Catégorie ajoutée avec succès");

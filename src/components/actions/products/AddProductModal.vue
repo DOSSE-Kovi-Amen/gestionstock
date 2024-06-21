@@ -95,13 +95,13 @@
                   <input v-model.number="formData.purchase_price" type="number" id="purchase_price"
                     name="purchase_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required />
+                    required  step="any"/>
                 </div>
                 <div class="mb-2">
                   <label for="price" class="block text-gray-700 font-bold mb-2">Prix de vente produit</label>
                   <input v-model.number="formData.selling_price" type="number" id="selling_price" name="selling_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required />
+                    required step="any"/>
                 </div>
               </div>
 

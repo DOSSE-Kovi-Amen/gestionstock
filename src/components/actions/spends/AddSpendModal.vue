@@ -23,7 +23,7 @@
             <div style="height: 60vh" class="modal-body pb-16 p-5 overflow-y-auto">
               <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
-                  {{ error }} :
+                  {{ error[0] }}
                 </p>
               </div>
 
@@ -31,12 +31,12 @@
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Titre :</label>
                 <input v-model="formData.title" class="border rounded-md py-2 px-3 w-full" type="text" id="title"
-                  name="title" placeholder="Titre" required />
+                  name="title" placeholder="Titre" />
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Montant :</label>
                 <input v-model="formData.amount" class="border rounded-md py-2 px-3 w-full" type="number" id="amount"
-                  name="amount" placeholder="Montant" required />
+                  name="amount" placeholder="Montant" step="any"/>
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="slug">Description :</label>

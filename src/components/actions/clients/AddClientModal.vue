@@ -37,7 +37,7 @@
                   :key="index"
                   class="font-semibold my-1"
                 >
-                  {{ error }} :
+                  {{ error[0] }}
                 </p>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -152,15 +152,12 @@ const store = useClientsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
 const formData = ref({
-  code_cli: "", //
   name: "",
-  email: null,
+  email: "",
   telephone: "",
-  zip_code: "",
   address: "",
   description: "",
-  country: "",
-  city: ""
+
 }); // Champ de nom de catégorie
 
 const submitForm = async () => {
@@ -171,11 +168,7 @@ const submitForm = async () => {
       emit("onSuccess", "Client ajouté avec succès");
       formData.value.name = "";
       formData.value.address = "";
-      formData.value.city = "";
-      formData.value.code_cli = "";
-      formData.value.country = "";
-      formData.value.zip_code = "";
-      formData.value.email = null;
+      formData.value.email = "";
       formData.value.description;
       formData.value.telephone = "";
     }

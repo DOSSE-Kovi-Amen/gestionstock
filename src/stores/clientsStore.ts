@@ -54,7 +54,7 @@ export const useClientsStore = defineStore('client', () => {
     console.log('====================================');
     console.log(error.value?.data);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     
     }
@@ -65,7 +65,7 @@ export const useClientsStore = defineStore('client', () => {
     }
   }
 
-  const updated_ata = async (payload: ClientForm, id: string) => {
+  const updatedData = async (payload: ClientForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/clients/${id}`, {
       method: 'PATCH',
@@ -76,7 +76,7 @@ export const useClientsStore = defineStore('client', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     }
     if (data.value) {
@@ -97,6 +97,6 @@ export const useClientsStore = defineStore('client', () => {
   getData()
 
 
-  return { clients, loading, errors, clientsCount, getData, postData, updated_ata, deleteData }
+  return { clients, loading, errors, clientsCount, getData, postData, updatedData, deleteData }
 })
 

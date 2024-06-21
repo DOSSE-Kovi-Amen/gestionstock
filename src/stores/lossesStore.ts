@@ -54,7 +54,7 @@ export const useLossesStore = defineStore('loss', () => {
     console.log('====================================');
     console.log(error.value?.data.errors);
     console.log('====================================');
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.data.errors;
     
     }
@@ -65,7 +65,7 @@ export const useLossesStore = defineStore('loss', () => {
     }
   }
 
-  const updated_ata = async (payload: LossForm, id: string) => {
+  const updatedData = async (payload: LossForm, id: string) => {
     errors.value = [];
     const { data, error } = await useFetch(`${apiBaseURL}/losses/${id}`, {
       method: 'PATCH',
@@ -76,7 +76,7 @@ export const useLossesStore = defineStore('loss', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
-    if (error.value?.statusCode == 400) {
+    if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.data.errors;
     }
     if (data.value) {
@@ -97,6 +97,6 @@ export const useLossesStore = defineStore('loss', () => {
   getData()
 
 
-  return { losses, loading, errors, lossesCount, getData, postData, updated_ata, deleteData }
+  return { losses, loading, errors, lossesCount, getData, postData, updatedData, deleteData }
 })
 
