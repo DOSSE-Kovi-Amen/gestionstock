@@ -50,7 +50,7 @@ export const useProductsStore = defineStore('product', () => {
       useAuthStore().logout();
     }
     console.log('=================error===================');
-    console.log(data.value);
+    console.log(error.value?.data);
     console.log('====================================');
     if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
@@ -63,7 +63,7 @@ export const useProductsStore = defineStore('product', () => {
     }
   }
 
-  const updated_Data = async (payload: any, id: string) => {
+  const updatedData = async (payload: any, id: string) => {
     errors.value = [];
     console.log('=================v===================');
     console.log(payload);
@@ -98,6 +98,6 @@ export const useProductsStore = defineStore('product', () => {
   getData()
 
 
-  return { products, loading, errors, productsCount, getData, postData, updated_Data, deleteData }
+  return { products, loading, errors, productsCount, getData, postData, updatedData, deleteData }
 })
 

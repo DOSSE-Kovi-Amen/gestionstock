@@ -49,11 +49,11 @@
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(product, index) in store.products" :key="index"
-            :title="`Créé le ${frenchDate(product.createdAt)}\nModifié le ${frenchDate(product.updatedAt)}}`">
-            <td> <img v-if="product.imageUrl!='null'" style="object-fit: contain;height:70px; width:70px" 
-                :src="apiBaseURL + '/' + product?.imageUrl" alt="Prévisualisation de l'image"
+            :title="`Créé le ${frenchDate(product.created_at)}\nModifié le ${frenchDate(product.updated_at)}}`">
+            <td> <img v-if="product.image!='null'" style="object-fit: contain;height:70px; width:70px" 
+                :src="getImageUrl(product.image)" alt="Prévisualisation de l'image"
                 class="px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
-                <img v-if="product.imageUrl=='null'" style="object-fit: contain;height:70px; width:70px" 
+                <img v-if="product.image=='null'" style="object-fit: contain;height:70px; width:70px" 
                 src="../assets/images/noimage.jpeg" alt="Prévisualisation de l'image"
                 class="px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
             </td>

@@ -57,7 +57,7 @@
                     </div>
                     <div class="mb-2">
                       <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie (Optionnel)</label>
-                      <v-select v-model="formData.categoryId"
+                      <v-select v-model="formData.category_id"
                         class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
                         required :options="storeCat.categories" :reduce="(option: any) => option.id" label="name">
                         <!-- Personnalisation de l'affichage des options -->
@@ -67,7 +67,7 @@
                           </div>
                         </template>
                         <template #search="{ attributes, events }: any">
-                          <input class="vs__search" :required="!formData.categoryId" v-bind="attributes"
+                          <input class="vs__search" :required="!formData.category_id" v-bind="attributes"
                             v-on="events" />
                         </template>
                       </v-select>

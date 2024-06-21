@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore";
 
 // Export the api baseURL
 const prod = false;
-export const baseURL = prod ? 'https://...' : 'http://localhost:8000';
+export const baseURL = prod ? 'https://...' : 'http://127.0.0.1:8000';
 
 export const apiBaseURL = baseURL+'/api';
 
