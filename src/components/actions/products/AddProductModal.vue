@@ -170,7 +170,7 @@ const handleImageChange = (event: any) => {
         imagePreview.value = e.target.result;
       }
     };
-    formData.value.image_url = file
+    formData.value.image = file
 
     reader.readAsDataURL(file);
   }
@@ -187,7 +187,7 @@ const submitForm = async () => {
   formDataToSend.append('stock', formData.value.stock);
   formDataToSend.append('slug', formData.value.slug);
   formDataToSend.append('category_id', formData.value.category_id);
-  formDataToSend.append('image', formData.value.image_url);
+  formDataToSend.append('image', formData.value.image);
 
   console.log('==================formDataToSend==================');
   console.log(formData.value);
@@ -203,7 +203,7 @@ const submitForm = async () => {
       // reset data
       formData.value.category_id = "";
       formData.value.description = "";
-      formData.value.image_url = "";
+      formData.value.image = "";
       formData.value.name = "";
       formData.value.purchase_price = null; 
       formData.value.selling_price = null;
