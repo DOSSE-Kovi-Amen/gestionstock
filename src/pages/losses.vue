@@ -61,10 +61,10 @@
               loss.created_at
             )}\nModifié le ${frenchDate(loss.updated_at)}}`"
           >
-            <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(loss.product).name }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(loss.product).purchase_price }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ loss.product.name }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ loss.product.purchase_price }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ loss.quantity }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(loss.product).purchase_price*loss?.quantity }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ loss.product.purchase_price*loss?.quantity }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ loss.description }}</td>
             <td class="flex gap-2">
               <a

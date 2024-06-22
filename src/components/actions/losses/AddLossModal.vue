@@ -23,16 +23,16 @@
             <div style="height: 70vh" class="modal-body pb-16 p-5 overflow-y-auto">
               <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
-                  {{ error }} :
+                  {{ error[0] }}
                 </p>
               </div>
               <!-- Ajoutez ici le contenu du modal -->
               <div class="mb-4">
                 <label for="product" class="block text-gray-700 font-bold mb-2">Nom du produit perdu:
                 </label>
-                <v-select v-model="formData.product"
+                <v-select v-model="formData.product_id"
                   class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
-                  required :options="productStore.products" label="name">
+                  required :options="productStore.products" :reduce="(option: any) => option.id" label="name" >
                   <!-- Personnalisation de l'affichage des options -->
                   <template #option="option: any">
                     <div class="flex gap-2">
@@ -41,7 +41,7 @@
                     </div>
                   </template>
                   <template #search="{ attributes, events }: any">
-                    <input class="vs__search" :required="!formData.product" v-bind="attributes" v-on="events" />
+                    <input class="vs__search" :required="!formData.product_id" v-bind="attributes" v-on="events" />
                   </template>
                 </v-select>
 
@@ -84,7 +84,7 @@ const productStore = useProductsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
 const formData = ref<LossForm>({
-  product: null,
+  product_id: "",
   quantity: null,
   description: "",
 }); // Champ de nom de catégorie
@@ -97,7 +97,7 @@ const submitForm = async () => {
       emit("onSuccess", "Perte ajoutée avec succès");
 
       productStore.getData();
-      formData.value.product = null;
+      formData.value.product_id = "";
       formData.value.quantity = null;
       formData.value.description = "";
     }
@@ -108,7 +108,7 @@ const submitForm = async () => {
   });
   setTimeout(() => {
     loading.value = false;
-  }, 15000);
+  }, 5000);
 };
 
 defineProps({

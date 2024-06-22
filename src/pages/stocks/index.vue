@@ -19,15 +19,19 @@
       <Datatable v-if="!store.loading">
         <thead>
           <tr>
-            <th class="px-6 py-3 text-left text-sm font-bold">Date</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Total nouveau stock</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Date de réception</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Crée le</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Montant total entrée</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Fournisseur</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(stock, index) in store.stocks" :key="index" :title="`Créé le ${frenchDate(stock.created_at)}\nModifié le ${frenchDate(stock.updated_at)}}`">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(stock.date) }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(stock.created_at) }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ stock.totalNewStock }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ stock.total_amount }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ stock.supplier.name }}</td>
             <td class="flex gap-2">
               <NuxtLink :to="`/stocks/${stock.id}`" class="p-0.5 px-2  text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 >
@@ -67,7 +71,8 @@ const route = useRoute();
 // Vérifiez si le paramètre de requête 'showalert' est présent
 
 onMounted(() => {
- 
+  store.getData()
+
   // Utilisez 'showAlert' pour afficher le message approprié dans votre interface utilisateur
   if (route.query.showAlert === 'true') {
     showAlert.value=true;

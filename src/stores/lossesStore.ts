@@ -55,7 +55,7 @@ export const useLossesStore = defineStore('loss', () => {
     console.log(error.value?.data.errors);
     console.log('====================================');
     if (error.value?.statusCode == 422) {
-      errors.value = error.value?.data.data.errors;
+      errors.value = error.value?.data.errors;
     
     }
     if (data.value) {
@@ -77,7 +77,7 @@ export const useLossesStore = defineStore('loss', () => {
       useAuthStore().logout();
     }
     if (error.value?.statusCode == 422) {
-      errors.value = error.value?.data.data.errors;
+      errors.value = error.value?.data.errors;
     }
     if (data.value) {
       await getData()

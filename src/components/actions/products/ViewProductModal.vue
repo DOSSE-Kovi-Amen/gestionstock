@@ -19,11 +19,11 @@
               >Image:
              
             </strong>
-             <span v-if="!selectedData?.image_url">Aucune image</span>
+             <span v-if="!selectedData?.image">Aucune image</span>
             <!-- Prévisualisation de l'image -->
             <img
-              v-if="selectedData?.image_url"
-              :src="apiBaseURL+'/'+selectedData?.image_url"
+              v-if="selectedData?.image"
+              :src="getImageUrl(selectedData?.image)"
               alt="Prévisualisation de l'image"
               style="object-fit: cover;"
               class="mt-2  object-contain w-full rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"

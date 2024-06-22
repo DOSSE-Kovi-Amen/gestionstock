@@ -30,10 +30,14 @@ body {
     background: linear-gradient(to bottom, #069fc9, #60ad4c);
   }
   .table-head{
-    background: linear-gradient(45deg, #FF69B4, #FFA500);
+    // background: linear-gradient(45deg, #FF69B4, #FFA500);
+    background-image: linear-gradient(to right, #000000, #4a00e0);
+
   }
   .sidebar{
-    background: linear-gradient(45deg, #FF69B4, #FFA500);
+    // background: linear-gradient(45deg, #FF69B4, #FFA500);
+
+    background-image: linear-gradient(to right, #8e2de2, #4a00e0);
   }
   .sidebar-logo{
     border-right: 3px solid #10a3c2 ;
@@ -46,15 +50,25 @@ body {
     background-color:rgba(255, 255, 255, 0.151) ;
     color: white;
   }
+  // .router-link-active{
+  //   background-color:white ;
+  //   color: #FFA500;
+  //   border-right: 3px solid #FF69B4 ;
+
+  // }
   .router-link-active{
     background-color:white ;
-    color: #FFA500;
-    border-right: 3px solid #FF69B4 ;
+    color: #4a00e0;
+    border-right: 3px solid #8e2de2 ;
 
   }
+  // .router-link-active:hover{
+  //   background-color:white ;
+  //   color: #FFA500;
+  // }
   .router-link-active:hover{
     background-color:white ;
-    color: #FFA500;
+    color: #8e2de2;
   }
 
   .btn-primary{

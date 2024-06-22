@@ -21,7 +21,7 @@ onMounted(() => {
   table = $('#myTable').DataTable({
     "ordering": false, // Désactive le tri
 
-    dom: 'Blfrtip',
+    // dom: 'Blfrtip',
     buttons: [
       {
         extend: 'csv',

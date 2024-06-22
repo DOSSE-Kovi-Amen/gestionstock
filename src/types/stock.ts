@@ -1,18 +1,38 @@
-import { Category } from "./category";
+import { Product } from ".";
 import { Supplier } from "./supplier";
 
-export interface Stock {
+// Interface pour StockProduct
+interface StockProduct {
     id: string;
-    supplier: Supplier;
-    stockDetails: string;
-    totalNewStock: number;
+    stock_id: string;
+    product_id: string;
+    product:Product;
+    quantity: number;
+    purchase_price: number;
+    total_price: number;
     created_at: any;
     updated_at: any;
 }
+
+// Interface pour Stock
+export interface Stock {
+    id: string;
+    supplier_id: string;
+    date: string;
+    total_amount: number;
+    organization_id: string | null;
+    created_at: any;
+    updated_at: any;
+    supplier: Supplier;
+    stock_products: StockProduct[];
+}
+
+
+
 export interface StockForm {
-    supplierId: string;
-    totalNewStock: number;
-    stockDetails: StockDetails[]|any;
+    supplier_id: string;
+    date:any;
+    products: StockDetails[]|any;
 }
 
 export interface StockDetails {

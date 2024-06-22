@@ -6,13 +6,14 @@
 
     <div v-else class="bg-white p-6 rounded shadow-md">
       <div class="text-center">
-        <h1 class="text-2xl font-semibold">Entrée de stock du {{ frenchDate(stock.created_at) }}</h1>
+        <h1 class="text-2xl font-semibold">Entrée de stock du {{ frenchDate(stock?.created_at) }}</h1>
+        <h1 class="text-2xl font-semibold">Date de réception {{ frenchDate(stock?.date) }}</h1>
       </div>
       <div class="mt-4">
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <p><strong>Fournisseur: {{ stock.supplier.name }}</strong></p>
-            <!-- <p><strong>Auteur: {{ stock }}</strong></p> -->
+            <p><strong>Fournisseur: {{ stock.supplier?.name }}</strong></p>
+            <!-- <p><strong>Auteur: {{ stock }}</strong></p> -->  
 
           </div>
         </div>
@@ -23,12 +24,14 @@
             <tr>
               <th class="border border-gray-300 p-2">Produit</th>
               <th class="border border-gray-300 p-2">Quantité</th>
+              <th class="border border-gray-300 p-2">Prix d'achat</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(product, index) in validJSON(stock.stockDetails)" :key="index">
-              <td class="border border-gray-300 p-2">{{ product.name }}</td>
-              <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
+            <tr v-for="(stock_product, index) in stock.stock_products" :key="index">
+              <td class="border border-gray-300 p-2">{{ stock_product.product.name }}</td>
+              <td class="border border-gray-300 p-2">{{ stock_product.quantity }}</td>
+              <td class="border border-gray-300 p-2">{{ stock_product.purchase_price }}</td>
             </tr>
             <!-- Ajoutez d'autres lignes de facturation ici -->
           </tbody>
@@ -36,7 +39,7 @@
       </div>
 
       <div class="mt-6 text-right">
-        <p><strong>Total nouvelle entrée:</strong> {{ stock.totalNewStock }}</p>
+        <p><strong>Total montant de l'entrée:</strong> {{ stock.total_amount }}</p>
       </div>
       <NuxtLink :to="`/stocks/print-${stock.id}`" target="_blank" title="Imprimer"
         class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white">
@@ -75,6 +78,7 @@ import { Stock } from '~/types';
 const route = useRoute();
 const router = useRouter();
 const storeStocks = useStocksStore();
+
 const stock = ref<Stock>();
 // Vérifiez si le paramètre de requête 'showalert' est présent
 
@@ -84,6 +88,7 @@ onMounted(async () => {
     if (!stock.value) {
       router.push('/404')
     }
+
   }
 })
 

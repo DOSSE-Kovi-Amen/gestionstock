@@ -21,7 +21,7 @@
         <div v-else>
           <div v-if="selectedData" class="modal-body p-5">
             <!-- Ajoutez ici le contenu du modal -->
-            <p>{{ `Supprimer la perte de ${JSON.parse(selectedData?.product).name} ?` }}</p>
+            <p>{{ `Supprimer la perte de ${selectedData?.product.name} ?` }}</p>
           </div>
 
           <!-- Pied du modal -->
