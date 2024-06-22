@@ -1,4 +1,3 @@
-import { Timestamp } from "firebase/firestore";
 
 // Export the api baseURL
 const prod = false;
@@ -7,10 +6,18 @@ export const baseURL = prod ? 'https://...' : 'http://127.0.0.1:8000';
 export const apiBaseURL = baseURL+'/api';
 
 export const frenchDate = (dateStr: string) => {
-  const options: any = { year: 'numeric', month: 'long', day: 'numeric' };
+  const options: any = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  };
   const date = new Date(dateStr);
   return date.toLocaleDateString("fr-FR", options);
 }
+
 // export function formatDateFrench(timestamp:Timestamp) {
 //   // Convertir le timestamp en une date JavaScript
 //   const date = timestamp.toDate();

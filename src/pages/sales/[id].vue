@@ -42,25 +42,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(product, index) in validJSON(sale.saleDetails)">
-            <td class="border border-gray-300 p-2">{{ product.name }}</td>
-            <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
-            <td class="border border-gray-300 p-2">{{ product.selling_price }}</td>
-            <td class="border border-gray-300 p-2">{{ product.selling_price * product.quantity }}</td>
+          <tr v-for="(sale_product, index) in validJSON(sale.sale_products)">
+            <td class="border border-gray-300 p-2">{{ sale_product?.product.name }}</td>
+            <td class="border border-gray-300 p-2">{{ sale_product.quantity }}</td>
+            <td class="border border-gray-300 p-2">{{ sale_product?.product?.selling_price }}</td>
+            <td class="border border-gray-300 p-2">{{ sale_product?.product?.selling_price * sale_product.quantity }}</td>
           </tr>
           <!-- Ajoutez d'autres lignes de facturation ici -->
         </tbody>
       </table>
     </div>
     <div class="mt-6 text-left">
-      <p><strong>Montant payé:</strong> {{ sale.amountPaid }}</p>
+      <p><strong>Montant payé:</strong> {{ sale.amount_paid }}</p>
       <p><strong>Reste à payer:</strong> {{ sale.debt }}</p>
       <p><strong>Reliquat:</strong> {{ sale.change }}</p>
     </div>
     <div class="mt-6 text-right">
-      <p><strong>Sous total:</strong> {{ sale.subTotal }}</p>
+      <p><strong>Sous total:</strong> {{ sale.sub_total }}</p>
       <p><strong>Remise:</strong> {{ sale.discount }}</p>
-      <p><strong>Total de la facture:</strong> {{ sale.totalAmount }}</p>
+      <p><strong>Total de la facture:</strong> {{ sale.total_amount }}</p>
     </div>
     <NuxtLink :to="`/sales/print-${sale.id}`" target="_blank" title="Imprimer"
       class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white">

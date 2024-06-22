@@ -1,10 +1,12 @@
 import { Category } from "./category";
 import { Client } from "./client";
+import { Product } from "./product";
 
 interface SaleProduct {
     id: string;
     sale_id: string;
     product_id: string;
+    product:Product;
     quantity: number;
     unit_price: number;
     created_at: string;

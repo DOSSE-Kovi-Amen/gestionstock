@@ -14,15 +14,17 @@
       <div v-if="salesStore.errors && salesStore.errors.length != 0"
         class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
         <p v-for="(error, index) in salesStore.errors" :key="index" class="font-semibold my-1">
-          {{ error }} :
+          {{ error[0] }} :
         </p>
       </div>
 
       <div class="flex flex-row gap-2 mb-2">
-        <button @click="addAllProducts()" class="py-2 p-4 rounded-lg shadow-xl bg-blue-400 hover:bg-blue-500 text-white">
+        <button @click="addAllProducts()"
+          class="py-2 p-4 rounded-lg shadow-xl bg-blue-400 hover:bg-blue-500 text-white">
           <i class="fa-solid fa-check"></i> Tout sélectionner
         </button>
-        <button @click="removeAllProducts()" class="py-2 p-4 rounded-lg shadow-xl bg-red-500 hover:bg-red-600 text-white">
+        <button @click="removeAllProducts()"
+          class="py-2 p-4 rounded-lg shadow-xl bg-red-500 hover:bg-red-600 text-white">
           <i class="fa-solid fa-trash"></i> Tout supprimer
         </button>
         <button @click="isOpenCreate = true" class="py-2 p-4 rounded-lg shadow-xl btn-primary text-white">
@@ -42,11 +44,11 @@
           <div class="mb-1">
             <!-- <label for="selectedProduct" class="block text-black mb-2">Choisir un client:
           </label> -->
-            <v-select v-model="formData.clientId" placeholder="Choisir un client"
-              class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500" required
-              :options="clientsStore.clients" :reduce="(option: any) => option.id" label="name">
+            <v-select v-model="formData.client_id" placeholder="Choisir un client"
+              class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+              required :options="clientsStore.clients" :reduce="(option: any) => option.id" label="name">
               <template #search="{ attributes, events }: any">
-                <input class="vs__search" :required="!formData.clientId" v-bind="attributes" v-on="events" />
+                <input class="vs__search" :required="!formData.client_id" v-bind="attributes" v-on="events" />
               </template></v-select>
           </div>
         </div>
@@ -54,7 +56,7 @@
         <div class="bg-purple-200 border-l-4 border-purple-500 p-4 my-2">
           <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-3">
             <div class="font-bold">Ht: {{ formData.subTotal }}</div>
-            <div class="font-bold">TTC: {{ formData.totalAmount }}</div>
+            <div class="font-bold">TTC: {{ formData.total_amount }}</div>
             <div class="font-bold">Reliquat: {{ formData.change }}</div>
             <div class="font-bold">Dette: {{ formData.debt }}</div>
           </div>
@@ -76,20 +78,20 @@
               <div class="mb-4">
                 <label class="block text-white mb-2" for="discount">Remise:</label>
                 <input v-model="formData.discount" :class="{
-                  'bg-gray-200 cursor-not-allowed':
-                    formData.saleDetails.length === 0,
-                  'bg-white': formData.saleDetails.length !== 0,
-                }" class="border rounded-md py-1 px-3 w-full" type="number" id="discount" name="discount"
-                  placeholder="Remise" required :disabled="formData.saleDetails.length === 0" />
+      'bg-gray-200 cursor-not-allowed':
+        formData.products.length === 0,
+      'bg-white': formData.products.length !== 0,
+    }" class="border rounded-md py-1 px-3 w-full" type="number" id="discount" name="discount" placeholder="Remise"
+                  required :disabled="formData.products.length === 0" />
               </div>
               <div class="mb-4">
-                <label class="block text-white mb-2" for="amountPaid">Montant reçu:</label>
-                <input v-model="formData.amountPaid" :class="{
-                  'bg-gray-200 cursor-not-allowed':
-                    formData.saleDetails.length === 0,
-                  'bg-white': formData.saleDetails.length !== 0,
-                }" class="border rounded-md py-1 px-3 w-full" type="number" id="amountPaid" name="amountPaid"
-                  placeholder="Montant reçu" :disabled="formData.saleDetails.length === 0" required />
+                <label class="block text-white mb-2" for="amount_paid">Montant reçu:</label>
+                <input v-model="formData.amount_paid" :class="{
+      'bg-gray-200 cursor-not-allowed':
+        formData.products.length === 0,
+      'bg-white': formData.products.length !== 0,
+    }" class="border rounded-md py-1 px-3 w-full" type="number" id="amount_paid" name="amount_paid"
+                  placeholder="Montant reçu" :disabled="formData.products.length === 0" required />
               </div>
             </div>
 
@@ -108,7 +110,7 @@
                 </tr>
               </thead>
               <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
-                <tr v-for="(product, index) in formData.saleDetails" :key="index">
+                <tr v-for="(product, index) in formData.products" :key="index">
                   <td class="px-6 py-4 whitespace-no-wrap">
                     {{ product.name + "(" + product.stock + ")" }}
                   </td>
@@ -117,14 +119,14 @@
                   </td>
 
                   <td class="px-6 py-4 whitespace-no-wrap">
-                    <input type="number" v-model="formData.saleDetails[index].quantity"
+                    <input type="number" v-model="formData.products[index].quantity"
                       class="border border-gray-300 rounded-lg py-1 px-1 block appearance-none leading-normal focus:outline-none focus:ring focus:border-blue-500"
-                      required @input="editQuantity(formData.saleDetails[index])" />
+                      required @input="editQuantity(formData.products[index])" />
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap">
                     {{
-                      product.selling_price * formData.saleDetails[index].quantity
-                    }}
+      product.selling_price * formData.products[index].quantity
+    }}
                   </td>
 
                   <td class="flex gap-2 py-4">
@@ -136,7 +138,7 @@
                 </tr>
               </tbody>
             </table>
-            <div v-if="formData.saleDetails.length == 0" class="bg-white w-full p-4 text-center">
+            <div v-if="formData.products.length == 0" class="bg-white w-full p-4 text-center">
               Aucun produit sélectionné
             </div>
           </div>
@@ -145,9 +147,9 @@
 
 
 
-        <button type="submit" :class="{ 'cursor-not-allowed': formData.saleDetails.length === 0 }"
+        <button type="submit" :class="{ 'cursor-not-allowed': formData.products.length === 0 }"
           class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white"
-          :disabled="formData.saleDetails.length === 0">
+          :disabled="formData.products.length === 0">
           <i class="fa-solid fa-save fa-2x"></i>
         </button>
         <!-- <div class="fixed flex flex-row  bg-white bottom-0 w-full h-16 justify-center">
@@ -204,14 +206,14 @@ const selectedProduct = ref();
 const isOpenCreate = ref(false);
 const router = useRouter();
 const formData = ref<SaleForm>({
-  clientId: "",
-  amountPaid: null,
+  client_id: "",
+  amount_paid: null,
   discount: null,
   subTotal: 0,
-  totalAmount: 0,
+  total_amount: 0,
   debt: 0,
   change: 0,
-  saleDetails: [],
+  products: [],
 });
 const errors = ref<any>([]);
 
@@ -231,10 +233,10 @@ watch(selectedProduct, (newValue, oldValue) => {
   // selectedProduct.value = null;
   // Vous pouvez effectuer des actions en réponse au changement ici
 });
-// Listening formData and make calculations for totalAmount
+// Listening formData and make calculations for total_amount
 watch(formData.value, () => {
   // Sous total sans remise
-  formData.value.subTotal = formData.value.saleDetails.reduce(
+  formData.value.subTotal = formData.value.products.reduce(
     (
       accumulator: number,
       product: { quantity: number; selling_price: number }
@@ -246,16 +248,16 @@ watch(formData.value, () => {
   );
 
   // Calcul de Total hors taxe avec remise
-  formData.value.totalAmount =
+  formData.value.total_amount =
     formData.value.subTotal - formData.value.discount;
   // Reliquat ou Dette
-  if (formData.value.amountPaid > formData.value.totalAmount) {
+  if (formData.value.amount_paid > formData.value.total_amount) {
     formData.value.change =
-      formData.value.amountPaid - formData.value.totalAmount;
+      formData.value.amount_paid - formData.value.total_amount;
     formData.value.debt = 0;
   } else {
     formData.value.debt =
-      formData.value.totalAmount - formData.value.amountPaid;
+      formData.value.total_amount - formData.value.amount_paid;
     formData.value.change = 0;
   }
 
@@ -270,8 +272,14 @@ function addAllProducts() {
         `Le produit (${product?.name}) a déjà été sélectionné.`
       );
     } else {
-      product.quantity = null;
-      formData.value.saleDetails.push(product);
+      formData.value.products.push({
+        name: product.name,
+        selling_price: product.selling_price,
+        stock: product.stock,
+        quantity: null,
+        product_id: product.id
+      });
+
     }
   }
 }
@@ -286,23 +294,28 @@ function addProduct() {
         `Le produit (${selectedProduct.value?.name}) a déjà été sélectionné.`
       );
     } else {
-      selectedProduct.value.quantity = null;
       // Vérifiez que selectedProduct n'est pas null
-      formData.value.saleDetails.push(selectedProduct.value);
+      formData.value.products.push({
+        name: selectedProduct.value.name,
+        selling_price: selectedProduct.value.selling_price,
+        stock: selectedProduct.value.stock,
+        quantity: null,
+        product_id: selectedProduct.value.id
+      });
     }
     selectedProduct.value = null; // Réinitialise selectedProduct à null
   }
 }
 function removeProduct(index: number) {
-  formData.value.saleDetails.splice(index, 1);
+  formData.value.products.splice(index, 1);
 }
 function removeAllProducts() {
-  formData.value.saleDetails = [];
+  formData.value.products = [];
   errors.value = [];
 }
 function existProduct(productId: string) {
-  for (const product of formData.value.saleDetails) {
-    if (productId == product.id) {
+  for (const product of formData.value.products) {
+    if (productId == product.product_id) {
       return true;
     }
   }
