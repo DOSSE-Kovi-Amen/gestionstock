@@ -24,12 +24,14 @@
             <tr>
               <th class="border border-gray-300 p-2">Produit</th>
               <th class="border border-gray-300 p-2">Quantité</th>
+              <th class="border border-gray-300 p-2">Prix d'achat</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(stock_product, index) in stock.stock_products" :key="index">
               <td class="border border-gray-300 p-2">{{ stock_product.product.name }}</td>
               <td class="border border-gray-300 p-2">{{ stock_product.quantity }}</td>
+              <td class="border border-gray-300 p-2">{{ stock_product.purchase_price }}</td>
             </tr>
             <!-- Ajoutez d'autres lignes de facturation ici -->
           </tbody>

@@ -16,7 +16,7 @@
     }" @on-close="isOpenEdit = false" :is-open="isOpenEdit" :selected-data="selectedData" />
 
     <!-- Read -->
-    <DeleteCategoryModal @on-success="(e: string) => { 
+    <DeleteCategoryModal @on-success="(e: string) => {
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
@@ -37,7 +37,7 @@
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">Slug</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Nombres de produits</th>
+            <th class="px-6 py-3 text-right text-sm font-bold">Produits</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
@@ -47,8 +47,14 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.slug }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap text-green-500">{{ category?.products_count }}</td>
-
+            <td class="px-6 py-4 whitespace-no-wrap">
+              <span :class="{
+      'bg-red-100 text-red-800': category?.products_count === 0,
+      'bg-green-200 text-green-800': category?.products_count > 0
+    }" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
+                {{ category?.products_count }}
+              </span>
+            </td>
             <td class="flex gap-2">
               <a class="p-0.5 px-2 text-white bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 @click="openModal(category, 'read')">

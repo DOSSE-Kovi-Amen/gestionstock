@@ -1,30 +1,42 @@
 import { Category } from "./category";
 import { Client } from "./client";
 
-export interface Sale {
+interface SaleProduct {
     id: string;
-    client: Client;
-    amountPaid: number;
-    discount: number;
-    subTotal: number;
-    totalAmount: number;
-    debt:number;
-    change: number;
-    saleDetails: string;
-    authorId: string;
-    created_at: any;
-    updated_at: any;
+    sale_id: string;
+    product_id: string;
+    quantity: number;
+    unit_price: number;
+    created_at: string;
+    updated_at: string;
 }
 
+export interface Sale {
+    id: string;
+    client_id: string;
+    amount_paid: number;
+    discount: number;
+    sub_total: number;
+    payment_status: string;
+    tax_amount: number;
+    total_amount: number;
+    debt: number;
+    change: number;
+    organization_id: string | null;
+    created_at: string;
+    updated_at: string;
+    client: Client;
+    sale_products: SaleProduct[];
+}
 export interface SaleForm {
-    clientId: string;
-    amountPaid: number|any;
+    client_id: string;
+    amount_paid: number|any;
     discount: number|any;
     subTotal: number;
-    totalAmount: number;
+    total_amount: number;
     debt:number;
     change: number;
-    saleDetails: SaleDetails[]|any;
+    products: SaleDetails[]|any;
 }
 
 export interface SaleDetails {
@@ -36,5 +48,5 @@ export interface SaleDetails {
     stock: number; // Stock disponible
     quantity:number;
     category_id: string; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-    image_url: string; // URL de l'image du produit
+    image: string; // URL de l'image du produit
 }

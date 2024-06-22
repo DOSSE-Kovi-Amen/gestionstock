@@ -42,5 +42,5 @@ export interface StockDetails {
     stock: number; // Stock disponible
     quantity:number;
     category_id: string; // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-    image_url: string; // URL de l'image du produit
+    image: string; // URL de l'image du produit
 }
