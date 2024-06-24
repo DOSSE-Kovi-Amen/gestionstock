@@ -75,8 +75,8 @@
                     </div>
                     <div class="mb-2">
                       <label for="stock" class="block text-gray-700 font-bold mb-2">Stock disponible</label>
-                      <input v-model.number="formData.stock" type="number" id="stock" name="stock"
-                        class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      <input v-model.number="formData.stock" type="number" readonly id="stock" name="stock"
+                        class="w-full border rounded bg-gray-300 py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                         required />
                     </div>
                   </div>

@@ -43,10 +43,10 @@
         </thead>
         <tbody>
           <tr v-for="(sale_product, index) in validJSON(sale.sale_products)">
-            <td class="border border-gray-300 p-2">{{ sale_product?.product.name }}</td>
+            <td class="border border-gray-300 p-2">{{ sale_product?.product?.name }}</td>
             <td class="border border-gray-300 p-2">{{ sale_product.quantity }}</td>
-            <td class="border border-gray-300 p-2">{{ sale_product?.product?.selling_price }}</td>
-            <td class="border border-gray-300 p-2">{{ sale_product?.product?.selling_price * sale_product.quantity }}</td>
+            <td class="border border-gray-300 p-2">{{ sale_product?.unit_price }}</td>
+            <td class="border border-gray-300 p-2">{{ sale_product?.unit_price * sale_product.quantity }}</td>
           </tr>
           <!-- Ajoutez d'autres lignes de facturation ici -->
         </tbody>

@@ -1,11 +1,11 @@
 // types.ts
 export interface Setting {
     id: string;
-    societyName: string;
-    societyLogo: string | null;
-    societyEmail: string ;
-    societyContact: string;
-    societyDescription: string;
+    society_name: string;
+    society_logo: string;
+    society_email: string ;
+    society_contact: string;
+    society_description: string;
     currency: string;
     created_at: string;
     updated_at: string;
@@ -13,12 +13,12 @@ export interface Setting {
 
   // types.ts
 export interface SettingForm {
-    societyName: string;
-    societyLogo: string | null;
-    societyEmail: string | null;
-    societyContact: string;
-    societyDescription: string;
-    currency: string;
+  society_name: string;
+  society_logo: string|null;
+  society_email: string ;
+  society_contact: string;
+  society_description: string;
+  currency: string;
 }
   
   

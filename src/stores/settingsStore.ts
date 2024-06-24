@@ -26,11 +26,11 @@ export const useSettingsStore = defineStore('setting', () => {
       await useAuthStore().logout();
     }
 
-    settings.value = data.value;
+    settings.value = data.value.setting;
     console.log('=============dta=======================');
-    console.log(settings.value);
+    console.log(settings.value); 
     console.log('====================================');
-    if (data.value) {
+    if (data.value.setting) {
       loading.value = false
     }
   }
@@ -40,7 +40,7 @@ export const useSettingsStore = defineStore('setting', () => {
     loading.value = true;
     const { data, error } = await useFetch(`${apiBaseURL}/settings/${id}`, {
       headers: headers,
-      method: 'PATCH',
+      method: 'POST',
       body: payload
     })
 

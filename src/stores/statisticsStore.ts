@@ -13,9 +13,6 @@ export const useStatisticsStore = defineStore('statistic', () => {
       "suppliers": 1,
       "outOfStock": 1
     },
-    "daily": {},
-    "weekly": {},
-    "monthly": {},
     "day": {
       "sales": 0,
       "products": 0,

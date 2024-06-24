@@ -38,14 +38,14 @@
             <th class="px-6 py-3 text-left text-sm font-bold">Avatar</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Email</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Rôles</th>
+            <!-- <th class="px-6 py-3 text-left text-sm font-bold">Rôles</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(user, index) in store.users" :key="index">
             <td>
-              <img v-if="user?.photo" class="rounded-full w-10 h-10 object-cover" :src="apiBaseURL + '/' + user?.photo"
+              <img v-if="user?.photo" class="rounded-full w-10 h-10 object-cover" :src="getImageUrl(user?.photo)"
                 alt="" srcset="">
               <div v-else class="bg-gray-200 w-8 h-8 flex justify-center items-center rounded-full p-5">
                 <i class="fa fa-user"></i>
@@ -56,7 +56,7 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ user.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ user.email }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(user.roles).length!==0?user.roles:'Aucun rôle' }}</td>
+            <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(user.roles).length!==0?user.roles:'Aucun rôle' }}</td> -->
 
             <!-- <td class="px-6 py-4 whitespace-no-wrap">
               <i v-if="user.is_owner == true" class="fa fa-check-circle fa-2x text-green-500" aria-hidden="true"></i>
