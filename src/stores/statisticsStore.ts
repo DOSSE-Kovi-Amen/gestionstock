@@ -2,46 +2,58 @@ import { Statistic } from "~/types/statistic";
 
 export const useStatisticsStore = defineStore('statistic', () => {
   const stats = ref<Statistic>({
-    "total": {
-      "sales": 0,
-      "products": 0,
-      "spends": 0,
-      "losses": 0,
-      "categories": 0,
-      "stocks": 1,
-      "clients": 1,
-      "suppliers": 1,
-      "outOfStock": 1
+    total: {
+      sales: 0,
+      products: 0,
+      spends: 0,
+      losses: 0,
+      categories: 0,
+      stocks: 1,
+      clients: 1,
+      suppliers: 1,
+      outOfStock: 1,
+      chartLine: undefined
     },
-    "day": {
-      "sales": 0,
-      "products": 0,
-      "spends": 0,
-      "losses": 0,
-      "categories": 0,
-      "stocks": 0,
-      "clients": 0,
-      "suppliers": 0
+
+    day: {
+      sales: 0,
+      products: 0,
+      spends: 0,
+      losses: 0,
+      categories: 0,
+      stocks: 0,
+      clients: 0,
+      suppliers: 0
     },
-    "week": {
-      "sales": 0,
-      "products": 0,
-      "spends": 0,
-      "losses": 0,
-      "categories": 0,
-      "stocks": 0,
-      "clients": 0,
-      "suppliers": 0
+    week: {
+      sales: 0,
+      products: 0,
+      spends: 0,
+      losses: 0,
+      categories: 0,
+      stocks: 0,
+      clients: 0,
+      suppliers: 0
     },
-    "month": {
-      "sales": 0,
-      "products": 0,
-      "spends": 0,
-      "losses": 0,
-      "categories": 0,
-      "stocks": 1,
-      "clients": 1,
-      "suppliers": 1
+    month: {
+      sales: 0,
+      products: 0,
+      spends: 0,
+      losses: 0,
+      categories: 0,
+      stocks: 1,
+      clients: 1,
+      suppliers: 1
+    },
+    year: {
+      sales: 0,
+      products: 0,
+      spends: 0,
+      losses: 0,
+      categories: 0,
+      stocks: 0,
+      clients: 0,
+      suppliers: 0
     }
   });
   const errors = ref<any>([]);
@@ -61,7 +73,7 @@ export const useStatisticsStore = defineStore('statistic', () => {
   // get Data
   const getData = async () => {
     loading.value = true;
-    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/statistics`, {
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/statistics/2024`, {
       headers: headers
     })
     if (error.value?.statusCode == 401) {

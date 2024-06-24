@@ -1,23 +1,25 @@
 <template>
-  <div v-if="!statsStore.loading">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+  <div>
+    <div v-if="!statsStore.loading">
+    <div  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
 
-      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/users">
-        <Card title="Catégories" icon="fa-list" :count="animateCounter(statsStore.stats?.total.categories)"
+      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/categories">
+        <Card title="Dettes" icon="fa-list" :count="animateCounter(statsStore.stats?.total.totalOfDebt)"
           class="bg-card-0 text-white rounded-md" />
       </NuxtLink>
       <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/sales">
-        <Card title="Ventes" icon="fa-building" :count="animateCounter(statsStore.stats?.total.sales)"
+        <Card title="Ruptures" icon="fa-users" :count="animateCounter(statsStore.stats?.total.outOfStock)"
+
           class="bg-card-1 text-white rounded-md" />
       </NuxtLink>
 
       <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300"
-        to="/properties">
-        <Card title="Clients" icon="fa-users" :count="animateCounter(statsStore.stats?.total.clients)"
+        to="/products">
+        <Card title="Ventes" icon="fa-building" :count="animateCounter(statsStore.stats?.total.sales)"
           class="bg-card-2 text-white rounded-md" />
       </NuxtLink>
       <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300">
-        <Card title="Fournisseurs" icon="fa-users" :count="animateCounter(statsStore.stats?.total.suppliers)"
+        <Card title="Utilisateurs" icon="fa-users" :count="animateCounter(statsStore.stats?.total.users)"
           class="bg-card-3 text-white rounded-md" />
       </NuxtLink>
 
@@ -25,11 +27,11 @@
     </div>
     <div class="rounded-xl p-6 bg-white  shadow-xl mt-5">
 
-      <div class="grid grid-cols-3">
-        <div class=" col-span-2 rounded-xl p-6 bg-white  shadow-xl mt-5">
-          <h1>Statistiques</h1>
+      <div class="grid grid-cols-1 sm:grid-cols-3">
+        <div class="col-span-2 rounded-xl p-6 bg-white  shadow-xl mt-5">
+          <h1>Statistiques par an</h1>
           <!-- <Card title="Utilisateurs" count="0" class="h-40 md:h-96 bg-card-4 text-white" /> -->
-          <Chart :data="statsStore.stats?.total.saleChart"/>
+          <Chart :data="statsStore.stats?.total.chartLine"/>
         </div>
 
         <div class="card p-6 bg-white shadow-lg rounded-lg">
@@ -53,11 +55,13 @@
       </div>
 
     </div>
-
-
-
-
   </div>
+    <div style="height: 80vh;" v-else class="flex flex-col bg-white justify-center items-center ">
+      <p class="m-2">Chargement en cours...</p>
+      <Spinner class="h-12" />
+    </div>
+  </div>
+
 </template>
 
 <script setup lang="ts">
