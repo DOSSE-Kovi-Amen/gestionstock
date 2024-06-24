@@ -66,10 +66,10 @@ export const useProductsStore = defineStore('product', () => {
   const updatedData = async (payload: any, id: string) => {
     errors.value = [];
     console.log('=================v===================');
-    console.log(payload);
+    console.log(id);
     console.log('====================================');
     const { data, error } = await useFetch(`${apiBaseURL}/products/${id}`, {
-      method: 'PATCH',
+      method: 'POST',
       headers: headers,
       body: payload
     })
@@ -77,6 +77,9 @@ export const useProductsStore = defineStore('product', () => {
     if (error.value?.statusCode == 401) {
       useAuthStore().logout();
     }
+    console.log('====================================');
+    console.log(error.value?.message);
+    console.log('====================================');
     if (error.value?.statusCode == 422) {
       errors.value = error.value?.data.errors;
     }

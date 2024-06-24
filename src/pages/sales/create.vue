@@ -216,7 +216,11 @@ const formData = ref<SaleForm>({
   products: [],
 });
 const errors = ref<any>([]);
+  onMounted(() => {
+    clientsStore.getData()
 
+
+})
 function editQuantity(product: any) {
   errors.value = [];
 

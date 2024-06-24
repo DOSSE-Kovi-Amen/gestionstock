@@ -190,7 +190,9 @@ const submitForm = async () => {
     formDataToSend.append('selling_price', formData.value.selling_price);
     formDataToSend.append('stock', formData.value.stock);
     formDataToSend.append('category_id', formData.value.category_id);
-    if (formData.value.image) {
+    formDataToSend.append('_method', 'PATCH');
+    // Sune nvelle a ete selectionne
+    if ( imageFile.value && formData.value.image) {
       formDataToSend.append('image', formData.value.image);
     }
 

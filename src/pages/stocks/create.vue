@@ -175,7 +175,9 @@ const formData = ref<StockForm>({
   products: [],
 });
 const errors = ref<any>([]);
-
+  onMounted(() => {
+    supplierStore.getData()
+})
 // Listenin
 watch(selectedProduct, (newValue, oldValue) => {
   addProduct();
