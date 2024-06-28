@@ -73,7 +73,7 @@
 <script setup lang="ts">
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
-import { User } from "~/types";
+import type{ User } from "~/types";
 const store = useUsersStore();
 const rolesStore = useRolesStore();
 const props = defineProps<{

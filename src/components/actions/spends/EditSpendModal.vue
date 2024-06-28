@@ -66,7 +66,8 @@
 </template>
 
 <script setup lang="ts">
-import { Spend, SpendForm } from "~/types";
+/* __placeholder__ */
+import type { Spend, SpendForm } from "~/types";
 
 const store = useSpendsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);

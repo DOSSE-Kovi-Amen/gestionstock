@@ -1,4 +1,4 @@
-import { Product, ProductForm } from "~/types";
+import type { Product, ProductForm } from "~/types";
 
 export const useProductsStore = defineStore('product', () => {
   const products = ref<Product[]>([]);
@@ -35,6 +35,25 @@ export const useProductsStore = defineStore('product', () => {
     if (data.value) {
       loading.value = false
     }
+  }
+
+  const getProduct=async(productId:string):Promise<Product>=>{
+    loading.value = true
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/sales/${productId}`, {
+      headers: headers
+    })
+    if (error.value?.statusCode == 401) {
+      await useAuthStore().logout();
+    }
+
+    console.log('=============dtaonly=======================');
+    console.log(data.value);
+    console.log('====================================');
+    if (data.value) {
+      loading.value = false
+    }
+      return data.value
+
   }
   // post Data
   const postData = async (payload: any) => {
@@ -101,6 +120,6 @@ export const useProductsStore = defineStore('product', () => {
   getData()
 
 
-  return { products, loading, errors, productsCount, getData, postData, updatedData, deleteData }
+  return { products, loading, errors, productsCount,getProduct, getData, postData, updatedData, deleteData }
 })
 

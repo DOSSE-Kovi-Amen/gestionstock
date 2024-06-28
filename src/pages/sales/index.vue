@@ -75,7 +75,7 @@
 
 <script setup lang="ts">
 import DeleteSaleModal from '~/components/actions/sales/DeleteSaleModal.vue';
-import { Sale } from '~/types';
+import type{ Sale } from '~/types';
 import { frenchDate } from '~/utils/constants';
 import { useSalesStore } from '~/stores/salesStore';
 

@@ -1,4 +1,4 @@
-import { Sale, SaleForm } from "~/types";
+import type { Sale, SaleForm } from "~/types";
 
 export const useSalesStore = defineStore('sale', () => {
   const sales = ref<Sale[]>([]);

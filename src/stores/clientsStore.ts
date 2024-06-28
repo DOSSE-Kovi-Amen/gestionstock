@@ -1,4 +1,4 @@
-import { Client, ClientForm } from "~/types";
+import type { Client, ClientForm } from "~/types";
 
 export const useClientsStore = defineStore('client', () => {
   const clients = ref<Client[]>([]);

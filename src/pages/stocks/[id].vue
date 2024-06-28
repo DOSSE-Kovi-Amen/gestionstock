@@ -72,7 +72,7 @@
 </style>
 <script setup lang="ts">
 import Spinner from '~/components/Spinner.vue';
-import { Stock } from '~/types';
+import type{ Stock } from '~/types';
 
 
 const route = useRoute();

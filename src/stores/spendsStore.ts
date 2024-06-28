@@ -1,4 +1,4 @@
-import {SpendForm, Spend } from "~/types";
+import type { SpendForm, Spend } from "~/types";
 
 export const useSpendsStore = defineStore('spend', () => {
   const spends = ref<Spend[]>([]);

@@ -55,7 +55,7 @@
 <style scoped></style>
 
 <script setup lang="ts">
-import { Stock } from '~/types';
+import type{ Stock } from '~/types';
 import { frenchDate } from '~/utils/constants';
 import { useStocksStore } from '~/stores/stocksStore';
 

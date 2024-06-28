@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { Category } from '~/types';
+import type{ Category } from '~/types';
 
 
 defineProps<{

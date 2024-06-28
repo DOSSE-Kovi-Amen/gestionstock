@@ -1,4 +1,4 @@
-import { Stock, StockForm } from "~/types";
+import type { Stock, StockForm } from "~/types";
 
 export const useStocksStore = defineStore('stock', () => {
   const stocks = ref<Stock[]>([]);

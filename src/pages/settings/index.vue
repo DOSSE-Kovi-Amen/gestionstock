@@ -59,7 +59,7 @@
 
 
 <script setup lang="ts">
-import { SettingForm } from '~/types';
+import type{ SettingForm } from '~/types';
 
 const emit = defineEmits(["onClose", "onSuccess"]);
 const imageFile = ref(null);

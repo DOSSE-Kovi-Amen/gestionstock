@@ -1,4 +1,4 @@
-import { Setting } from "~/types";
+import type { Setting } from "~/types";
 
 export const useSettingsStore = defineStore('setting', () => {
   const settings = ref<Setting>();

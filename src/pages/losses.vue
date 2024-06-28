@@ -96,7 +96,7 @@
 import AddLossModal from "~/components/actions/losses/AddLossModal.vue";
 import ViewLossModal from "~/components/actions/losses/ViewLossModal.vue";
 import DeleteLossModal from "~/components/actions/losses/DeleteLossModal.vue";
-import { Loss } from "~/types";
+import { type Loss } from "~/types";
 import { frenchDate } from "~/utils/constants";
 
 const store = useLossesStore();

@@ -1,4 +1,4 @@
-import { User, UserCreate } from "~/types/user";
+import type { User, UserCreate } from "~/types/user";
 
 export const useUsersStore = defineStore('user', () => {
   const users = ref<User[]>([]);

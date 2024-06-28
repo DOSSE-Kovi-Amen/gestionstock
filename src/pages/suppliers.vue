@@ -108,7 +108,7 @@ import AddSupplierModal from "~/components/actions/suppliers/AddSupplierModal.vu
 import ViewSupplierModal from "~/components/actions/suppliers/ViewSupplierModal.vue";
 import EditSupplierModal from "~/components/actions/suppliers/EditSupplierModal.vue";
 import DeleteSupplierModal from "~/components/actions/suppliers/DeleteSupplierModal.vue";
-import { Supplier } from "~/types";
+import type{ Supplier } from "~/types";
 import { frenchDate } from "~/utils/constants";
 
 const store = useSuppliersStore();

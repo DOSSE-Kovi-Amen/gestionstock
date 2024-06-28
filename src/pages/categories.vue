@@ -90,7 +90,7 @@ import AddCategoryModal from '~/components/actions/categories/AddCategoryModal.v
 import ViewCategoryModal from '~/components/actions/categories/ViewCategoryModal.vue';
 import EditCategoryModal from '~/components/actions/categories/EditCategoryModal.vue';
 import DeleteCategoryModal from '~/components/actions/categories/DeleteCategoryModal.vue';
-import { Category } from '~/types';
+import type { Category } from '~/types';
 import { frenchDate } from '~/utils/constants';
 
 

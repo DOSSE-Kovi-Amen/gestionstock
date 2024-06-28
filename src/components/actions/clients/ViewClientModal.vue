@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { Client } from "~/types";
+import type{ Client } from "~/types";
 
 defineProps<{
   isOpen: boolean;

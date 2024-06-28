@@ -1,4 +1,4 @@
-import { Supplier, SupplierForm } from "~/types";
+import type { Supplier, SupplierForm } from "~/types";
 
 export const useSuppliersStore = defineStore('supplier', () => {
   const suppliers = ref<Supplier[]>([]);

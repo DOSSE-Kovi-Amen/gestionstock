@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal :is-open="isOpen">
+    <LargeModal :is-open="isOpen">
       <div class="modal-content text-left">
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-yellow-500 text-white justify-between pb-3">
@@ -62,12 +62,13 @@
           </button>
         </div>
       </div>
-    </Modal>
+    </LargeModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Product } from "~/types";
+import type { Product } from '~/types';
+
 
 defineProps<{
   isOpen: boolean;

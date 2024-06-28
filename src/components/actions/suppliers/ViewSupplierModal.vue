@@ -50,7 +50,8 @@
 </template>
 
 <script setup lang="ts">
-import { Supplier } from '~/types';
+/* __placeholder__ */
+import type { Supplier } from '~/types';
 
 
 defineProps<{

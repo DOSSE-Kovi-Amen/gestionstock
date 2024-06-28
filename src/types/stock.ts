@@ -1,5 +1,5 @@
-import { Product } from ".";
-import { Supplier } from "./supplier";
+import type { Product } from ".";
+import type { Supplier } from "./supplier";
 
 // Interface pour StockProduct
 interface StockProduct {

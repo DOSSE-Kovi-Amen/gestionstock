@@ -148,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { Supplier } from "~/types";
+import { type Supplier } from "~/types";
 
 const store = useSuppliersStore();
 const emit = defineEmits(["onClose", "onSuccess"]);

@@ -23,8 +23,15 @@ export default defineNuxtConfig({
       
     },
   },
+  // plugins: [
+  //   { src: '~/plugins/quill.js', mode: 'client' }
+  // ],
+  // build: {
+  //   transpile: ['quill']
+  // },
 
-  css: ["@/assets/styles/main.scss"],
+  css: ["@/assets/styles/main.scss",
+  ],
 
   modules: [
     '@nuxtjs/tailwindcss',

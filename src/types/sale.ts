@@ -1,8 +1,8 @@
-import { Category } from "./category";
-import { Client } from "./client";
-import { Product } from "./product";
+import  type{ Category } from "./category";
+import  type{ Client } from "./client";
+import  type{ Product } from "./product";
 
-interface SaleProduct {
+interface SaleProduct{
     id: string;
     sale_id: string;
     product_id: string;

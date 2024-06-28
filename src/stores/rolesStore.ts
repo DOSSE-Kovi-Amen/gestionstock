@@ -1,4 +1,4 @@
-import { Role } from "~/types/role";
+import type { Role } from "~/types/role";
 
 export const useRolesStore = defineStore('role', () => {
   const roles = ref<Role[]>([]);

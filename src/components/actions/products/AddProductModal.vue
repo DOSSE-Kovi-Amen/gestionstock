@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal :is-open="isOpen">
+    <LargeModal :is-open="isOpen">
       <div class="modal-content text-left">
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">
@@ -35,11 +35,11 @@
 
                   <label for="image" class="cursor-pointer">
                     <div style="height:200px;width:200px; display: flex; justify-content: center; align-items: center;">
-                    <i v-if="!imagePreview" class="fa fa-image fa-10x text-gray-500 hover:text-gray-700"></i>
+                      <i v-if="!imagePreview" class="fa fa-image fa-10x text-gray-500 hover:text-gray-700"></i>
 
-                    <img v-if="imagePreview" style="object-fit: contain; height:200px;width:200px" :src="imagePreview"
-                      alt="Prévisualisation de l'image"
-                      class="mt-2 max-h-32 hover:bg-gray-500 object-contain text-gray-700 focus:outline-none focus:border-blue-500" />
+                      <img v-if="imagePreview" style="object-fit: contain; height:200px;width:200px" :src="imagePreview"
+                        alt="Prévisualisation de l'image"
+                        class="mt-2 max-h-32 hover:bg-gray-500 object-contain text-gray-700 focus:outline-none focus:border-blue-500" />
 
                     </div>
 
@@ -79,6 +79,12 @@
                         class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                         required step="any">
                     </div>
+                    <div class="mb-2">
+                      <label for="reorder_level" class="block text-gray-700 font-bold mb-2">Alerte stock</label>
+                      <input v-model.number="formData.reorder_level" type="number" id="reorder_level" name="reorder_level"
+                        class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                        required step="1">
+                    </div>
                   </div>
                 </div>
 
@@ -91,21 +97,21 @@
                   <input v-model.number="formData.purchase_price" type="number" id="purchase_price"
                     name="purchase_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required step="any"/>
+                    required step="any" />
                 </div>
                 <div class="mb-2">
                   <label for="selling_price" class="block text-gray-700 font-bold mb-2">Prix de vente produit</label>
                   <input v-model.number="formData.selling_price" type="number" id="selling_price" name="selling_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    required step="any"/>
+                    required step="any" />
                 </div>
               </div>
 
               <div class="mb-2">
                 <label for="description" class="block text-gray-700 font-bold mb-2">Description du produit</label>
-                <textarea v-model="formData.description" id="description" name="description"
-                  class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  required></textarea>
+                <QuillEditor v-model="formData.description" />
+              </div>
+              <div class="bg-white shadow-lg h-full">
               </div>
             </div>
 
@@ -121,13 +127,11 @@
           </form>
         </div>
       </div>
-    </Modal>
+    </LargeModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import FirebaseStorageService from "~/services/FirebaseStorageService";
-import { CategoryForm, ProductForm } from "~/types";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 const store = useProductsStore();
@@ -139,6 +143,7 @@ const formData = ref<any>({
   description: "", // Description du produit
   purchase_price: null, // Prix d'achat du produit
   selling_price: null, // Prix du produit
+  reorder_level:null,
   stock: null, // Stock disponible
   category_id: "",
   slug: "",
@@ -185,6 +190,7 @@ const submitForm = async () => {
   formDataToSend.append('purchase_price', formData.value.purchase_price);
   formDataToSend.append('selling_price', formData.value.selling_price);
   formDataToSend.append('stock', formData.value.stock);
+  formDataToSend.append('reorder_level', formData.value.reorder_level);
   formDataToSend.append('slug', formData.value.slug);
   formDataToSend.append('category_id', formData.value.category_id);
   formDataToSend.append('image', formData.value.image);
@@ -205,10 +211,10 @@ const submitForm = async () => {
       formData.value.description = "";
       formData.value.image = "";
       formData.value.name = "";
-      formData.value.purchase_price = null; 
+      formData.value.purchase_price = null;
       formData.value.selling_price = null;
       formData.value.stock = null;
-
+      formData.value.reorder_level = null;
       imageFile.value = null;
       imagePreview.value = "";
     }

@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { Sale } from '~/types';
+import { type Sale } from '~/types';
 
 const emit = defineEmits(['onClose', 'onSuccess'])
 

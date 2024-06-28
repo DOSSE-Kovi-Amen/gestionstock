@@ -1,4 +1,4 @@
-import { Category, CategoryForm } from "~/types";
+import type { Category, CategoryForm } from "~/types";
 
 export const useCategoriesStore = defineStore('category', () => {
   const categories = ref<Category[]>([]);

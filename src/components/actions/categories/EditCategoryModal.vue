@@ -105,7 +105,7 @@
 </template>
 
 <script setup lang="ts">
-import { Category, CategoryForm } from "~/types";
+import type{ Category, CategoryForm } from "~/types";
 
 const store = useCategoriesStore();
 const emit = defineEmits(["onClose", "onSuccess"]);

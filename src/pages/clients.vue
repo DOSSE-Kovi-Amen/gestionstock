@@ -108,7 +108,7 @@ import AddClientModal from "~/components/actions/clients/AddClientModal.vue";
 import ViewClientModal from "~/components/actions/clients/ViewClientModal.vue";
 import EditClientModal from "~/components/actions/clients/EditClientModal.vue";
 import DeleteClientModal from "~/components/actions/clients/DeleteClientModal.vue";
-import { Client } from "~/types";
+import { type Client } from "~/types";
 import { frenchDate } from "~/utils/constants";
 
 const store = useClientsStore();

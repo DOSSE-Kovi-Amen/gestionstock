@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { Spend } from '~/types';
+import type{ Spend } from '~/types';
 
 
 defineProps<{

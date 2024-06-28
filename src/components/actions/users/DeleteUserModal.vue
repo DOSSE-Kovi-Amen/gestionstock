@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { User } from '~/types';
+import type{ User } from '~/types';
 
 const emit =defineEmits(['onClose','onSuccess'])
 

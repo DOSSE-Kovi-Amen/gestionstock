@@ -1,4 +1,4 @@
-import {LossForm, Loss } from "~/types";
+import type { LossForm, Loss } from "~/types";
 
 export const useLossesStore = defineStore('loss', () => {
   const losses = ref<Loss[]>([]);

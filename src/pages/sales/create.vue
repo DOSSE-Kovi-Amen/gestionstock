@@ -190,7 +190,7 @@
 </style>
 <script lang="ts" setup>
 import { useProductsStore } from "~/stores/productsStore";
-import { Product, SaleForm } from "~/types";
+import type{ Product, SaleForm } from "~/types";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import AddClientModal from "~/components/actions/clients/AddClientModal.vue";

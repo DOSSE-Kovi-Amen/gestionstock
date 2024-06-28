@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { Loss } from '~/types';
+import type{ Loss } from '~/types';
 
 
 defineProps<{

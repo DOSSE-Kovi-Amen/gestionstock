@@ -78,7 +78,7 @@ import AddSpendModal from '~/components/actions/spends/AddSpendModal.vue';
 import ViewSpendModal from '~/components/actions/spends/ViewSpendModal.vue';
 import EditSpendModal from '~/components/actions/spends/EditSpendModal.vue';
 import DeleteSpendModal from '~/components/actions/spends/DeleteSpendModal.vue';
-import { Spend } from '~/types';
+import { type Spend } from '~/types';
 import { frenchDate } from '~/utils/constants';
 
 const store = useSpendsStore();

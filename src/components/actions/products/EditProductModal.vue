@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal :is-open="isOpen">
+    <LargeModal :is-open="isOpen">
       <div class="modal-content text-left">
         <!-- En-tête du modal -->
         <div class="flex p-4 bg-blue-400 text-white justify-between pb-3">
@@ -79,6 +79,12 @@
                         class="w-full border rounded bg-gray-300 py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                         required />
                     </div>
+                    <div class="mb-2">
+                      <label for="reorder_level" class="block text-gray-700 font-bold mb-2">Alerte stock</label>
+                      <input v-model.number="formData.reorder_level" type="number" id="reorder_level" name="reorder_level"
+                        class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                        required step="1">
+                    </div>
                   </div>
                 </div>
 
@@ -103,9 +109,7 @@
 
               <div class="mb-2">
                 <label for="description" class="block text-gray-700 font-bold mb-2">Description du produit</label>
-                <textarea v-model="formData.description" id="description" name="description"
-                  class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  required></textarea>
+                <QuillEditor v-model="formData.description" />
               </div>
             </div>
 
@@ -121,15 +125,15 @@
           </form>
         </div>
       </div>
-    </Modal>
+    </LargeModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import FirebaseStorageService from "~/services/FirebaseStorageService";
-import { Product, ProductForm } from "~/types";
+
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import type { Product, ProductForm } from "~/types";
 const store = useProductsStore();
 const storeCat = useCategoriesStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
@@ -139,13 +143,15 @@ const props = defineProps<{
   selectedData?: Product;
 }>();
 const formData = ref<ProductForm>({
-  name: "", // Nom du produit
-  description: "", // Description du produit
-  purchase_price: 0, // Prix d'achat du produit
-  selling_price: 0, // Prix du produit
-  stock: 0, // Stock disponible
-  category_id: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-  image: null,
+name: "", // Nom du produit
+description: "", // Description du produit
+purchase_price: 0, // Prix d'achat du produit
+selling_price: 0, // Prix du produit
+stock: 0, // Stock disponible
+reorder_level: 0,
+category_id: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
+image: null,
+images: null
 }); // Champ de nom de catégorie // Champ de nom de catégorie
 
 watch(
@@ -189,6 +195,7 @@ const submitForm = async () => {
     formDataToSend.append('purchase_price', formData.value.purchase_price);
     formDataToSend.append('selling_price', formData.value.selling_price);
     formDataToSend.append('stock', formData.value.stock);
+    formDataToSend.append('reorder_level', formData.value.reorder_level);
     formDataToSend.append('category_id', formData.value.category_id);
     formDataToSend.append('_method', 'PATCH');
     // Sune nvelle a ete selectionne

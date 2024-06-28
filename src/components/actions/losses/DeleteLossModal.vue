@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { Loss, Product, Spend } from '~/types';
+import type{ Loss, Product, Spend } from '~/types';
 
 const emit =defineEmits(['onClose','onSuccess'])
 

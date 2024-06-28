@@ -78,7 +78,7 @@
 <script setup lang="ts">
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
-import { LossForm } from "~/types";
+import type{ LossForm } from "~/types";
 const store = useLossesStore();
 const productStore = useProductsStore();
 const emit = defineEmits(["onClose", "onSuccess"]);

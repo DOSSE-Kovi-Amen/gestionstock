@@ -154,7 +154,7 @@
 </style>
 <script lang="ts" setup>
 import { useProductsStore } from "~/stores/productsStore";
-import { Product, SaleForm, StockForm } from "~/types";
+import type{ Product, SaleForm, StockForm } from "~/types";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import AddSupplierModal from "~/components/actions/suppliers/AddSupplierModal.vue";

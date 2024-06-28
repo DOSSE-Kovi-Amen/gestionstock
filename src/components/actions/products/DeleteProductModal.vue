@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { Product } from '~/types';
+import type { Product } from '~/types';
 const emit =defineEmits(['onClose','onSuccess'])
 
 const loading=ref(false);

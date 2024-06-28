@@ -71,7 +71,7 @@
 
 <script setup lang="ts">
 import Spinner from '~/components/Spinner.vue';
-import { Sale } from '~/types';
+import type{ Sale } from '~/types';
 
 const route = useRoute();
 const router = useRouter();

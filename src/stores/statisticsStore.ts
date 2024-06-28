@@ -1,4 +1,4 @@
-import { Statistic } from "~/types/statistic";
+import type { Statistic } from "~/types/statistic";
 
 export const useStatisticsStore = defineStore('statistic', () => {
   const stats = ref<Statistic>({

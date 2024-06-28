@@ -1,4 +1,4 @@
-import { Product } from ".";
+import { type Product } from ".";
 
 // Définissez une interface pour représenter une catégorie
 export interface Category {

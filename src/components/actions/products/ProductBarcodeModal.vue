@@ -98,7 +98,7 @@
 
 <script setup lang="ts">
 import FirebaseStorageService from "~/services/FirebaseStorageService";
-import { Product, ProductForm } from "~/types";
+import type{ Product, ProductForm } from "~/types";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 const store = useProductsStore();
