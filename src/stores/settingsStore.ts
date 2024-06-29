@@ -62,7 +62,7 @@ export const useSettingsStore = defineStore('setting', () => {
   }
 
   // Call getData
-  getData()
+   getData()
 
 
   return { settings, loading, errors, getData, updatedData }

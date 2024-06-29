@@ -1,6 +1,8 @@
 <template>
   <div>
     <Settings>
+      <SweetAlert :show="showAlert" title="alertTitle" :message="alertMessage" @on-close="showAlert = false" />
+
       <form v-if="!storeSettings.loading" @submit.prevent="submitForm"
         class="max-w-md mx-auto p-4 bg-white rounded shadow-md">
         <div class="mb-4">
@@ -10,7 +12,7 @@
           <!-- Prévisualisation de l'image -->
           <img v-if="imagePreview" :src="imagePreview" alt="Prévisualisation de l'image"
             style="width: 200px; margin-bottom:15px"
-            class="mt-2 bg-black object-contain border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+            class="mt-2  object-contain border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
           <div v-else class="mt-5">
             Aucun logo
           </div>
@@ -64,7 +66,9 @@ import type{ SettingForm } from '~/types';
 const emit = defineEmits(["onClose", "onSuccess"]);
 const imageFile = ref(null);
 const imagePreview = ref("");
-const storeSettings = useSettingsStore()
+const storeSettings = useSettingsStore();
+const showAlert= ref(false);
+const alertMessage=ref("");
 const formData = ref<any>({
   society_name: "",
   society_logo: null,
@@ -73,13 +77,12 @@ const formData = ref<any>({
   society_description: "",
   currency: "",
 });
-onMounted(() => {
-  setTimeout(() => {
+onMounted(async() => {
+  await storeSettings.getData()
     if (storeSettings.settings) {
-      formData.value = { ...storeSettings.settings }
+      formData.value = storeSettings.settings
       imagePreview.value = getImageUrl(storeSettings.settings.society_logo)
     }
-  }, 2000);
 })
 
 
@@ -115,10 +118,8 @@ const submitForm = async () => {
   if (storeSettings.settings) {
     await storeSettings.updatedData(storeSettings.settings?.id, formDataToSend).then((status) => {
       if (status) {
-        emit("onClose");
-        emit("onSuccess", "Catégorie ajoutée avec succès");
-        // formData.value.name = "";
-        // formData.value.slug = "";
+        showAlert.value=true;
+        alertMessage.value="Paramètres mis à jour avec succès";
       }
     });
   }

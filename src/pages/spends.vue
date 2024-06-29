@@ -91,7 +91,7 @@ const isOpenEdit = ref(false);
 const showAlert = ref(false);
 const alertMessage = ref("");
 
-onMounted(() => {
+onMounted(async() => {
   store.getData()
 })
 const openModal = (data: Spend, action: String) => {
