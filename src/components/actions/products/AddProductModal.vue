@@ -20,7 +20,7 @@
         <div v-else>
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
-            <div style="height: 85vh" class="modal-body pb-16 p-5 overflow-y-auto">
+            <div style="height: 85vh" class="modal-body pb-16 p-10 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
               <div v-if="store.errors && store.errors.length != 0"
                 class="bg-red-200 border-l-4 border-red-500 p-4 mb-2">
@@ -112,6 +112,15 @@
                 <QuillEditor v-model="formData.description" />
               </div>
               <div class="bg-white shadow-lg h-full">
+                <input type="file" ref="fileInput" multiple @change="handleFiles" class="hidden" />
+                <button @click="selectFiles" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Select Images</button>
+                
+                <div class="grid pb-20 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  <div v-for="(image, index) in previewImages" :key="index" class="relative border-width-2 border-black border-solid border-1 shadow-lg">
+                    <img :src="image" class="w-full h-40 object-cover rounded" />
+                    <button type="button"@click="removeImage(index)" class="absolute h-8 w-8 top-2 right-2 bg-red-500 text-white rounded-full p-1">X</button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -147,8 +156,32 @@ const formData = ref<any>({
   stock: null, // Stock disponible
   category_id: "",
   slug: "",
-  image: null
+  image: null,
+  images:[]
 }); // Champ de nom de catégorie
+
+
+const fileInput = ref<HTMLInputElement | null>(null);
+const previewImages = ref<string[]>([]);
+
+const selectFiles = () => {
+  fileInput.value?.click();
+};
+
+const handleFiles = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  if (!input.files) return;
+
+  const files = Array.from(input.files);
+  formData.value.images = files;
+  previewImages.value = files.map(file => URL.createObjectURL(file));
+};
+
+const removeImage = (index: number) => {
+  formData.value.images.splice(index, 1);
+  previewImages.value.splice(index, 1);
+};
+
 function updateSlug() {
   // Mettez en forme le champ de slug en fonction du nom de catégorie
   formData.value.slug = formData.value.name
@@ -194,7 +227,7 @@ const submitForm = async () => {
   formDataToSend.append('slug', formData.value.slug);
   formDataToSend.append('category_id', formData.value.category_id);
   formDataToSend.append('image', formData.value.image);
-
+  formDataToSend.append('images', formData.value.images);
   console.log('==================formDataToSend==================');
   console.log(formData.value);
   console.log('====================================');
