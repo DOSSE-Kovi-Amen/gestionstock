@@ -24,7 +24,7 @@
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
             <div
-              style="height: 30vh"
+              style="height: 70vh"
               class="modal-body pb-16 p-5 overflow-y-auto"
             >
               <!-- Ajoutez ici le contenu du modal -->
@@ -37,12 +37,10 @@
                   :key="index"
                   class="font-semibold my-1"
                 >
-                  {{ getFieldFromPointer(error.source.pointer) }} :
-                  {{ error.detail }}
+                  {{ error[0] }}
                 </p>
               </div>
               <div></div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -50,14 +48,13 @@
                     >Nom :</label
                   >
                   <input
-                    v-model="category.name"
+                    v-model="formData.name"
                     @input="updateSlug"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
                     id="name"
                     name="name"
                     placeholder="Nom de la catégorie"
-                    required
                   />
                 </div>
                 <div class="mb-4">
@@ -67,19 +64,36 @@
                     >Slug :</label
                   >
                   <input
-                    v-model="category.slug"
+                    v-model="formData.slug"
                     class="border rounded-md py-2 px-3 w-full"
                     type="text"
                     id="slug"
                     name="slug"
                     placeholder="Slug de la catégorie"
                     readonly
-                    required
                   />
                 </div>
+                <div class="mb-2">
+                  <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie (Optionnel)</label>
+                  <v-select v-model="formData.parent_id"
+                    class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                     :options="store.categories" :reduce="(option: any) => option.id" label="name">
+                    <!-- Personnalisation de l'affichage des options -->
+                    <template #option="option: any">
+                      <div class="flex gap-2">
+                        <span>{{ option.name }}</span>
+                      </div>
+                    </template>
+                    <template #search="{ attributes, events }: any">
+                      <input class="vs__search" v-bind="attributes"
+                        v-on="events" />
+                    </template>
+                  </v-select>
+  
+                </div>
               </div>
-            </div>
-
+              
+           
             <!-- Pied du modal -->
             <div
               class="absolute bg-gray-100 w-full flex justify-end bottom-0 p-4"
@@ -105,6 +119,8 @@
 </template>
 
 <script setup lang="ts">
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 import type{ Category, CategoryForm } from "~/types";
 
 const store = useCategoriesStore();
@@ -114,17 +130,19 @@ const props = defineProps<{
   isOpen: boolean;
   selectedData?: Category;
 }>();
-const category = ref({
+const formData = ref({
   name: "",
   slug: "",
+  parent_id: "",
 }); // Champ de nom de catégorie
+
 
 watch(
   () => props.isOpen,
   (newValue, oldValue) => {
     if (newValue && props.selectedData) {
       // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
-      category.value = { ...props.selectedData };
+      formData.value = { ...props.selectedData };
     }
   }
 );
@@ -133,7 +151,7 @@ function updateSlug() {
   console.log();
   console.log("====================================");
   // Mettez en forme le champ de slug en fonction du nom de catégorie
-  category.value.slug = category.value.name
+  formData.value.slug = formData.value.name
     .trim() // Supprimez les espaces avant et après
     .toLowerCase() // Convertissez en minuscules
     .replace(/\s+/g, "-") // Remplacez les espaces par des tirets
@@ -141,13 +159,13 @@ function updateSlug() {
 
   // Vous pouvez également ajouter d'autres transformations au slug si nécessaire
 }
-// watch(categoryName, updateSlug);
+// watch(formDataName, updateSlug);
 
 const submitForm = async () => {
   loading.value = true;
   if (props.selectedData) {
     await store
-      .updatedData(category.value, props.selectedData.id)
+      .updatedData(formData.value, props.selectedData.id)
       .then((status) => {
         if (status) {
           console.log("=============status=======================");

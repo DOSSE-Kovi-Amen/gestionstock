@@ -25,7 +25,7 @@
               <div v-if="store.errors && store.errors.length != 0"
                 class="bg-red-200 border-l-4 border-red-500 p-4 mb-2">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
-                  {{ error[0] }} :
+                  {{ error[0] }} 
                 </p>
               </div>
               <!-- Champ de sélection d'image -->
@@ -113,7 +113,7 @@
               </div>
               <div class="bg-white shadow-lg h-full">
                 <input type="file" ref="fileInput" multiple @change="handleFiles" class="hidden" />
-                <button @click="selectFiles" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Select Images</button>
+                <button type="button" @click="selectFiles" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Select Images</button>
                 
                 <div class="grid pb-20 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   <div v-for="(image, index) in previewImages" :key="index" class="relative border-width-2 border-black border-solid border-1 shadow-lg">
@@ -173,6 +173,9 @@ const handleFiles = (event: Event) => {
   if (!input.files) return;
 
   const files = Array.from(input.files);
+  console.log('====================================');
+  console.log(files);
+  console.log('====================================');
   formData.value.images = files;
   previewImages.value = files.map(file => URL.createObjectURL(file));
 };
@@ -227,7 +230,10 @@ const submitForm = async () => {
   formDataToSend.append('slug', formData.value.slug);
   formDataToSend.append('category_id', formData.value.category_id);
   formDataToSend.append('image', formData.value.image);
-  formDataToSend.append('images', formData.value.images);
+  formData.value.images.forEach((file: string | Blob, index: any) => {
+    formDataToSend.append(`images[${index}]`, file);
+      });
+  // formDataToSend.append('images[]', formData.value.images);
   console.log('==================formDataToSend==================');
   console.log(formData.value);
   console.log('====================================');
@@ -243,6 +249,7 @@ const submitForm = async () => {
       formData.value.category_id = "";
       formData.value.description = "";
       formData.value.image = "";
+      formData.value.images = null;
       formData.value.name = "";
       formData.value.purchase_price = null;
       formData.value.selling_price = null;
@@ -250,6 +257,7 @@ const submitForm = async () => {
       formData.value.reorder_level = null;
       imageFile.value = null;
       imagePreview.value = "";
+      previewImages.value=[];
     }
     loading.value = false;
   });

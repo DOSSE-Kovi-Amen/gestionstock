@@ -25,7 +25,7 @@
               <div v-if="store.errors && store.errors.length != 0"
                 class="bg-red-200 border-l-4 border-red-500 p-4 mb-2">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
-                  {{ error[0] }} :
+                  {{ error[0] }}
                 </p>
               </div>
               <!-- Champ de sélection d'image -->
@@ -35,11 +35,11 @@
 
                   <label for="image" class="cursor-pointer">
                     <div style="height:200px;width:200px; display: flex; justify-content: center; align-items: center;">
-                    <i v-if="!imagePreview" class="fa fa-image fa-10x text-gray-500 hover:text-gray-700"></i>
+                      <i v-if="!imagePreview" class="fa fa-image fa-10x text-gray-500 hover:text-gray-700"></i>
 
-                    <img v-if="imagePreview" style="object-fit: contain; height:200px;width:200px" :src="imagePreview"
-                      alt="Prévisualisation de l'image"
-                      class="mt-2 max-h-32 hover:bg-gray-500 object-contain text-gray-700 focus:outline-none focus:border-blue-500" />
+                      <img v-if="imagePreview" style="object-fit: contain; height:200px;width:200px" :src="imagePreview"
+                        alt="Prévisualisation de l'image"
+                        class="mt-2 max-h-32 hover:bg-gray-500 object-contain text-gray-700 focus:outline-none focus:border-blue-500" />
 
                     </div>
 
@@ -81,7 +81,8 @@
                     </div>
                     <div class="mb-2">
                       <label for="reorder_level" class="block text-gray-700 font-bold mb-2">Alerte stock</label>
-                      <input v-model.number="formData.reorder_level" type="number" id="reorder_level" name="reorder_level"
+                      <input v-model.number="formData.reorder_level" type="number" id="reorder_level"
+                        name="reorder_level"
                         class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                         required step="1">
                     </div>
@@ -110,6 +111,20 @@
               <div class="mb-2">
                 <label for="description" class="block text-gray-700 font-bold mb-2">Description du produit</label>
                 <QuillEditor v-model="formData.description" />
+              </div>
+              <div class="bg-white shadow-lg h-full">
+                <input type="file" ref="fileInput" multiple @change="handleFiles" class="hidden" />
+                <button type="button" @click="selectFiles" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Select
+                  Images</button>
+
+                <div class="grid pb-20 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  <div v-for="(image, index) in previewImages" :key="index"
+                    class="relative border-width-2 border-black border-solid border-1 shadow-lg">
+                    <img :src="image" class="w-full h-40 object-cover rounded" />
+                    <button type="button" @click="removeImage(index)"
+                      class="absolute h-8 w-8 top-2 right-2 bg-red-500 text-white rounded-full p-1">X</button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -142,18 +157,39 @@ const props = defineProps<{
   isOpen: boolean;
   selectedData?: Product;
 }>();
-const formData = ref<ProductForm>({
-name: "", // Nom du produit
-description: "", // Description du produit
-purchase_price: 0, // Prix d'achat du produit
-selling_price: 0, // Prix du produit
-stock: 0, // Stock disponible
-reorder_level: 0,
-category_id: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
-image: null,
-images: null
+const formData = ref<any>({
+  name: "", // Nom du produit
+  description: "", // Description du produit
+  purchase_price: 0, // Prix d'achat du produit
+  selling_price: 0, // Prix du produit
+  stock: 0, // Stock disponible
+  reorder_level: 0,
+  category_id: "", // Catégorie du produit (par exemple, "Électronique", "Vêtements", etc.)
+  image: null,
+  images: []
 }); // Champ de nom de catégorie // Champ de nom de catégorie
 
+
+const fileInput = ref<HTMLInputElement | null>(null);
+const previewImages = ref<string[]>([]);
+
+const selectFiles = () => {
+  fileInput.value?.click();
+};
+
+const handleFiles = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  if (!input.files) return;
+
+  const files = Array.from(input.files);
+  formData.value.images = files;
+  previewImages.value = files.map(file => URL.createObjectURL(file));
+};
+
+const removeImage = (index: number) => {
+  formData.value.images.splice(index, 1);
+  previewImages.value.splice(index, 1);
+};
 watch(
   () => props.isOpen,
   (newValue, oldValue) => {
@@ -161,6 +197,10 @@ watch(
       // Le modal est maintenant affiché, vous pouvez effectuer des actions nécessaires ici
       formData.value = { ...props.selectedData };
       imagePreview.value = getImageUrl(props.selectedData.image);
+      previewImages.value = JSON.parse(props.selectedData.images).map((image: any) => {
+        return getImageUrl(image) // Ajoute la propriété imageUrl avec l'URL de l'image
+
+      });
     }
   }
 );
@@ -198,8 +238,14 @@ const submitForm = async () => {
     formDataToSend.append('reorder_level', formData.value.reorder_level);
     formDataToSend.append('category_id', formData.value.category_id);
     formDataToSend.append('_method', 'PATCH');
+if (Array.isArray(formData.value.images)) {
+    formData.value.images?.forEach((file: string | Blob, index: any) => {
+      formDataToSend.append(`images[${index}]`, file);
+    });  
+}
+
     // Sune nvelle a ete selectionne
-    if ( imageFile.value && formData.value.image) {
+    if (imageFile.value && formData.value.image) {
       formDataToSend.append('image', formData.value.image);
     }
 

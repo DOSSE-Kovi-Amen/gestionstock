@@ -11,11 +11,15 @@
           </button>
         </div>
         <!-- Contenu du modal -->
-        <div style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
+        <div style="height: 80vh;" class="modal-body capitalize pb-16 p-5 overflow-y-auto">
           <!-- Ajoutez ici le contenu du modal -->
           <li><strong>ID:</strong> {{ selectedData?.id }}</li>
           <li><strong>Nom:</strong> {{ selectedData?.name }}</li>
           <li><strong>Slug:</strong> {{ selectedData?.slug }}</li>
+          <li><strong>Parent:</strong> {{ selectedData?.parent?.name }}</li>
+          <li><strong>Sous-catégories:</strong> ({{ selectedData?.children?.length }})</li>
+          <li v-for="(item, index) in selectedData?.children" :key="index"> {{ item.name }}</li>
+          <li><strong>Produits:</strong> ({{ selectedData?.products_count }})</li>
           <li><strong>Date de création:</strong> {{ frenchDate(selectedData?.created_at) }}</li>
           <li><strong>Date de modification:</strong> {{ frenchDate(selectedData?.updated_at) }}</li>
 

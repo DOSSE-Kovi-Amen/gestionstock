@@ -24,7 +24,7 @@
           <form @submit.prevent="submitForm">
             <!-- Contenu du modal -->
             <div
-              style="height: 50vh"
+              style="height: 70vh"
               class="modal-body pb-16 p-5 overflow-y-auto"
             >
               <!-- Ajoutez ici le contenu du modal -->
@@ -73,7 +73,26 @@
                     readonly
                   />
                 </div>
+                <div class="mb-2">
+                  <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie (Optionnel)</label>
+                  <v-select v-model="formData.parent_id"
+                    class="bg-white border rounded w-full text-gray-700 py-0 focus:outline-none focus:border-blue-500"
+                     :options="store.categories" :reduce="(option: any) => option.id" label="name">
+                    <!-- Personnalisation de l'affichage des options -->
+                    <template #option="option: any">
+                      <div class="flex gap-2">
+                        <span>{{ option.name }}</span>
+                      </div>
+                    </template>
+                    <template #search="{ attributes, events }: any">
+                      <input class="vs__search" v-bind="attributes"
+                        v-on="events" />
+                    </template>
+                  </v-select>
+  
+                </div>
               </div>
+              
            
             <!-- Pied du modal -->
             <div
@@ -100,12 +119,15 @@
 </template>
 
 <script setup lang="ts">
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 const store = useCategoriesStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
 const formData = ref({
   name: "",
   slug: "",
+  parent_id: "",
 }); // Champ de nom de catégorie
 function updateSlug() {
   // Mettez en forme le champ de slug en fonction du nom de catégorie
@@ -130,6 +152,7 @@ const submitForm = async () => {
       emit("onSuccess", "Catégorie ajoutée avec succès");
       formData.value.name = "";
       formData.value.slug = "";
+      formData.value.parent_id = "";
     }
     loading.value = false;
   });

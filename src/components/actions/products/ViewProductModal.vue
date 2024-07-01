@@ -12,7 +12,7 @@
           </button>
         </div>
         <!-- Contenu du modal -->
-        <div style="height: 80vh" class="modal-body pb-16 p-5 overflow-y-auto">
+        <div style="height: 80vh" class="modal-body capitalize pb-16 p-5 overflow-y-auto">
           <!-- Ajoutez ici le contenu du modal -->
           <li>
             <strong

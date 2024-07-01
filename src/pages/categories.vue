@@ -37,16 +37,27 @@
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">description</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">Slug</th>
+            <th class="px-6 py-3 text-right text-sm font-bold">Parent</th>
+            <th class="px-6 py-3 text-right text-sm font-bold">Sous-catégories</th>
             <th class="px-6 py-3 text-right text-sm font-bold">Produits</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
-        <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
+        <tbody class="bg-white capitalize text-gray-600 divide-y divide-gray-200">
           <tr v-for="(category, index) in store.categories" :key="index"
             :title="`Créé le ${frenchDate(category.created_at)}\nModifié le ${frenchDate(category.updated_at)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ category.slug }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ category.parent?.name }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              
+              <span :class="{
+                'bg-red-100 text-red-800': category?.children.length === 0,
+                'bg-green-200 text-green-800': category?.children.length > 0
+              }" class="px-2 inline-flex text-xs leading-5 
+              font-semibold rounded-full">{{ category.children?.length }}</span>
+            </td>
             <td class="px-6 py-4 whitespace-no-wrap">
               <span :class="{
       'bg-red-100 text-red-800': category?.products_count === 0,

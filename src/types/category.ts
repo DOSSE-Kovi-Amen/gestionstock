@@ -7,6 +7,9 @@ export interface Category {
     slug: string; // Le nom de la catégorie
     created_at: any;
     updated_at: any;
+    parent: Category;
+    children: Category[];
+    parent_id: string;
     products_count:number;
 
 }
@@ -14,4 +17,5 @@ export interface Category {
 export interface CategoryForm {
     name: string;
     slug: string; // Le nom de la catégorie
+    parent_id: string;
 }
