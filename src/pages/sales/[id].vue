@@ -3,14 +3,29 @@
     <Spinner class="h-12" />
   </div>
   <div v-else id="print" class="bg-white p-6 rounded shadow-md">
+    <div v-if="sale.payment_status == 'paid'" >
+      <span style="font-size: 30px;" class=" border-green-500 border-2 text-green-500 text-xs font-semibold px-2 py-2 uppercase rounded-full">
+        Payé
+      </span>
+   
+    </div>
+ 
+    <div v-if="sale.payment_status == 'unpaid'">
+      <span style="font-size: 30px;" class=" text-red-500 text-xs font-semibold px-2 py-2 uppercase rounded-full">
+        Impayé
+      </span>
+   
+    </div>
+
     <div class="text-center">
-      <h1 class="text-2xl font-semibold">Facture numéro {{sale.invoice_number}}</h1>
+      <h1 class="text-2xl font-semibold">Facture numéro {{ sale.invoice_number }}</h1>
     </div>
     <div class="mt-4">
       <div class="flex flex-row justify-between gap-4">
         <div class="flex flex-row gap-4">
           <div>
-            <img v-if="storeSettings.settings?.society_logo" class="w-28 object-cover" :src="getImageUrl(storeSettings.settings?.society_logo)" alt="">
+            <img v-if="storeSettings.settings?.society_logo" class="w-28 object-cover"
+              :src="getImageUrl(storeSettings.settings?.society_logo)" alt="">
           </div>
           <div>
             <p><strong>De:</strong></p>
@@ -57,10 +72,17 @@
       <p><strong>Reste à payer:</strong> {{ formatMonetaire(sale.debt) }}</p>
       <p><strong>Reliquat:</strong> {{ formatMonetaire(sale.change) }}</p>
     </div>
+    <br>
+    <h2><strong>Remboursements: </strong></h2>
+    <div v-for="(debt_payment, index) in sale.debt_payments" :key="index" class="text-left">
+      <p>{{ frenchDate(debt_payment.created_at) }}: {{ formatMonetaire(debt_payment.amount_paid) }}</p>
+    </div>
+
     <div class="mt-6 text-right">
       <p><strong>Sous total:</strong> {{ formatMonetaire(sale.sub_total) }}</p>
       <p><strong>Remise:</strong> {{ formatMonetaire(sale.discount) }}</p>
-      <p><strong>Total de la facture:</strong> {{ formatMonetaire(sale.total_amount)+'('+ convertirNombreEnLettres(sale.total_amount) +')' }}</p>
+      <p><strong>Total de la facture:</strong> {{ formatMonetaire(sale.total_amount) + '(' +
+    convertirNombreEnLettres(sale.total_amount) + ')' }}</p>
     </div>
     <NuxtLink :to="`/sales/print-${sale.id}`" target="_blank" title="Imprimer"
       class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white">
@@ -71,7 +93,7 @@
 
 <script setup lang="ts">
 import Spinner from '~/components/Spinner.vue';
-import type{ Sale } from '~/types';
+import type { Sale } from '~/types';
 
 const route = useRoute();
 const router = useRouter();

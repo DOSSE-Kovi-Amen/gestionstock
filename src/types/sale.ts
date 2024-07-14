@@ -20,6 +20,7 @@ export interface Sale {
     discount: number;
     sub_total: number;
     payment_status: string;
+    debt_payments:DebtPayment[];
     tax_amount: number;
     total_amount: number;
     debt: number;
@@ -31,6 +32,14 @@ export interface Sale {
     invoice_number: number;
     sale_products: SaleProduct[];
 }
+export interface DebtPayment {
+    sale_id: number; // ou string selon la structure de vos IDs
+    amount_paid: number;
+    payment_date: string; // ou Date selon votre usage
+    organization_id: number; // ou string selon la structure de vos IDs
+    created_at:string
+  }
+  
 export interface SaleForm {
     client_id: string;
     amount_paid: number|any;
