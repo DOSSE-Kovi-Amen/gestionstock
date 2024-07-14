@@ -59,7 +59,7 @@
               font-semibold rounded-full">{{ category.children?.length }}</span>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">
-              <span :class="{
+              <span v-if="category.children" :class="{
       'bg-red-100 text-red-800': category?.products_count === 0,
       'bg-green-200 text-green-800': category?.products_count > 0
     }" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">

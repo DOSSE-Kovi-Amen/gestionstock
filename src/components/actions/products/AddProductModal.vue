@@ -113,7 +113,7 @@
               </div>
               <div class="bg-white shadow-lg h-full">
                 <input type="file" ref="fileInput" multiple @change="handleFiles" class="hidden" />
-                <button type="button" @click="selectFiles" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Select Images</button>
+                <button type="button" @click="selectFiles" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Selectionner les images</button>
                 
                 <div class="grid pb-20 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   <div v-for="(image, index) in previewImages" :key="index" class="relative border-width-2 border-black border-solid border-1 shadow-lg">
@@ -185,16 +185,6 @@ const removeImage = (index: number) => {
   previewImages.value.splice(index, 1);
 };
 
-function updateSlug() {
-  // Mettez en forme le champ de slug en fonction du nom de catégorie
-  formData.value.slug = formData.value.name
-    .trim() // Supprimez les espaces avant et après
-    .toLowerCase() // Convertissez en minuscules
-    .replace(/\s+/g, "-") // Remplacez les espaces par des tirets
-    .replace(/[^a-z0-9-]/g, ""); // Supprimez tous les caractères non autorisés
-
-  // Vous pouvez également ajouter d'autres transformations au slug si nécessaire
-}
 const imageFile = ref(null);
 const imagePreview = ref("");
 // Gérer le changement de fichier image

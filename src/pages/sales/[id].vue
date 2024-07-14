@@ -8,16 +8,16 @@
     </div>
     <div class="mt-4">
       <div class="flex flex-row justify-between gap-4">
-        <div class="flex flex-row">
+        <div class="flex flex-row gap-4">
           <div>
-            <img class="w-28 object-cover" :src="apiBaseURL + '/' + storeSettings.settings?.societyLogo" alt="">
+            <img v-if="storeSettings.settings?.society_logo" class="w-28 object-cover" :src="getImageUrl(storeSettings.settings?.society_logo)" alt="">
           </div>
           <div>
             <p><strong>De:</strong></p>
-            <p>{{ storeSettings.settings?.societyName }}</p>
+            <p>{{ storeSettings.settings?.society_name }}</p>
             <!-- <p>{{ storeSettings.settings?. }}</p> -->
-            <p>{{ storeSettings.settings?.societyContact }}</p>
-            <p>Email: {{ storeSettings.settings?.societyEmail }}</p>
+            <p>{{ storeSettings.settings?.society_contact }}</p>
+            <p>Email: {{ storeSettings.settings?.society_email }}</p>
 
           </div>
         </div>
@@ -53,14 +53,14 @@
       </table>
     </div>
     <div class="mt-6 text-left">
-      <p><strong>Montant payé:</strong> {{ sale.amount_paid }}</p>
-      <p><strong>Reste à payer:</strong> {{ sale.debt }}</p>
-      <p><strong>Reliquat:</strong> {{ sale.change }}</p>
+      <p><strong>Montant payé:</strong> {{ formatMonetaire(sale.amount_paid) }}</p>
+      <p><strong>Reste à payer:</strong> {{ formatMonetaire(sale.debt) }}</p>
+      <p><strong>Reliquat:</strong> {{ formatMonetaire(sale.change) }}</p>
     </div>
     <div class="mt-6 text-right">
-      <p><strong>Sous total:</strong> {{ sale.sub_total }}</p>
-      <p><strong>Remise:</strong> {{ sale.discount }}</p>
-      <p><strong>Total de la facture:</strong> {{ sale.total_amount }}</p>
+      <p><strong>Sous total:</strong> {{ formatMonetaire(sale.sub_total) }}</p>
+      <p><strong>Remise:</strong> {{ formatMonetaire(sale.discount) }}</p>
+      <p><strong>Total de la facture:</strong> {{ formatMonetaire(sale.total_amount)+'('+ convertirNombreEnLettres(sale.total_amount) +')' }}</p>
     </div>
     <NuxtLink :to="`/sales/print-${sale.id}`" target="_blank" title="Imprimer"
       class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white">
@@ -81,6 +81,7 @@ const sale = ref<Sale>();
 // Vérifiez si le paramètre de requête 'showalert' est présent
 
 onMounted(async () => {
+
   if (typeof route.params.id === 'string') {
     sale.value = await storeSales.getSale(route.params.id);
     console.log('=================only===================');

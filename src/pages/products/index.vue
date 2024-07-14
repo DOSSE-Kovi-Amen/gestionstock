@@ -59,7 +59,7 @@
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product?.category?.name }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap font-semibold text-green-500">{{ product.selling_price }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap font-semibold text-green-500">{{ formatMonetaire(product.selling_price) }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
 
             <td class="flex gap-2 mt-2">

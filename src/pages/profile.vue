@@ -19,7 +19,7 @@
             <h2 class="text-lg font-semibold mb-2">Logo</h2>
             <!-- Logo -->
             <span v-if="!auth.user?.photo">Aucune photo de profile disponible</span>
-            <img v-if="auth.user?.photo && !photo" :src="apiBaseURL + '/' + auth.user?.photo"
+            <img v-if="auth.user?.photo && !photo" :src="getImageUrl(auth.user?.photo)"
               alt="Prévisualisation de l'image" style="width: 200px;"
               class="mt-2 mb-3  object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
             <div class="mb-4"></div>
@@ -54,79 +54,93 @@
             <p>Pseudo : {{ auth.user?.username }}</p>
             <p>Email : {{ auth.user?.email }}</p>
             <p>Téléphone : {{ auth.user?.phone_number }}</p>
-            <p>Téléphone : {{ auth.user?.phone_number }}</p>
             <!-- ... -->
           </div>
         </div>
 
         <!-- Autres sections du profil -->
+        <div>
+          <h2>Modifier profil utilisateur</h2>
+          <form @submit.prevent="updatedProfileData">
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Noms :</label>
+              <input v-model="profileForm.name" class="border rounded-md py-2 px-3 w-full" type="text" id="name"
+                name="name" placeholder="Nom d'utilisateur"  />
+            </div>
+
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Mettre à jour
+            </button>
+          </form>
+        </div>
+        <br>
 
         <div>
           <!-- Contenu de la section 2 -->
-          <form @submit.prevent="updatedData">
+          <form @submit.prevent="changePwd">
             <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Noms :</label>
-              <input v-model="formData.name" class="border rounded-md py-2 px-3 w-full" type="text" id="name" name="name"
-                placeholder="Nom d'utilisateur" required />
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="current_password">Mot de passe actuel:</label>
+              <input v-model="pwdForm.current_password" class="border rounded-md py-2 px-3 w-full" type="password"
+                id="current_password" placeholder="Mot de passe" required/>
             </div>
             <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Ancien Mot de passe :</label>
-              <input v-model="formData.oldPassword" class="border rounded-md py-2 px-3 w-full" type="password"
-                id="password" name="password" placeholder="Mot de passe" />
+              <label class="block text-gray-700 text-sm font-bold mb-2" for=",ew_password">Nouveau Mot de passe :</label>
+              <input v-model="pwdForm.new_password" class="border rounded-md py-2 px-3 w-full" type="password"
+                id="new_password" placeholder="Mot de passe" required/>
             </div>
             <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Nouveau Mot de passe :</label>
-              <input v-model="formData.password" class="border rounded-md py-2 px-3 w-full" type="password" id="password"
-                name="password" placeholder="Mot de passe" />
-            </div>
-            <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Confirmer mot de passe
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="new_password_confirmation">Confirmer mot de passe
                 :</label>
-              <input v-model="formData.confirmPassword" class="border rounded-md py-2 px-3 w-full" type="password"
-                id="password" name="password" placeholder="Confirmer Mot de passe" />
+              <input v-model="pwdForm.new_password_confirmation" class="border rounded-md py-2 px-3 w-full"
+                type="password" id="new_password_confirmation" placeholder="Confirmer Mot de passe" required/>
             </div>
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Soumettre
+              Changer
             </button>
           </form>
         </div>
       </div>
     </div>
 
-    <div v-if="auth.errors && auth.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+    <!-- <div v-if="auth.errors && auth.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
       <p v-for="(error, index) in auth.errors" :key="index" class="font-semibold my-1">
         {{ error }} :
       </p>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup lang="ts">
 
 const showAlert = ref(false);
 const alertMessage = ref("");
-const formData = ref({
+const profileForm = ref({
   name: "",
-  oldPassword: null,
-  password: null,
-  confirmPassword: null
+  // email: "",
+  // phone_number: ""
 })
 
+const pwdForm = ref({
+  current_password: null,
+  new_password: null,
+  new_password_confirmation: null
+})
 
 
 const photo = ref<any>()
 const usersStore = useUsersStore()
 const auth = useAuthStore();
-onMounted(() => {
-  auth.getProfile()
+
+onMounted(async () => {
+  await auth.getProfile()
+  if (auth.user) {
+    profileForm.value.name = auth.user.name
+  }
 })
+
 const imageFile = ref(null);
 const imagePreview = ref("");
 
-onMounted(() => {
-  if (auth.user) {
-    formData.value.name = auth.user.name
-  }
-})
+
 // Gérer le changement de fichier image
 const handleImageChange = (event: any) => {
   const file = event.target.files[0];
@@ -146,25 +160,48 @@ const handleImageChange = (event: any) => {
     reader.readAsDataURL(file);
   }
 };
+
 const editPhoto = async () => {
+  console.log('====================================');
+  console.log(photo.value);
+  console.log('====================================');
   const formDataToSend = new FormData();
   formDataToSend.append('photo', photo.value);
-  if (auth.user) {
-    await usersStore.updatePhoto(formDataToSend, auth.user.id).then(async () => {
+  formDataToSend.append('_method', 'PATCH');
+
+    await usersStore.updateProfilePhoto(formDataToSend).then(async () => {
       photo.value = null;
       imagePreview.value = "";
       imageFile.value = null
       await auth.getProfile()
     });
-  }
+  
 }
 
-const updatedData = async () => {
-  if (auth.user) {
-    auth.changePwdOrName(auth.user.id, formData.value ).then(async (status) => {
+const updatedProfileData = async () => {
+  
+    await usersStore.updatedProfileData(profileForm.value).then(async (status) => {
       if (status) {
         showAlert.value = true;
         alertMessage.value = "Mise à jour réussie"
+        await auth.getProfile()
+      }
+
+    })
+  
+}
+
+
+
+const changePwd = async () => {
+  if (auth.user) {
+    await usersStore.changePwd(pwdForm.value).then(async (status) => {
+      if (status) {
+        showAlert.value = true;
+        pwdForm.value.current_password =null;
+        pwdForm.value.new_password =null;
+        pwdForm.value.new_password_confirmation =null;
+        alertMessage.value = "Changement du mot de passe réussi"
         await auth.getProfile()
       }
 

@@ -55,10 +55,10 @@
 
         <div class="bg-purple-200 border-l-4 border-purple-500 p-4 my-2">
           <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-3">
-            <div class="font-bold">Ht: {{ formData.subTotal }}</div>
-            <div class="font-bold">TTC: {{ formData.total_amount }}</div>
-            <div class="font-bold">Reliquat: {{ formData.change }}</div>
-            <div class="font-bold">Dette: {{ formData.debt }}</div>
+            <div class="font-bold">Ht: {{  formatMonetaire(formData.subTotal) }}</div>
+            <div class="font-bold">TTC: {{ formatMonetaire(formData.total_amount) }}</div>
+            <div class="font-bold">Reliquat: {{ formatMonetaire(formData.change) }}</div>
+            <div class="font-bold">Dette: {{ formatMonetaire(formData.debt) }}</div>
           </div>
         </div>
 
@@ -208,7 +208,7 @@ const router = useRouter();
 const formData = ref<SaleForm>({
   client_id: "",
   amount_paid: null,
-  discount: null,
+  discount: 0,
   subTotal: 0,
   total_amount: 0,
   debt: 0,

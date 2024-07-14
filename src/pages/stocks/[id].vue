@@ -6,8 +6,8 @@
 
     <div v-else class="bg-white p-6 rounded shadow-md">
       <div class="text-center">
-        <h1 class="text-2xl font-semibold">Entrée de stock du {{ frenchDate(stock?.created_at) }}</h1>
-        <h1 class="text-2xl font-semibold">Date de réception {{ frenchDate(stock?.date) }}</h1>
+        <h1 class="text-xl font-semibold">Entrée de stock du {{ frenchDate(stock?.created_at) }}</h1>
+        <h1 class="text-xl font-semibold">Date de réception des marchandises {{ frenchDate(stock?.date) }}</h1>
       </div>
       <div class="mt-4">
         <div class="grid grid-cols-2 gap-4">
@@ -39,7 +39,7 @@
       </div>
 
       <div class="mt-6 text-right">
-        <p><strong>Total montant de l'entrée:</strong> {{ stock.total_amount }}</p>
+        <p><strong>Total montant de l'entrée:</strong> {{ formatMonetaire(stock.total_amount) +'('+convertirNombreEnLettres(stock.total_amount)+')' }}</p>
       </div>
       <NuxtLink :to="`/stocks/print-${stock.id}`" target="_blank" title="Imprimer"
         class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white">

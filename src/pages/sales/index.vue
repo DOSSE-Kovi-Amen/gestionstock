@@ -21,10 +21,10 @@
           <tr>
             <th class="px-6 py-3 text-left text-sm font-bold">Date</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Montant total</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Remise</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Montant payé</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Reliquat</th>
-            <th class="px-6 py-3 text-left text-sm font-bold">Dette</th>
+            <!-- <th class="px-6 py-3 text-left text-sm font-bold">Remise</th> -->
+            <!-- <th class="px-6 py-3 text-left text-sm font-bold">Montant payé</th> -->
+            <!-- <th class="px-6 py-3 text-left text-sm font-bold">Reliquat</th> -->
+            <!-- <th class="px-6 py-3 text-left text-sm font-bold">Dette</th> -->
             <th class="px-6 py-3 text-left text-sm font-bold">Statut paiement</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
@@ -33,11 +33,11 @@
           <tr v-for="(sale, index) in store.sales" :key="index"
             :title="`Créé le ${frenchDate(sale.created_at)}\nModifié le ${frenchDate(sale.updated_at)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(sale.created_at) }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.total_amount }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.discount }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.amount_paid }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.change }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.debt }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.total_amount) }}</td>
+            <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.discount) }}</td> -->
+            <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.amount_paid) }}</td> -->
+            <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.change) }}</td> -->
+            <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.debt) }}</td> -->
             <td class="px-6 py-4 whitespace-no-wrap">
               <span :class="{
       'bg-green-100 text-green-800': sale.payment_status === 'paid',
