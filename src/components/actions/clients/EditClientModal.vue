@@ -197,6 +197,6 @@ const submitForm = async () => {
 
   setTimeout(() => {
     loading.value = false;
-  }, 15000);
+  }, 10000);
 };
 </script>

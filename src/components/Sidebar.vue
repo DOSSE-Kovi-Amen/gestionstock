@@ -132,7 +132,7 @@
       <button @click="toggleDropdown" @blur="onBlur" class="flex " id="dropdown-button" aria-haspopup="true"
         aria-expanded="true">
         <img v-if="auth.user?.photo" class="rounded-full w-10 h-10 object-cover"
-          :src="apiBaseURL + '/' + auth.user?.photo"
+          :src="getImageUrl(auth.user?.photo)"
           alt="" srcset="">
           <div v-else class="bg-gray-200 w-8 h-8 flex justify-center items-center rounded-full p-5">
             <i class="fa fa-user"></i>

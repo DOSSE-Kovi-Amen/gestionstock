@@ -1,67 +1,69 @@
 <template>
     <div v-if="sale == null" class="flex bg-white h-64 w-full justify-center items-center">
         <Spinner class="h-12" />
-    </div>
-    <div v-else id="print" class="bg-white p-6 rounded shadow-md">
+      </div>
+      <div v-else id="print" class="bg-white p-6 rounded shadow-md">
         <div class="text-center">
-            <h1 class="text-2xl font-semibold">Facture</h1>
+          <h1 class="text-2xl font-semibold">Facture numéro {{sale.invoice_number}}</h1>
         </div>
         <div class="mt-4">
-            <div class="flex flex-row justify-between gap-4">
-                <div class="flex flex-row">
-                  <div>
-                    <img class="w-28 object-cover" :src="apiBaseURL + '/' + storeSettings.settings?.societyLogo" alt="">
-                  </div>
-                  <div>
-                    <p><strong>De:</strong></p>
-                    <p>{{ storeSettings.settings?.societyName }}</p>
-                    <!-- <p>{{ storeSettings.settings?. }}</p> -->
-                    <p>{{ storeSettings.settings?.societyContact }}</p>
-                    <p>Email: {{ storeSettings.settings?.societyEmail }}</p>
-        
-                  </div>
-                </div>
-                <div>
-                  <p><strong>À:</strong></p>
-                  <p>{{ sale.client.name }}</p>
-                  <p>{{ sale.client.telephone }}</p>
-                  <p>{{ sale.client.email }}</p>
-                </div>
+          <div class="flex flex-row justify-between gap-4">
+            <div class="flex flex-row gap-4">
+              <div>
+                <img v-if="storeSettings.settings?.society_logo" class="w-28 object-cover" :src="getImageUrl(storeSettings.settings?.society_logo)" alt="">
+              </div>
+              <div>
+                <p><strong>De:</strong></p>
+                <p>{{ storeSettings.settings?.society_name }}</p>
+                <!-- <p>{{ storeSettings.settings?. }}</p> -->
+                <p>{{ storeSettings.settings?.society_contact }}</p>
+                <p>Email: {{ storeSettings.settings?.society_email }}</p>
     
               </div>
+            </div>
+            <div>
+              <p><strong>À:</strong></p>
+              <p>{{ sale.client.name }}</p>
+              <p>{{ sale.client.telephone }}</p>
+              <p>{{ sale.client.email }}</p>
+            </div>
+    
+    
+          </div>
         </div>
         <div class="mt-6">
-            <table class="w-full bg-blue-100 border-collapse border border-gray-300">
-                <thead>
-                    <tr>
-                        <th class="border border-gray-300 p-2">Description</th>
-                        <th class="border border-gray-300 p-2">Quantité</th>
-                        <th class="border border-gray-300 p-2">Prix unitaire</th>
-                        <th class="border border-gray-300 p-2">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(product, index) in JSON.parse(sale.saleDetails)">
-                        <td class="border border-gray-300 p-2">{{ product.name }}</td>
-                        <td class="border border-gray-300 p-2">{{ product.quantity }}</td>
-                        <td class="border border-gray-300 p-2">{{ product.selling_price }}</td>
-                        <td class="border border-gray-300 p-2">{{ product.selling_price * product.quantity }}</td>
-                    </tr>
-                    <!-- Ajoutez d'autres lignes de facturation ici -->
-                </tbody>
-            </table>
+          <table class="w-full bg-blue-100 border-collapse border border-gray-300">
+            <thead>
+              <tr>
+                <th class="border border-gray-300 p-2">Description</th>
+                <th class="border border-gray-300 p-2">Quantité</th>
+                <th class="border border-gray-300 p-2">Prix unitaire</th>
+                <th class="border border-gray-300 p-2">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(sale_product, index) in validJSON(sale.sale_products)">
+                <td class="border border-gray-300 p-2">{{ sale_product?.product?.name }}</td>
+                <td class="border border-gray-300 p-2">{{ sale_product.quantity }}</td>
+                <td class="border border-gray-300 p-2">{{ sale_product?.unit_price }}</td>
+                <td class="border border-gray-300 p-2">{{ sale_product?.unit_price * sale_product.quantity }}</td>
+              </tr>
+              <!-- Ajoutez d'autres lignes de facturation ici -->
+            </tbody>
+          </table>
         </div>
         <div class="mt-6 text-left">
-            <p><strong>Montant payé:</strong> {{ sale.amountPaid }}</p>
-            <p><strong>Reste à payer:</strong> {{ sale.debt }}</p>
-            <p><strong>Reliquat:</strong> {{ sale.change }}</p>
+          <p><strong>Montant payé:</strong> {{ formatMonetaire(sale.amount_paid) }}</p>
+          <p><strong>Reste à payer:</strong> {{ formatMonetaire(sale.debt) }}</p>
+          <p><strong>Reliquat:</strong> {{ formatMonetaire(sale.change) }}</p>
         </div>
         <div class="mt-6 text-right">
-            <p><strong>Sous total:</strong> {{ sale.subTotal }}</p>
-            <p><strong>Remise:</strong> {{ sale.discount }}</p>
-            <p><strong>Total de la facture:</strong> {{ sale.totalAmount }}</p>
+          <p><strong>Sous total:</strong> {{ formatMonetaire(sale.sub_total) }}</p>
+          <p><strong>Remise:</strong> {{ formatMonetaire(sale.discount) }}</p>
+          <p><strong>Total de la facture:</strong> {{ formatMonetaire(sale.total_amount)+'('+ convertirNombreEnLettres(sale.total_amount) +')' }}</p>
         </div>
-    </div>
+
+      </div>
 </template>
   
 <script setup lang="ts">
@@ -85,7 +87,7 @@ onMounted(async () => {
             setTimeout(() => {
                 print()
 
-            }, 500);
+            }, 1000);
         }
     }
 })

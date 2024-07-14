@@ -83,6 +83,34 @@ export const useSalesStore = defineStore('sale', () => {
     }
   }
 
+  const postPayDebt = async (payload: any, sale_id:string) => {
+    errors.value = [];
+    console.log('================post====================');
+    console.log(payload);
+    console.log('====================================');
+    const { data, error } = await useFetch(`${apiBaseURL}/sales/debt-payments/${sale_id}`, {
+      headers: headers,
+      method: 'POST',
+      body: {...payload}
+    })
+
+    if (error.value?.statusCode == 401) {
+      useAuthStore().logout();
+    }
+    console.log('====================================');
+    console.log(error.value?.data.errors);
+    console.log('====================================');
+    if (error.value?.statusCode == 422) {
+      errors.value = error.value?.data.errors;
+    
+    }
+    if (data.value) {
+      await getData()
+
+      return true
+    }
+  }
+
 
   const deleteData = async (id: string) => {
     const { data, error } = await useFetch(`${apiBaseURL}/sales/${id}`, {
@@ -95,6 +123,6 @@ export const useSalesStore = defineStore('sale', () => {
   getData()
 
 
-  return { sales, loading, errors, salesCount, getData,getSale, postData, deleteData }
+  return { sales, loading, errors, salesCount, getData,getSale, postData,postPayDebt, deleteData }
 })
 

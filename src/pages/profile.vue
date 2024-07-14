@@ -20,8 +20,8 @@
             <!-- Logo -->
             <span v-if="!auth.user?.photo">Aucune photo de profile disponible</span>
             <img v-if="auth.user?.photo && !photo" :src="getImageUrl(auth.user?.photo)"
-              alt="Prévisualisation de l'image" style="width: 200px;"
-              class="mt-2 mb-3  object-contain w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+              alt="Prévisualisation de l'image" style="width: 200px; height: 200px"
+              class="mt-2 mb-3  object-cover border rounded-full py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
             <div class="mb-4"></div>
             <form @submit.prevent="editPhoto">
               <div class="mb-4">
@@ -30,8 +30,8 @@
               > -->
                 <!-- Prévisualisation de l'image -->
                 <img v-if="imagePreview && photo" :src="imagePreview" alt="Prévisualisation de l'image"
-                  style="width: 200px;"
-                  class="mt-2 bg-black object-contain border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
+                  style="width: 200px; height: 200px"
+                  class="mt-2 bg-black object-contain border rounded-full py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
               </div>
               <label for="image"
                 class="cursor-pointer bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
@@ -58,47 +58,55 @@
           </div>
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div>
+            <h2 class="font-bold">Modifier profil utilisateur</h2>
+            <form @submit.prevent="updatedProfileData">
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Noms :</label>
+                <input v-model="profileForm.name" class="border rounded-md py-2 px-3 w-full" type="text" id="name"
+                  name="name" placeholder="Nom d'utilisateur" />
+              </div>
+
+              <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Mettre à jour
+              </button>
+            </form>
+          </div>
+
+          <div>
+            <h2 class="font-bold">Modifier mot de passe utilisateur</h2>
+            <br>
+
+            <!-- Contenu de la section 2 -->
+            <form @submit.prevent="changePwd">
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="current_password">Mot de passe
+                  actuel:</label>
+                <input v-model="pwdForm.current_password" class="border rounded-md py-2 px-3 w-full" type="password"
+                  id="current_password" placeholder="Mot de passe" required />
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for=",ew_password">Nouveau Mot de passe
+                  :</label>
+                <input v-model="pwdForm.new_password" class="border rounded-md py-2 px-3 w-full" type="password"
+                  id="new_password" placeholder="Mot de passe" required />
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="new_password_confirmation">Confirmer mot
+                  de passe
+                  :</label>
+                <input v-model="pwdForm.new_password_confirmation" class="border rounded-md py-2 px-3 w-full"
+                  type="password" id="new_password_confirmation" placeholder="Confirmer Mot de passe" required />
+              </div>
+              <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Changer
+              </button>
+            </form>
+          </div>
+        </div>
         <!-- Autres sections du profil -->
-        <div>
-          <h2>Modifier profil utilisateur</h2>
-          <form @submit.prevent="updatedProfileData">
-            <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Noms :</label>
-              <input v-model="profileForm.name" class="border rounded-md py-2 px-3 w-full" type="text" id="name"
-                name="name" placeholder="Nom d'utilisateur"  />
-            </div>
 
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Mettre à jour
-            </button>
-          </form>
-        </div>
-        <br>
-
-        <div>
-          <!-- Contenu de la section 2 -->
-          <form @submit.prevent="changePwd">
-            <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="current_password">Mot de passe actuel:</label>
-              <input v-model="pwdForm.current_password" class="border rounded-md py-2 px-3 w-full" type="password"
-                id="current_password" placeholder="Mot de passe" required/>
-            </div>
-            <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for=",ew_password">Nouveau Mot de passe :</label>
-              <input v-model="pwdForm.new_password" class="border rounded-md py-2 px-3 w-full" type="password"
-                id="new_password" placeholder="Mot de passe" required/>
-            </div>
-            <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="new_password_confirmation">Confirmer mot de passe
-                :</label>
-              <input v-model="pwdForm.new_password_confirmation" class="border rounded-md py-2 px-3 w-full"
-                type="password" id="new_password_confirmation" placeholder="Confirmer Mot de passe" required/>
-            </div>
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Changer
-            </button>
-          </form>
-        </div>
       </div>
     </div>
 
@@ -169,26 +177,26 @@ const editPhoto = async () => {
   formDataToSend.append('photo', photo.value);
   formDataToSend.append('_method', 'PATCH');
 
-    await usersStore.updateProfilePhoto(formDataToSend).then(async () => {
-      photo.value = null;
-      imagePreview.value = "";
-      imageFile.value = null
-      await auth.getProfile()
-    });
-  
+  await usersStore.updateProfilePhoto(formDataToSend).then(async () => {
+    photo.value = null;
+    imagePreview.value = "";
+    imageFile.value = null
+    await auth.getProfile()
+  });
+
 }
 
 const updatedProfileData = async () => {
-  
-    await usersStore.updatedProfileData(profileForm.value).then(async (status) => {
-      if (status) {
-        showAlert.value = true;
-        alertMessage.value = "Mise à jour réussie"
-        await auth.getProfile()
-      }
 
-    })
-  
+  await usersStore.updatedProfileData(profileForm.value).then(async (status) => {
+    if (status) {
+      showAlert.value = true;
+      alertMessage.value = "Mise à jour réussie"
+      await auth.getProfile()
+    }
+
+  })
+
 }
 
 
@@ -198,9 +206,9 @@ const changePwd = async () => {
     await usersStore.changePwd(pwdForm.value).then(async (status) => {
       if (status) {
         showAlert.value = true;
-        pwdForm.value.current_password =null;
-        pwdForm.value.new_password =null;
-        pwdForm.value.new_password_confirmation =null;
+        pwdForm.value.current_password = null;
+        pwdForm.value.new_password = null;
+        pwdForm.value.new_password_confirmation = null;
         alertMessage.value = "Changement du mot de passe réussi"
         await auth.getProfile()
       }

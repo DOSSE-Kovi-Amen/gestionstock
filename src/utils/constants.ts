@@ -121,5 +121,5 @@ export function convertirNombreEnLettres(nombre: number) {
     return "Nombre trop grand";
   }
 
-  return enLettres(nombre);
+  return enLettres(nombre)+ ' F CFA';
 }

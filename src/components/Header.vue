@@ -25,7 +25,7 @@
               <button @click="toggleDropdown" @focus="onBlur" @blur="onBlur"
                 class="rounded-full text-white hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-2">
                 <img v-if="auth.user?.photo" class="rounded-full shadow-xl w-10 h-10 object-cover"
-                  :src="apiBaseURL + '/' + auth.user?.photo" alt="" srcset="">
+                  :src="getImageUrl(auth.user?.photo)" alt="" srcset="">
                 <div v-else class="bg-gray-200 text-black w-8 h-8 flex justify-center items-center rounded-full p-5">
                   <i class="fa fa-user"></i>
 

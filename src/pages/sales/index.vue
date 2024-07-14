@@ -7,6 +7,10 @@
       alertMessage = e;
       showAlert = true
     }" @on-close="isOpenDelete = false" :is-open="isOpenDelete" :selected-data="selectedData" />
+    <AddPayDebtModal @on-success="(e: any) => {
+      alertMessage = e;
+      showAlert = true
+    }" @on-close="isOpenPayDebt = false" :is-open="isOpenPayDebt" :selected-data="selectedData" />
 
     <div class="my-4">
       <NuxtLink to="/sales/create" class="py-2 p-4 rounded-lg shadow-xl btn-primary text-white"><i
@@ -20,11 +24,12 @@
         <thead>
           <tr>
             <th class="px-6 py-3 text-left text-sm font-bold">Date</th>
+            <th class="px-6 py-3 text-left text-sm font-bold">Client</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Montant total</th>
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">Remise</th> -->
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">Montant payé</th> -->
             <!-- <th class="px-6 py-3 text-left text-sm font-bold">Reliquat</th> -->
-            <!-- <th class="px-6 py-3 text-left text-sm font-bold">Dette</th> -->
+            <th class="px-6 py-3 text-left text-sm font-bold">Dette</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Statut paiement</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
@@ -33,11 +38,12 @@
           <tr v-for="(sale, index) in store.sales" :key="index"
             :title="`Créé le ${frenchDate(sale.created_at)}\nModifié le ${frenchDate(sale.updated_at)}}`">
             <td class="px-6 py-4 whitespace-no-wrap">{{ frenchDate(sale.created_at) }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ sale.client.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.total_amount) }}</td>
             <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.discount) }}</td> -->
             <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.amount_paid) }}</td> -->
             <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.change) }}</td> -->
-            <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.debt) }}</td> -->
+            <td class="px-6 py-4 whitespace-no-wrap">{{ formatMonetaire(sale.debt) }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">
               <span :class="{
       'bg-green-100 text-green-800': sale.payment_status === 'paid',
@@ -47,6 +53,7 @@
               </span>
             </td>
             <td class="flex gap-2">
+
               <NuxtLink :to="`/sales/${sale.id}`"
                 class="p-0.5 px-2  text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg">
                 <i class="fa-regular fa-eye"></i>
@@ -57,6 +64,11 @@
                 <i class="fa-regular fa-trash-can"></i>
               </a>
 
+              <a v-if="sale.payment_status === 'unpaid'"
+                class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
+                @click="openModal(sale, 'payDebt')">
+                Payer dette
+              </a>
             </td>
 
 
@@ -75,13 +87,16 @@
 
 <script setup lang="ts">
 import DeleteSaleModal from '~/components/actions/sales/DeleteSaleModal.vue';
-import type{ Sale } from '~/types';
+import AddPayDebtModal from '~/components/actions/sales/AddPayDebtModal.vue';
+
+import type { Sale } from '~/types';
 import { frenchDate } from '~/utils/constants';
 import { useSalesStore } from '~/stores/salesStore';
 
 const store = useSalesStore();
 const selectedData = ref<Sale>();
 const isOpenRead = ref(false);
+const isOpenPayDebt = ref(false);
 const isOpenDelete = ref(false);
 const showAlert = ref(false);
 const alertMessage = <any>ref("");
@@ -107,6 +122,8 @@ const openModal = (data: Sale, action: String) => {
     case 'read': isOpenRead.value = true;
       break;
     case 'delete': isOpenDelete.value = true;
+      break;
+    case 'payDebt': isOpenPayDebt.value = true;
       break;
     default:
       break;

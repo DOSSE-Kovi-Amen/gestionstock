@@ -28,6 +28,7 @@ export interface Sale {
     created_at: string;
     updated_at: string;
     client: Client;
+    invoice_number: number;
     sale_products: SaleProduct[];
 }
 export interface SaleForm {

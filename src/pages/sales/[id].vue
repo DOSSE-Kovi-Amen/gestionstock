@@ -4,7 +4,7 @@
   </div>
   <div v-else id="print" class="bg-white p-6 rounded shadow-md">
     <div class="text-center">
-      <h1 class="text-2xl font-semibold">Facture</h1>
+      <h1 class="text-2xl font-semibold">Facture numéro {{sale.invoice_number}}</h1>
     </div>
     <div class="mt-4">
       <div class="flex flex-row justify-between gap-4">

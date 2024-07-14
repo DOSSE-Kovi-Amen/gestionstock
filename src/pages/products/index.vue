@@ -62,7 +62,7 @@
             <td class="px-6 py-4 whitespace-no-wrap font-semibold text-green-500">{{ formatMonetaire(product.selling_price) }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
 
-            <td class="flex gap-2 mt-2">
+            <td class="flex gap-2 mt-5">
               <a class="p-0.5 px-2 text-white  bg-blue-900 hover:bg-black shadow-xl rounded-lg"
                 @click="openModal(product, 'barcode')">
                 <Barcode :barcode="product.id" />
