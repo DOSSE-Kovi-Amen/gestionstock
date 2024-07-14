@@ -11,12 +11,13 @@
     </div>
  
     <div v-if="sale.payment_status == 'unpaid'">
-      <span style="font-size: 30px;" class=" text-red-500 text-xs font-semibold px-2 py-2 uppercase rounded-full">
+      <span style="font-size: 30px;" class="border-red-500 border-2 text-red-500 text-xs font-semibold px-2 py-2 uppercase rounded-full">
         Impayé
       </span>
    
     </div>
-    
+    <p class="text-center">{{storeSettings.settings?.society_description}}</p>
+
 
     <div class="text-center">
       <h1 class="text-2xl font-semibold">Facture numéro {{ sale.invoice_number }}</h1>
