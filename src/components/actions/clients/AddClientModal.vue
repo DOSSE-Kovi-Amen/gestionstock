@@ -85,10 +85,10 @@
                   <input
                     v-model="formData.telephone"
                     class="border rounded-md py-2 px-3 w-full"
-                    type="text"
+                    type="number"
                     id="telephone"
                     name="telephone"
-                    placeholder="Téléphone"
+                    placeholder="Entrer le numéro de téléphone"
                     required
                   />
                 </div>

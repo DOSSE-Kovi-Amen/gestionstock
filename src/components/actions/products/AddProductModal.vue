@@ -25,7 +25,7 @@
               <div v-if="store.errors && store.errors.length != 0"
                 class="bg-red-200 border-l-4 border-red-500 p-4 mb-2">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
-                  {{ error[0] }} 
+                  {{ error[0] }}
                 </p>
               </div>
               <!-- Champ de sélection d'image -->
@@ -75,13 +75,14 @@
                     </div>
                     <div class="mb-2">
                       <label for="stock" class="block text-gray-700 font-bold mb-2">Stock disponible</label>
-                      <input v-model.number="formData.stock" type="number" id="stock" name="stock"
+                      <input v-model.number="formData.stock" type="number" min="0" id="stock" name="stock"
                         class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                        required step="any">
+                        required step="1">
                     </div>
                     <div class="mb-2">
                       <label for="reorder_level" class="block text-gray-700 font-bold mb-2">Alerte stock</label>
-                      <input v-model.number="formData.reorder_level" type="number" id="reorder_level" name="reorder_level"
+                      <input  v-model.number="formData.reorder_level" type="number" id="reorder_level"
+                        name="reorder_level"
                         class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                         required step="1">
                     </div>
@@ -94,14 +95,14 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mb-2">
                   <label for="purchase_price" class="block text-gray-700 font-bold mb-2">Prix d'achat du produit</label>
-                  <input v-model.number="formData.purchase_price" type="number" id="purchase_price"
+                  <input v-model.number="formData.purchase_price" min="1" type="number" id="purchase_price"
                     name="purchase_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required step="any" />
                 </div>
                 <div class="mb-2">
                   <label for="selling_price" class="block text-gray-700 font-bold mb-2">Prix de vente produit</label>
-                  <input v-model.number="formData.selling_price" type="number" id="selling_price" name="selling_price"
+                  <input v-model.number="formData.selling_price" min="1" type="number"  id="selling_price" name="selling_price"
                     class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                     required step="any" />
                 </div>
@@ -113,12 +114,16 @@
               </div>
               <div class="bg-white shadow-lg h-full">
                 <input type="file" ref="fileInput" multiple @change="handleFiles" class="hidden" />
-                <button type="button" @click="selectFiles" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Selectionner les images</button>
-                
+                <button type="button" @click="selectFiles"
+                  class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Selectionner les
+                  images</button>
+
                 <div class="grid pb-20 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  <div v-for="(image, index) in previewImages" :key="index" class="relative border-width-2 border-black border-solid border-1 shadow-lg">
+                  <div v-for="(image, index) in previewImages" :key="index"
+                    class="relative border-width-2 border-black border-solid border-1 shadow-lg">
                     <img :src="image" class="w-full h-40 object-cover rounded" />
-                    <button type="button"@click="removeImage(index)" class="absolute h-8 w-8 top-2 right-2 bg-red-500 text-white rounded-full p-1">X</button>
+                    <button type="button" @click="removeImage(index)"
+                      class="absolute h-8 w-8 top-2 right-2 bg-red-500 text-white rounded-full p-1">X</button>
                   </div>
                 </div>
               </div>
@@ -147,18 +152,33 @@ const store = useProductsStore();
 const storeCat = useCategoriesStore();
 const emit = defineEmits(["onClose", "onSuccess"]);
 const loading = ref(false);
-const formData = ref<any>({
+const formData = ref({
   name: "", // Nom du produit
   description: "", // Description du produit
-  purchase_price: null, // Prix d'achat du produit
-  selling_price: null, // Prix du produit
-  reorder_level:null,
-  stock: null, // Stock disponible
+  purchase_price: 0, // Prix d'achat du produit
+  selling_price: 0, // Prix du produit
+  reorder_level: 0,
+  stock: 0, // Stock disponible
   category_id: "",
   slug: "",
   image: null,
-  images:[]
+  images: []
 }); // Champ de nom de catégorie
+
+// Watch pour valider et corriger le stock s'il devient négatif
+watch(() => formData.value.stock, (newVal) => {
+  if (newVal < 0) {
+    formData.value.stock = 0;
+  }
+}
+);
+// Watch pour valider et corriger le stock s'il devient négatif
+watch(() => formData.value.reorder_level, (newVal) => {
+  if (newVal < 0) {
+    formData.value.reorder_level = 0;
+  }
+}
+);
 
 
 const fileInput = ref<HTMLInputElement | null>(null);
@@ -222,7 +242,7 @@ const submitForm = async () => {
   formDataToSend.append('image', formData.value.image);
   formData.value.images.forEach((file: string | Blob, index: any) => {
     formDataToSend.append(`images[${index}]`, file);
-      });
+  });
   // formDataToSend.append('images[]', formData.value.images);
   console.log('==================formDataToSend==================');
   console.log(formData.value);
@@ -247,7 +267,7 @@ const submitForm = async () => {
       formData.value.reorder_level = null;
       imageFile.value = null;
       imagePreview.value = "";
-      previewImages.value=[];
+      previewImages.value = [];
     }
     loading.value = false;
   });

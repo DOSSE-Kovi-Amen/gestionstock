@@ -55,7 +55,7 @@
 
         <div class="bg-purple-200 border-l-4 border-purple-500 p-4 my-2">
           <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-3">
-            <div class="font-bold">Ht: {{  formatMonetaire(formData.subTotal) }}</div>
+            <div class="font-bold">Ht: {{ formatMonetaire(formData.subTotal) }}</div>
             <div class="font-bold">TTC: {{ formatMonetaire(formData.total_amount) }}</div>
             <div class="font-bold">Reliquat: {{ formatMonetaire(formData.change) }}</div>
             <div class="font-bold">Dette: {{ formatMonetaire(formData.debt) }}</div>
@@ -78,19 +78,19 @@
               <div class="mb-4">
                 <label class="block text-white mb-2" for="discount">Remise:</label>
                 <input v-model="formData.discount" :class="{
-      'bg-gray-200 cursor-not-allowed':
-        formData.products.length === 0,
-      'bg-white': formData.products.length !== 0,
-    }" class="border rounded-md py-1 px-3 w-full" type="number" id="discount" name="discount" placeholder="Remise"
-                  required :disabled="formData.products.length === 0" />
+                  'bg-gray-200 cursor-not-allowed':
+                    formData.products.length === 0,
+                  'bg-white': formData.products.length !== 0,
+                }" class="border rounded-md py-1 px-3 w-full" type="number" min="0" step="1" id="discount" name="discount"
+                  placeholder="Remise" required :disabled="formData.products.length === 0" />
               </div>
               <div class="mb-4">
                 <label class="block text-white mb-2" for="amount_paid">Montant reçu:</label>
                 <input v-model="formData.amount_paid" :class="{
-      'bg-gray-200 cursor-not-allowed':
-        formData.products.length === 0,
-      'bg-white': formData.products.length !== 0,
-    }" class="border rounded-md py-1 px-3 w-full" type="number" id="amount_paid" name="amount_paid"
+                  'bg-gray-200 cursor-not-allowed':
+                    formData.products.length === 0,
+                  'bg-white': formData.products.length !== 0,
+                }" class="border rounded-md py-1 px-3 w-full" type="number" min="1" step="1" id="amount_paid" name="amount_paid"
                   placeholder="Montant reçu" :disabled="formData.products.length === 0" required />
               </div>
             </div>
@@ -119,14 +119,14 @@
                   </td>
 
                   <td class="px-6 py-4 whitespace-no-wrap">
-                    <input type="number" v-model="formData.products[index].quantity"
+                    <input type="number" min="1" step="1" v-model="formData.products[index].quantity"
                       class="border border-gray-300 rounded-lg py-1 px-1 block appearance-none leading-normal focus:outline-none focus:ring focus:border-blue-500"
                       required @input="editQuantity(formData.products[index])" />
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap">
                     {{
-      product.selling_price * formData.products[index].quantity
-    }}
+                      product.selling_price * formData.products[index].quantity
+                    }}
                   </td>
 
                   <td class="flex gap-2 py-4">
@@ -190,7 +190,7 @@
 </style>
 <script lang="ts" setup>
 import { useProductsStore } from "~/stores/productsStore";
-import type{ Product, SaleForm } from "~/types";
+import type { Product, SaleForm } from "~/types";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import AddClientModal from "~/components/actions/clients/AddClientModal.vue";
@@ -216,8 +216,8 @@ const formData = ref<SaleForm>({
   products: [],
 });
 const errors = ref<any>([]);
-  onMounted(() => {
-    clientsStore.getData()
+onMounted(() => {
+  clientsStore.getData()
 
 
 })
@@ -227,7 +227,7 @@ function editQuantity(product: any) {
   if (product.quantity > product.stock) {
     product.quantity = 0;
     errors.value.push(
-      `La quantité du produit ${product.name} à vendre est supérieur à la quantité en stock`
+      `La quantité du produit ${product.name} à vendre est supérieur à la quantité en stock. Veuillez vous réapprovisionner chez votre fournisseur`
     );
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <aside 
-    :class="{ 'sidebar w-72': isSidebarOpen, 'sidebar-sm w-16': !isSidebarOpen, 'transition-width duration-500 ease-in-out': true }"
+  <aside style="width: 300px;"
+    :class="{ 'sidebar': isSidebarOpen, 'sidebar-sm w-16': !isSidebarOpen, 'transition-width duration-500 ease-in-out': true }"
     class="sidebar overflow-y-auto h-screen  min-h-screen">
     <!-- Logo ou nom du dashboard -->
     <!-- <div class="w-full shadow-2xl bg-white sidebar-logo p-2">

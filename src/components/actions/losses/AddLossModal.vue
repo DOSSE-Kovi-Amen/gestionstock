@@ -49,7 +49,7 @@
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="quantity">Quantité:</label>
                 <input v-model="formData.quantity" class="border rounded-md py-2 px-3 w-full" type="number" id="quantity"
-                  min="0.25" step="0.25" name="quantity" placeholder="Quantité" required />
+                  min="1" step="1" name="quantity" placeholder="Quantité" required />
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="slug">Description :</label>

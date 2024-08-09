@@ -14,11 +14,11 @@
       </NuxtLink>
 
       <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300"
-        to="/products">
+        to="/sales">
         <Card title="Ventes" icon="fa-building" :count="animateCounter(statsStore.stats?.total.sales)"
           class="bg-card-2 text-white rounded-md" />
       </NuxtLink>
-      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300">
+      <NuxtLink to="settings/users"class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300">
         <Card title="Utilisateurs" icon="fa-users" :count="animateCounter(statsStore.stats?.total.users)"
           class="bg-card-3 text-white rounded-md" />
       </NuxtLink>
