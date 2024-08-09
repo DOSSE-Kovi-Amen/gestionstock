@@ -3,7 +3,7 @@
     <div v-if="!statsStore.loading">
     <div  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
 
-      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/categories">
+      <NuxtLink to="/sales/unpaid" class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" >
         <Card title="Dettes" icon="fa-list" :count="animateCounter(statsStore.stats?.total.totalOfDebt)"
           class="bg-card-0 text-white rounded-md" />
       </NuxtLink>

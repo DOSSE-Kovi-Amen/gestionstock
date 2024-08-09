@@ -217,6 +217,7 @@ const formData = ref<SaleForm>({
 });
 const errors = ref<any>([]);
 onMounted(() => {
+  productsStore.getData()
   clientsStore.getData()
 
 

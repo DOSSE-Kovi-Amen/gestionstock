@@ -63,10 +63,10 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
 
             <td class="flex gap-2 mt-5">
-              <a class="p-0.5 px-2 text-white  bg-blue-900 hover:bg-black shadow-xl rounded-lg"
+              <!-- <a class="p-0.5 px-2 text-white  bg-blue-900 hover:bg-black shadow-xl rounded-lg"
                 @click="openModal(product, 'barcode')">
                 <Barcode :barcode="product.id" />
-              </a>
+              </a> -->
               <a class="p-0.5 px-2 text-white  bg-yellow-500 hover:bg-yellow-600 shadow-xl rounded-lg"
                 @click="openModal(product, 'read')">
                 <i class="fa-regular fa-eye"></i>

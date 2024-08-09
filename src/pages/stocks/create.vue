@@ -169,6 +169,8 @@ const alertMessage = ref("");
 const selectedProduct = ref();
 const isOpenCreate = ref(false);
 const router = useRouter();
+const statsStore = useStatisticsStore();
+
 const formData = ref<StockForm>({
   supplier_id: "",
   date: null,
@@ -176,6 +178,7 @@ const formData = ref<StockForm>({
 });
 const errors = ref<any>([]);
   onMounted(() => {
+    productsStore.getData()
     supplierStore.getData()
 })
 // Listenin
@@ -253,6 +256,7 @@ const submitForm = async () => {
         showAlert: "true",
         alertMessage: "Stock enregistré avec succès",
       };
+      statsStore.getData()
       router.push({ path: "/stocks", query: state });
     }
 

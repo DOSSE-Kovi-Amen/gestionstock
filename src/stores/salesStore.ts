@@ -36,6 +36,24 @@ export const useSalesStore = defineStore('sale', () => {
       loading.value = false
     }
   }
+
+  const getUnpaidSales = async () => {
+    loading.value = true;
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/unpaid-sales`, {
+      headers: headers
+    })
+    if (error.value?.statusCode == 401) {
+      await useAuthStore().logout();
+    }
+
+    sales.value = data.value;
+    console.log('=============dta=======================');
+    console.log(sales.value);
+    console.log('====================================');
+    if (data.value) {
+      loading.value = false
+    }
+  }
   const getSale=async(saleId:string):Promise<Sale>=>{
     loading.value = true
     const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/sales/${saleId}`, {
@@ -120,9 +138,9 @@ export const useSalesStore = defineStore('sale', () => {
     await getData()
   }
   // Call getData
-  getData()
+  // getData()
 
 
-  return { sales, loading, errors, salesCount, getData,getSale, postData,postPayDebt, deleteData }
+  return { sales, loading, errors, salesCount,getUnpaidSales, getData,getSale, postData,postPayDebt, deleteData }
 })
 

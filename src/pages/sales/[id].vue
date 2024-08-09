@@ -82,8 +82,8 @@
     <div class="mt-6 text-right">
       <p><strong>Sous total:</strong> {{ formatMonetaire(sale.sub_total) }}</p>
       <p><strong>Remise:</strong> {{ formatMonetaire(sale.discount) }}</p>
-      <p><strong>Total de la facture:</strong> {{ formatMonetaire(sale.total_amount) + '(' +
-    convertirNombreEnLettres(sale.total_amount) + ')' }}</p>
+      <p><strong>Total de la facture:</strong> {{ formatMonetaire(sale.total_amount)   }}</p>
+
     </div>
     <NuxtLink :to="`/sales/print-${sale.id}`" target="_blank" title="Imprimer"
       class="py-2 p-4 absolute box-shadow-pulse bottom-0 right-20 z-10 shadow-xl btn-primary mb-2 text-white">

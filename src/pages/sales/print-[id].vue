@@ -83,8 +83,7 @@
     <div class="mt-6 text-right">
       <p><strong>Sous total:</strong> {{ formatMonetaire(sale.sub_total) }}</p>
       <p><strong>Remise:</strong> {{ formatMonetaire(sale.discount) }}</p>
-      <p><strong>Total de la facture:</strong> {{ formatMonetaire(sale.total_amount) + '(' +
-    convertirNombreEnLettres(sale.total_amount) + ')' }}</p>
+      <p><strong>Total de la facture:</strong> {{ formatMonetaire(sale.total_amount)   }}</p>
     </div>
 
   </div>
