@@ -1,6 +1,6 @@
 <template>
-  <aside style="width: 300px;"
-    :class="{ 'sidebar': isSidebarOpen, 'sidebar-sm w-16': !isSidebarOpen, 'transition-width duration-500 ease-in-out': true }"
+  <aside 
+    :class="{ 'sidebar w-72': isSidebarOpen, 'sidebar-sm w-16': !isSidebarOpen, 'transition-width duration-500 ease-in-out': true }"
     class="sidebar overflow-y-auto h-screen  min-h-screen">
     <!-- Logo ou nom du dashboard -->
     <!-- <div class="w-full shadow-2xl bg-white sidebar-logo p-2">
@@ -100,11 +100,19 @@
             <span :class="{ 'hidden': !isSidebarOpen }">Paramètres</span>
           </NuxtLink>
         </li>
+        <li>
+          <a href="https://compute-corner.com" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-globe"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Aller vers le site</span>
+          </a>
+        </li>
       </ul>
     </nav>
 
 
-    <div class="absolute bottom-0  w-52 left-0 p-2">
+    <!-- <div class="absolute bottom-0  w-52 left-0 p-2">
       <div v-if="isDropdownOpen" class="mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
         aria-labelledby="dropdown-button" role="menu">
         <div class="py-1" role="none">
@@ -144,7 +152,7 @@
       </button>
 
 
-    </div>
+    </div> -->
   </aside>
 </template>
 

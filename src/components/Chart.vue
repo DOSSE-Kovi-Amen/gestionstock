@@ -65,21 +65,21 @@ onMounted(() => {
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // Libellés de l'axe des x
             datasets: [
                 {
-                    label: `Ventes (Total: ${props.data.totalSales})`, // Légende du graphique avec la somme
+                    label: `Ventes (Total: ${formatMonetaire(props.data.totalSales)})`, // Légende du graphique avec la somme
                     data: salesData,// Valeurs du graphique
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     fill: false,
                 },
                 {
-                    label: `Pertes (Total: ${props.data.totalLosses})`,
+                    label: `Pertes (Total: ${formatMonetaire(props.data.totalLosses)})`,
                     data: lossesData,
                     borderColor: 'rgba(255, 99, 132, 1)',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     fill: false,
                 },
                 {
-                    label: `Bénéfices (Total: ${props.data.totalProfit})`,
+                    label: `Bénéfices (Total: ${formatMonetaire(props.data.totalProfit)})`,
                     data: profitData,
                     borderColor: 'rgba(54, 162, 235, 1)',
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',

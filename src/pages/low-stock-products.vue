@@ -50,19 +50,19 @@
         <tbody class="bg-white text-gray-600 divide-y divide-gray-200">
           <tr v-for="(product, index) in store.products" :key="index"
             :title="`Créé le ${frenchDate(product.created_at)}\nModifié le ${frenchDate(product.updated_at)}}`">
-            <td> <img v-if="product.image!='null'" style="object-fit: contain;height:70px; width:70px" 
+            <td> <img v-if="product.image != 'null'" style="object-fit: contain;height:70px; width:70px"
                 :src="getImageUrl(product.image)" alt="Prévisualisation de l'image"
                 class="px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
-                <img v-if="product.image=='null'" style="object-fit: contain;height:70px; width:70px" 
-                src="../assets/images/noimage.jpeg" alt="Prévisualisation de l'image"
+              <img v-if="product.image == 'null'" style="object-fit: contain;height:70px; width:70px"
+                src="@/assets/images/noimage.jpeg" alt="Prévisualisation de l'image"
                 class="px-3 text-gray-700 focus:outline-none focus:border-blue-500" />
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product?.category?.name }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap font-semibold text-green-500">{{ product.selling_price }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap font-semibold text-green-500">{{ formatMonetaire(product.selling_price) }}</td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ product.stock }}</td>
 
-            <td class="flex gap-2 mt-2">
+            <td class="flex gap-2 mt-5">
               <a class="p-0.5 px-2 text-white  bg-blue-900 hover:bg-black shadow-xl rounded-lg"
                 @click="openModal(product, 'barcode')">
                 <Barcode :barcode="product.id" />
@@ -75,6 +75,7 @@
                 @click="openModal(product, 'edit')">
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>
+
               <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
                 @click="openModal(product, 'delete')">
                 <i class="fa-regular fa-trash-can"></i>
@@ -103,7 +104,7 @@ import ViewProductModal from '~/components/actions/products/ViewProductModal.vue
 import EditProductModal from '~/components/actions/products/EditProductModal.vue';
 import ProductBarcodeModal from '~/components/actions/products/ProductBarcodeModal.vue';
 import DeleteProductModal from '~/components/actions/products/DeleteProductModal.vue';
-import { Product } from '~/types';
+import type{ Product } from '~/types';
 
 const store = useProductsStore();
 
@@ -118,7 +119,7 @@ const showAlert = ref(false);
 const alertMessage = ref("");
 
 onMounted(() => {
-  store.getData()
+  store.getLowProducts()
 })
 
 

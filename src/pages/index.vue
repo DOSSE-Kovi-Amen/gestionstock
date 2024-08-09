@@ -7,7 +7,7 @@
         <Card title="Dettes" icon="fa-list" :count="animateCounter(statsStore.stats?.total.totalOfDebt)"
           class="bg-card-0 text-white rounded-md" />
       </NuxtLink>
-      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/sales">
+      <NuxtLink class="shadow-2xl rounded-md transition-transform transform hover:scale-105 duration-300" to="/low-stock-products">
         <Card title="Ruptures" icon="fa-users" :count="animateCounter(statsStore.stats?.total.outOfStock)"
 
           class="bg-card-1 text-white rounded-md" />

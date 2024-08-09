@@ -13,7 +13,7 @@
         <!-- Contenu du modal -->
         <div style="height: 80vh;" class="modal-body pb-16 p-5 overflow-y-auto">
           <!-- Ajoutez ici le contenu du modal -->
-          <li><strong>ID: </strong> {{ selectedData?.id }}</li>
+          <!-- <li><strong>ID: </strong> {{ selectedData?.id }}</li> -->
           <li><strong>Nom et prénoms: </strong> {{ selectedData?.name }}</li>
           <li><strong>Pseudo: </strong>{{ selectedData?.username }}</li>
           <li><strong>Email: </strong> {{ selectedData?.email }}</li>

@@ -37,6 +37,24 @@ export const useProductsStore = defineStore('product', () => {
     }
   }
 
+  const getLowProducts = async () => {
+    loading.value = true;
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/low-stock-products`, {
+      headers: headers
+    })
+    if (error.value?.statusCode == 401) {
+      await useAuthStore().logout();
+    }
+
+    products.value = data.value;
+    console.log('=============dta=======================');
+    console.log(products.value);
+    console.log('====================================');
+    if (data.value) {
+      loading.value = false
+    }
+  }
+
   const getProduct=async(productId:string):Promise<Product>=>{
     loading.value = true
     const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/sales/${productId}`, {
@@ -117,9 +135,9 @@ export const useProductsStore = defineStore('product', () => {
     await getData()
   }
   // Call getData
-  getData()
+  // getData()
 
 
-  return { products, loading, errors, productsCount,getProduct, getData, postData, updatedData, deleteData }
+  return { products, loading, errors, productsCount,getProduct, getData,getLowProducts, postData, updatedData, deleteData }
 })
 

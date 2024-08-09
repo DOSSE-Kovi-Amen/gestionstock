@@ -62,7 +62,7 @@
           <div>
             <h2 class="font-bold">Modifier profil utilisateur</h2>
             <form @submit.prevent="updatedProfileData">
-              <div class="mb-4">
+              <div class="mb-4 mr-5">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Noms :</label>
                 <input v-model="profileForm.name" class="border rounded-md py-2 px-3 w-full" type="text" id="name"
                   name="name" placeholder="Nom d'utilisateur" />
@@ -104,7 +104,13 @@
               </button>
             </form>
           </div>
-        </div>
+        </div> <br>
+        <div v-if="usersStore.errors && usersStore.errors.length != 0"
+        class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+        <p v-for="(error, index) in usersStore.errors" :key="index" class="font-semibold my-1">
+          {{ error }} :
+        </p>
+      </div>
         <!-- Autres sections du profil -->
 
       </div>

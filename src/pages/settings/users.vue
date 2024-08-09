@@ -68,18 +68,18 @@
                 @click="openModal(user, 'read')">
                 <i class="fa-regular fa-eye"></i>
               </a>
-              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg"
+              <!-- <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg"
                 @click="openModal(user, 'edit')">
                 <i class="fa-regular fa-pen-to-square"></i>
-              </a>
-              <a class="p-0.5 px-2 text-white  bg-gray-900 hover:bg-black shadow-xl rounded-lg"
+              </a> -->
+              <!-- <a class="p-0.5 px-2 text-white  bg-gray-900 hover:bg-black shadow-xl rounded-lg"
                 @click="openModal(user, 'role')">
                 <i class="fa fa-lock"></i>
               </a>
               <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
                 @click="openModal(user, 'delete')">
                 <i class="fa-regular fa-trash-can"></i>
-              </a>
+              </a> -->
             </td>
           </tr>
 
