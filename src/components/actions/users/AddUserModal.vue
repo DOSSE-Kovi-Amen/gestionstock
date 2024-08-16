@@ -21,9 +21,10 @@
             <!-- Contenu du modal -->
             <div style="height: 85vh;" class="modal-body pb-32 p-5 overflow-y-auto">
               <!-- Ajoutez ici le contenu du modal -->
-              <div v-if="store.errors && store.errors.length != 0" class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
+              <div v-if="store.errors && store.errors.length != 0"
+                class="bg-red-200 border-l-4 border-red-500 p-4 mb-4">
                 <p v-for="(error, index) in store.errors" :key="index" class="font-semibold my-1">
-                  {{ error }}
+                  {{ error[0] }}
                 </p>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -46,15 +47,15 @@
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_number">Téléphone :</label>
-                <input v-model="user.phone_number" class="border rounded-md py-2 px-3 w-full" type="text" id="phone_number"
-                  name="phone_number" placeholder="Numéro de téléphone" required />
+                <input v-model="user.phone_number" class="border rounded-md py-2 px-3 w-full" type="text"
+                  id="phone_number" name="phone_number" placeholder="Numéro de téléphone" required />
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                 <div class="mb-4">
                   <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe :</label>
-                  <input v-model="user.password" class="border rounded-md py-2 px-3 w-full" type="password" id="password"
-                    name="password" placeholder="Mot de passe" required />
+                  <input v-model="user.password" class="border rounded-md py-2 px-3 w-full" type="password"
+                    id="password" name="password" placeholder="Mot de passe" required />
                 </div>
                 <div class="mb-4">
                   <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Confirmer mot de passe

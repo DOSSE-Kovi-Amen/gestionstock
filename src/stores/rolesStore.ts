@@ -18,14 +18,14 @@ export const useRolesStore = defineStore('role', () => {
   // get Data
   const getData = async () => {
     loading.value = true;
-    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/roles`, {
+    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/roles-permissions`, {
       headers: headers
     })
     if (error.value?.statusCode == 401) {
       await useAuthStore().logout();
     }
 
-    roles.value = data.value;
+    roles.value = data.value.roles;
     console.log('=============dta=======================');
     console.log(roles.value);
     console.log('====================================');

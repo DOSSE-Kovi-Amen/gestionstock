@@ -33,7 +33,7 @@
               </div>
 
 
-              <div class="mb-4">
+              <!-- <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="oldPwd">Ancien Mot de passe :</label>
                 <input v-model="user.oldPassword" class="border rounded-md py-2 px-3 w-full" type="password" id="oldPwd"
                   name="password" placeholder="Mot de passe" />
@@ -48,7 +48,7 @@
                   :</label>
                 <input v-model="user.confirmPassword" class="border rounded-md py-2 px-3 w-full" type="password"
                   id="confirmPwd" name="password" placeholder="Confirmer Mot de passe" />
-              </div>
+              </div> -->
 
             </div>
 
@@ -85,9 +85,9 @@ const emit = defineEmits(['onClose', 'onSuccess'])
 const loading = ref(false)
 const user = ref<any>({
   name: "",
-  oldPassword: null,
-  password: null,
-  confirmPassword: '',
+  // oldPassword: null,
+  // password: null,
+  // confirmPassword: '',
 });
 watch(
   () => props.isOpen,

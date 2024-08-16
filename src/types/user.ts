@@ -1,23 +1,25 @@
+import type { Role } from "firebase/vertexai-preview";
+
 export interface authLogin {
   email: string;
   password: string;
 }
-// types/userList.ts
+
+// Define the User interface
 export interface User {
-  id: string;
-  name:string;
+  id: number;
+  name: string;
   username: string;
   email: string;
-  photo:string;
   phone_number: string;
-  is_owner: boolean;
-  roles: string;
-  status: number;
+  photo: string | null;
+  organization_id: string;
+  email_verified_at: string | null;
   created_at: string;
   updated_at: string;
-  activate_date: string;
-  deactivate_date: string | null;
+  roles: Role[]; // An array of Role objects
 }
+
 export interface UserCreate {
   name:string;
   username: string;

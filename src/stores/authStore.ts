@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
     })
 
     if (error.value?.statusCode == 401) {
-      errors.value.push("Erreur d'authentification")
+      errors.value.push("Email ou mot de passe incorrect")
       loading.value = false
       return false;
 

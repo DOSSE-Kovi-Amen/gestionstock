@@ -109,7 +109,7 @@
           </NuxtLink>
         </li>
         <li>
-          <a href="https://compute-corner.com" :class="{ 'justify-center': !isSidebarOpen }"
+          <a href="https://compute-corner.com" target="_blank":class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-globe"></i>

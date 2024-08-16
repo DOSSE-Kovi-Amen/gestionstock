@@ -18,7 +18,7 @@
           <li><strong>Pseudo: </strong>{{ selectedData?.username }}</li>
           <li><strong>Email: </strong> {{ selectedData?.email }}</li>
           <li><strong>Téléphone: </strong> {{ selectedData?.phone_number }}</li>
-          <li v-if="selectedData?.roles"><strong>Rôles: </strong> {{ JSON.parse(selectedData?.roles).length !== 0 ?selectedData?.roles:"Aucun rôle" }}</li>
+          <li v-if="selectedData?.roles"><strong>Rôles: </strong> {{ selectedData?.roles.length !== 0 ?selectedData?.roles.map((role:any)=>role.name).join(','):"Aucun rôle" }}</li>
           <!-- <li><strong>Est super utilisateur:</strong>
             <i v-if="selectedData?.is_superuser == true" class="fa fa-check-circle fa-2x text-green-500"
             aria-hidden="true"></i>

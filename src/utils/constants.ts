@@ -1,7 +1,7 @@
 
 // Export the api baseURL
-const prod = false;
-export const baseURL = prod ? 'https://...' : 'http://127.0.0.1:8000';
+const prod = true;
+export const baseURL = prod ? 'https://compute-corner.com/' : 'http://127.0.0.1:8000';
 
 export const apiBaseURL = baseURL+'/api';
 

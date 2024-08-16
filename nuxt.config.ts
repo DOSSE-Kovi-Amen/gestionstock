@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   app: {
     // baseURL: "/gestionstock/",
     head: {
-      title: "Gestion  stock",
+      title: "Compute corner",
 
       link: [
         // Liens CDN vers les fichiers CSS

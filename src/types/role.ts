@@ -1,5 +1,12 @@
-export interface Role{
-    id: string,
-    name: string,
-    description:string
-}
+export interface Role {
+    id: number;
+    name: string;
+    guard_name: string;
+    created_at: string;
+    updated_at: string;
+    pivot: {
+        model_type: string;
+        model_id: number;
+        role_id: number;
+    };
+  }

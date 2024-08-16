@@ -46,7 +46,7 @@
                     <i class="fa-solid fa-landmark"></i>
                     Tableau de bord
                   </NuxtLink>
-                  <NuxtLink to="profile" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  <NuxtLink to="/profile" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
                     <i class="fa-solid fa-user"></i>
                     Profil
                   </NuxtLink>

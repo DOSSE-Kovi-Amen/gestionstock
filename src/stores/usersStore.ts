@@ -42,7 +42,7 @@ export const useUsersStore = defineStore('user', () => {
     console.log('================post====================');
     console.log(payload);
     console.log('====================================');
-    const { data, error } = await useFetch(`${apiBaseURL}/auth/register`, {
+    const { data, error } = await useFetch(`${apiBaseURL}/users`, {
       headers: headers,
       method: 'POST',
       body: { ...payload }
@@ -185,6 +185,7 @@ export const useUsersStore = defineStore('user', () => {
       return true
     }
   }
+  
   const deleteData = async (id: string) => {
     const { data, error } = await useFetch(`${apiBaseURL}/users/${id}`, {
       method: 'DELETE',

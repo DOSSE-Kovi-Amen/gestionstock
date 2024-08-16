@@ -38,7 +38,7 @@
             <th class="px-6 py-3 text-left text-sm font-bold">Avatar</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Nom</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Email</th>
-            <!-- <th class="px-6 py-3 text-left text-sm font-bold">Rôles</th> -->
+            <th class="px-6 py-3 text-left text-sm font-bold">Rôles</th>
             <th class="px-6 py-3 text-left text-sm font-bold">Actions</th>
           </tr>
         </thead>
@@ -56,7 +56,7 @@
             <td class="px-6 py-4 whitespace-no-wrap">{{ user.name }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">{{ user.email }}</td>
-            <!-- <td class="px-6 py-4 whitespace-no-wrap">{{ JSON.parse(user.roles).length!==0?user.roles:'Aucun rôle' }}</td> -->
+            <td class="px-6 py-4 whitespace-no-wrap">{{ user.roles.length!==0?user.roles.map((role:any)=>role.name).join(','):'Aucun rôle' }}</td>
 
             <!-- <td class="px-6 py-4 whitespace-no-wrap">
               <i v-if="user.is_owner == true" class="fa fa-check-circle fa-2x text-green-500" aria-hidden="true"></i>
@@ -68,18 +68,18 @@
                 @click="openModal(user, 'read')">
                 <i class="fa-regular fa-eye"></i>
               </a>
-              <!-- <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg"
+              <a class="p-0.5 px-2 text-white  bg-blue-500 hover:bg-blue-600 shadow-xl rounded-lg"
                 @click="openModal(user, 'edit')">
                 <i class="fa-regular fa-pen-to-square"></i>
-              </a> -->
-              <!-- <a class="p-0.5 px-2 text-white  bg-gray-900 hover:bg-black shadow-xl rounded-lg"
+              </a>
+             <!-- <a class="p-0.5 px-2 text-white  bg-gray-900 hover:bg-black shadow-xl rounded-lg"
                 @click="openModal(user, 'role')">
                 <i class="fa fa-lock"></i>
-              </a>
+              </a> -->
               <a class="p-0.5 px-2 text-white  bg-red-500 hover:bg-red-600 shadow-xl rounded-lg"
                 @click="openModal(user, 'delete')">
                 <i class="fa-regular fa-trash-can"></i>
-              </a> -->
+              </a>
             </td>
           </tr>
 
@@ -103,7 +103,7 @@ import UserRoleModal from '@/components/actions/users/UserRoleModal.vue';
 import ViewUserModal from '@/components/actions/users/ViewUserModal.vue';
 import EditUserModal from '@/components/actions/users/EditUserModal.vue';
 import DeleteUserModal from '@/components/actions/users/DeleteUserModal.vue';
-import type { User } from '~/types';
+import type { Role, User } from '~/types';
 
 const store = useUsersStore();
 
