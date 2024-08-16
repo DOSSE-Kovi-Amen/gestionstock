@@ -75,14 +75,7 @@
             <span :class="{ 'hidden': !isSidebarOpen }">Fournisseurs</span>
           </NuxtLink>
         </li>
-        <li>
-          <NuxtLink to="/spends" :class="{ 'justify-center': !isSidebarOpen }"
-            class="block flex items-center gap-4 p-3 router-link">
-            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
-            <i class="fa-solid fa-money-bill"></i>
-            <span :class="{ 'hidden': !isSidebarOpen }">Dépenses</span>
-          </NuxtLink>
-        </li>
+
         <li>
           <NuxtLink to="/losses" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
@@ -91,7 +84,22 @@
             <span :class="{ 'hidden': !isSidebarOpen }">Pertes</span>
           </NuxtLink>
         </li>
-
+        <li>
+          <NuxtLink to="/inventory" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-money-bill"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Inventaire</span>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/spends" :class="{ 'justify-center': !isSidebarOpen }"
+            class="block flex items-center gap-4 p-3 router-link">
+            <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
+            <i class="fa-solid fa-money-bill"></i>
+            <span :class="{ 'hidden': !isSidebarOpen }">Dépenses</span>
+          </NuxtLink>
+        </li>
         <li>
           <NuxtLink to="/settings" :class="{ 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
