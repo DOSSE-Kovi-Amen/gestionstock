@@ -100,6 +100,7 @@ import { type Loss } from "~/types";
 import { frenchDate } from "~/utils/constants";
 
 const store = useLossesStore();
+const productStore = useProductsStore();
 
 const selectedData = ref<Loss>();
 const isOpenCreate = ref(false);
@@ -110,6 +111,7 @@ const showAlert = ref(false);
 const alertMessage = ref("");
 onMounted(async() => {
  await store.getData()
+ await productStore.getData()
 })
 const openModal = (data: Loss, action: String) => {
   selectedData.value = data;

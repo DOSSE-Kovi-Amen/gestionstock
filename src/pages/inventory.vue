@@ -3,8 +3,8 @@
         <h1 class="text-2xl font-bold mb-6">Inventaire</h1>
 
         <div class="flex mb-6 space-x-4">
-            <input v-model="startDate" type="date" class="p-2 border rounded" placeholder="Start Date" />
-            <input v-model="endDate" type="date" class="p-2 border rounded" placeholder="End Date" />
+           Date de début: <input v-model="startDate" type="date" class="p-2 border rounded" placeholder="Start Date" />
+           Date de fin: <input v-model="endDate" type="date" class="p-2 border rounded" placeholder="End Date" />
             <button @click="fetchInventory" class="px-4 py-2 bg-blue-500 text-white rounded">
                 Filtrer
             </button>
