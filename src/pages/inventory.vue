@@ -3,9 +3,17 @@
         <h1 class="text-2xl font-bold mb-6">Inventaire</h1>
 
         <div class="flex mb-6 space-x-4">
-           Date de début: <input v-model="startDate" type="date" class="p-2 border rounded" placeholder="Start Date" />
-           Date de fin: <input v-model="endDate" type="date" class="p-2 border rounded" placeholder="End Date" />
-            <button @click="fetchInventory" class="px-4 py-2 bg-blue-500 text-white rounded">
+            <div class="flex flex-row gap-3">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="quantity">Date de début: </label>
+                    <input v-model="startDate" type="date" class="p-2 border rounded" placeholder="Start Date" />
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="">Date de fin:</label>
+                    <input v-model="endDate" type="date" class="p-2 border rounded" placeholder="End Date" />
+                </div>
+            </div>
+            <button @click="fetchInventory" class="mt-7 px-4 py-2 h-10 bg-blue-500 text-white rounded">
                 Filtrer
             </button>
         </div>
@@ -16,10 +24,10 @@
                     <tr>
                         <th class="py-2">Produit</th>
                         <th class="py-2">Catégorie</th>
-                        <th class="py-2">Stock Initial entrant</th>
+                        <th class="py-2">Stock entrant</th>
                         <th class="py-2">Qte vendue</th>
                         <th class="py-2">Qte perdue</th>
-                        <th class="py-2">Stock restant</th>
+                        <th class="py-2">Stock restant actuel</th>
                         <th class="py-2">Alerte stock</th>
                     </tr>
                 </thead>
