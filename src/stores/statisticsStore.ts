@@ -12,7 +12,8 @@ export const useStatisticsStore = defineStore('statistic', () => {
       clients: 1,
       suppliers: 1,
       outOfStock: 1,
-      chartLine: undefined
+      chartLine: undefined,
+      bestSeller: undefined
     },
 
     day: {

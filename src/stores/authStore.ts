@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const signin = async (payload: authLogin): Promise<boolean> => {
     loading.value = true
-    const { data, pending, error, refresh }: any = await useFetch(`${apiBaseURL}/auth/login`, {
+    const { data, pending, error, refresh }:any = await useFetch(`${apiBaseURL}/auth/login`, {
       method: 'POST',
       headers: {
         Accept: "*/*",
@@ -31,10 +31,19 @@ export const useAuthStore = defineStore('auth', () => {
     })
 
     if (error.value?.statusCode == 401) {
-      errors.value.push("Email ou mot de passe incorrect")
+      errors.value.push(error.value?.data.message)
       loading.value = false
       return false;
+    }
 
+    console.log('====================================');
+    console.log(error.value?.data.message);
+    console.log('====================================');
+
+    if (error.value?.statusCode == 423) {
+      errors.value.push(error.value?.data.message)
+      loading.value = false
+      return false;
     }
 
     if (error.value?.statusCode == 404) {

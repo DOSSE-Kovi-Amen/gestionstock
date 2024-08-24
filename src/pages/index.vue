@@ -53,8 +53,17 @@
           </ul>
         </div>
       </div>
+    <div class="space-y-4 mt-5">
+      <h1>Meilleures ventes</h1>
 
+      <div v-for="saleProduct in statsStore.stats?.total.bestSeller" :key="saleProduct.id" class="p-4 border border-gray-200 rounded-lg shadow-sm">
+        <p class="text-lg font-semibold text-gray-800">Produit: {{ saleProduct.product.name }}</p>
+        <p class="text-sm text-gray-600">Quantité Vendue: {{ saleProduct.total_quantity }}</p>
+      </div>
+      <div v-if="statsStore.stats?.total.bestSeller.length==0"> Aucune vente</div>
     </div>
+    </div>
+
   </div>
     <div style="height: 80vh;" v-else class="flex flex-col bg-white justify-center items-center ">
       <p class="m-2">Chargement en cours...</p>
