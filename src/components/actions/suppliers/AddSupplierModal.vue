@@ -168,7 +168,7 @@ const submitForm = async () => {
   await store.postData(formData.value).then((status) => {
     if (status) {
       emit("onClose");
-      emit("onSuccess", "Client ajouté avec succès");
+      emit("onSuccess", "Fournisseur ajouté avec succès");
       formData.value.name = "";
       formData.value.address = "";
       formData.value.city = "";

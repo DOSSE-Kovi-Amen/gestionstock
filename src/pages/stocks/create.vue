@@ -60,7 +60,7 @@
           </div>
           <div class="mb-4">
             <input v-model="formData.date" class="border rounded-md py-2 px-3 w-full" type="date" id="date"
-              placeholder="Date" />
+              placeholder="Date" :max="today" />
           </div>
         </div>
 
@@ -154,7 +154,7 @@
 </style>
 <script lang="ts" setup>
 import { useProductsStore } from "~/stores/productsStore";
-import type{ Product, SaleForm, StockForm } from "~/types";
+import type { Product, SaleForm, StockForm } from "~/types";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import AddSupplierModal from "~/components/actions/suppliers/AddSupplierModal.vue";
@@ -170,6 +170,7 @@ const selectedProduct = ref();
 const isOpenCreate = ref(false);
 const router = useRouter();
 const statsStore = useStatisticsStore();
+const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
 const formData = ref<StockForm>({
   supplier_id: "",
@@ -177,9 +178,9 @@ const formData = ref<StockForm>({
   products: [],
 });
 const errors = ref<any>([]);
-  onMounted(() => {
-    productsStore.getData()
-    supplierStore.getData()
+onMounted(() => {
+  productsStore.getData()
+  supplierStore.getData()
 })
 // Listenin
 watch(selectedProduct, (newValue, oldValue) => {
@@ -250,6 +251,10 @@ function existProduct(productId: string) {
 
 const submitForm = async () => {
   loading.value = true;
+  if (formData.value.date > today) {
+    alert("La date d'entrée en stock ne peut pas être supérieure à la date d'aujourd'hui.");
+    return;
+  }
   await stocksStore.postData(formData.value).then(async (status) => {
     if (status) {
       const state = {

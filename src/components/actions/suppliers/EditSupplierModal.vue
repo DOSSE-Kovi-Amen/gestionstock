@@ -192,7 +192,7 @@ const submitForm = async () => {
           console.log(status);
           console.log("====================================");
           emit("onClose");
-          emit("onSuccess", "Catégorie mise à jour avec succès");
+          emit("onSuccess", "Fournisseur modifié avec succès");
         }
 
         loading.value = false;

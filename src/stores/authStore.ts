@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
     })
 
     if (error.value?.statusCode == 401) {
-      errors.value.push(error.value?.data.message)
+      errors.value[0]=error.value?.data.message
       loading.value = false
       return false;
     }
@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
     console.log('====================================');
 
     if (error.value?.statusCode == 423) {
-      errors.value.push(error.value?.data.message)
+      errors.value[0]=error.value?.data.message
       loading.value = false
       return false;
     }

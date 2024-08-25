@@ -43,7 +43,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/sales" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/sales" :class="{'router-link-active':isActiveLink('/sales'), 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-cash-register"></i>
@@ -51,7 +51,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/stocks" :class="{ 'justify-center': !isSidebarOpen }"
+          <NuxtLink to="/stocks" :class="{'router-link-active':isActiveLink('/stocks'), 'justify-center': !isSidebarOpen }"
             class="block flex items-center gap-4 p-3 router-link">
             <!-- <Icon name="uil:bars" color="red" class="icon text-yellow-400 bg-white" size="25" /> -->
             <i class="fa-solid fa-cube fa-lg"></i>
@@ -193,7 +193,12 @@
 const auth = useAuthStore();
 const router = useRouter();
 const isDropdownOpen = ref(false);
+const route= useRoute();
 
+const isActiveLink=(url:string)=>{
+  // alert(route.path.startsWith(url))
+ return route.path.startsWith(url);
+}
 defineProps(['isSidebarOpen'])
 
 const toggleDropdown = () => {
